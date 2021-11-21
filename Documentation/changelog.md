@@ -1,5 +1,10 @@
 # Changelog.md - pcHealth
 
+## 22-11-2021
+
+The main code has been created, this means that the batch file works.
+It is able to react on a user it's input and follow through with a function.
+
 ## 21-11-2021
 
 Project has been started.
