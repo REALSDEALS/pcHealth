@@ -10,19 +10,26 @@ echo.
 echo ........................................
 echo PRESS 1 TO RUN A SYSTEM SCAN
 echo PRESS 2 TO TRY AND REPAIR CORRUPT FILES
-echo PRESS 3 TO CLOSE THIS BATCH FILE
+echo PRESS 3 TO GET A BATTERY REPORT
+echo PRESS 4 TO CLOSE THIS BATCH FILE
 echo ........................................
 echo.
-SET /P M=Type 1, 2, or 3 then press ENTER:
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
 IF %M%==1 GOTO SCAN
 IF %M%==2 GOTO DISM
-IF %M%==3 GOTO CLOSE
+IF %M%==3 GOTO BATTERY
+IF %M%==4 GOTO CLOSE
 :SCAN
 sfc /scannow
 pause
+:BATTERY
+powercfg /batteryreport
+pause
 :DISM
 DISM /online /cleanup-image /checkhealth
+pause
 DISM /online /cleanup-image /scanhealth
+pause
 DISM /online /cleanup-image /restorehealth
 pause
 :CLOSE
