@@ -1,5 +1,10 @@
 # Changelog.md - pcHealth
 
+## 23-11-2021
+
+Added a new function to the main code.
+It is now possible to run a diagnostic to check your laptop it's battery state.
+
 ## 22-11-2021
 
 I have taken a quick look at the code, to see what has to be changed.
