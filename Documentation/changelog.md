@@ -2,6 +2,10 @@
 
 ## 23-11-2021
 
+Updated the README.md to tell a user more about the repository and how to use the .bat file.
+
+## 23-11-2021
+
 Added a new function to the main code.
 It is now possible to run a diagnostic to check your laptop it's battery state.
 
