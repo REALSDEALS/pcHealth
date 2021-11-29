@@ -5,6 +5,11 @@
 Update on the 'return to menu' issue/function.
 Added a GOTO function to go back to the 'menu.'
 
+Changed the color from yellow to 'Aqua.'
+Made some changed to how the code works.
+
+Added an exrta feature to scan and repair right after eachother without making it run again through the menu.
+
 ## 23-11-2021
 
 Updated the README.md to tell a user more about the repository and how to use the .bat file.
