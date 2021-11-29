@@ -21,10 +21,10 @@ IF %M%==3 GOTO BATTERY
 IF %M%==4 GOTO CLOSE
 :SCAN
 sfc /scannow
-pause
+GOTO MENU
 :BATTERY
 powercfg /batteryreport
-pause
+GOTO MENU
 :DISM
 DISM /online /cleanup-image /checkhealth
 pause
@@ -32,5 +32,6 @@ DISM /online /cleanup-image /scanhealth
 pause
 DISM /online /cleanup-image /restorehealth
 pause
+GOTO MENU
 :CLOSE
 EXIT /B
