@@ -10,6 +10,8 @@ Made some changed to how the code works.
 
 Added an exrta feature to scan and repair right after eachother without making it run again through the menu.
 
+Made a small mistake, didn't added the 'number 5' as an option in the code, so users that aren't familiar with the program wouldn't know they could use the 'number 5' to exit the batch program.
+
 ## 23-11-2021
 
 Updated the README.md to tell a user more about the repository and how to use the .bat file.
