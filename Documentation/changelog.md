@@ -1,5 +1,10 @@
 # Changelog.md - pcHealth
 
+## 29-11-2021
+
+Update on the 'return to menu' issue/function.
+Added a GOTO function to go back to the 'menu.'
+
 ## 23-11-2021
 
 Updated the README.md to tell a user more about the repository and how to use the .bat file.
