@@ -1,5 +1,14 @@
 # Changelog.md - pcHealth
 
+## 1-12-2021
+
+Added some new functions, overall updated the main code to function and display better.
+Added the date and time after the license.
+
+Wanted to add a 'release' function, but this one is held back, since it worked in the first test but broke in the test following the first...
+
+Created an extra return menu, but all these menus have their own variable, so the changes are minimal on creating bugs/other problems.
+
 ## 29-11-2021
 
 Update on the 'return to menu' issue/function.
