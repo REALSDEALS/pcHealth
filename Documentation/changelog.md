@@ -1,5 +1,12 @@
 # Changelog.md - pcHealth
 
+## 03-12-2021
+
+Changed some code to make it more streamlined.
+Added some new menu's to navigate through.
+
+Made it possible to open logs ect, this was already possible but I optimized the way it works.
+
 ## 02-12-2021
 
 Added the function to open the battery report via the script.
