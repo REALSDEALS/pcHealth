@@ -19,7 +19,7 @@ echo PRESS 4 TO GET A BATTERY REPORT
 echo PRESS 5 TO CLOSE THIS BATCH FILE
 echo ...........................................................
 echo.
-SET /P A=Type 1, 2, 3, 4 or 5 then press ENTER:
+SET /P A=Type 1, 2, 3, 4 or 5 then press ENTER: 
 IF %A%==1 GOTO SCAN
 IF %A%==2 GOTO DISM
 IF %A%==3 GOTO SCSM
