@@ -7,6 +7,12 @@ So people won't have to navigate to the file to check the script.
 
 Tweaked so there is an extra 'space' behind the ENTER function.
 
+Added a function to open the CBS.log that will be generated when there is a corruption detected.
+User will get the option to open it or to skip it.
+
+When a log has been generated, user will the option to re-open it via the 'main' menu.
+Visual interface has been tweaked too.
+
 ## 01-12-2021
 
 Added some new functions, overall updated the main code to function and display better.
