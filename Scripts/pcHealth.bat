@@ -15,16 +15,18 @@ echo ...........................................................
 echo PRESS 1 TO RUN A SYSTEM SCAN
 echo PRESS 2 TO TRY AND REPAIR CORRUPT FILES
 echo PRESS 3 TO RUN A SYSTEM SCAN AND START REPAIRING IN ONE GO
-echo PRESS 4 TO GET A BATTERY REPORT
-echo PRESS 5 TO CLOSE THIS BATCH FILE
+echo PRESS 4 TO GENERATED A BATTERY REPORT
+echo PRESS 5 TO RE-OPEN THE BATTERY REPORT
+echo PRESS 6 TO CLOSE THIS BATCH FILE
 echo ...........................................................
 echo.
-SET /P A=Type 1, 2, 3, 4 or 5 then press ENTER: 
+SET /P A=Type 1, 2, 3, 4, 5 or 6 then press ENTER: 
 IF %A%==1 GOTO SCAN
 IF %A%==2 GOTO DISM
 IF %A%==3 GOTO SCSM
 IF %A%==4 GOTO BATTERY
-IF %A%==5 GOTO CLOSE
+IF %A%==5 GOTO BATOPEN
+IF %A%==6 GOTO CLOSE
 :SCAN
 sfc /scannow
 pause
@@ -34,6 +36,12 @@ IF %B%==1 GOTO MENU
 IF %B%==2 GOTO CLOSE
 :BATTERY
 powercfg /batteryreport
+pause
+SET /P G=Enter 1 to open the generated file, enter 2 to return to the menu. ENTER: 
+IF %G%==1 GOTO BATOPEN
+IF %G%==2 GOTO MENU
+:BATOPEN
+start %windir%\explorer.exe "C:\battery-report.html"
 pause
 echo.
 SET /P C=Enter 1 to return to the menu, enter 2 to exit. ENTER: 

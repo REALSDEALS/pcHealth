@@ -1,6 +1,13 @@
 # Changelog.md - pcHealth
 
-## 1-12-2021
+## 02-12-2021
+
+Added the function to open the battery report via the script.
+So people won't have to navigate to the file to check the script.
+
+Tweaked so there is an extra 'space' behind the ENTER function.
+
+## 01-12-2021
 
 Added some new functions, overall updated the main code to function and display better.
 Added the date and time after the license.
