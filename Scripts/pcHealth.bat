@@ -33,9 +33,9 @@ IF %A%==7 GOTO CLOSE
 sfc /scannow
 pause
 echo.
-SET /P B=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
-IF %B%==1 GOTO MENU
-IF %B%==2 GOTO CLOSE
+SET /P K=If the scan found corrupt files enter 1 to check the .log, enter 2 when you want to return to the menu. ENTER: 
+IF %K%==1 GOTO OPENCBSLOG
+IF %K%==2 GOTO MENU
 :BATTERY
 powercfg /batteryreport
 pause
@@ -83,6 +83,11 @@ IF %J%==2 GOTO CLOSE
 :SCSM
 sfc /scannow
 pause
+echo.
+SET /P L=If the scan found corrupt files enter 1 to check the .log, enter 2 to start an attempt to repair the corrupt files. ENTER: 
+IF %L%==1 GOTO SCSMOPENLOG
+IF %L%==2 GOTO CONTINUE
+:CONTINUE
 DISM /online /cleanup-image /checkhealth
 DISM /online /cleanup-image /scanhealth
 pause
@@ -92,5 +97,13 @@ echo.
 SET /P E=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
 IF %E%==1 GOTO MENU
 IF %E%==2 GOTO CLOSE
+:SCSMOPENLOG
+start %windir%\explorer.exe "C:\Windows\Logs\CBS\CBS.log"
+pause
+echo.
+SET /P J=Enter 1 to start an attempt to repair the corrupt files, if any are found... Enter 2 to return to the main menu, enter 3 to quit the script. ENTER: 
+IF %J%==1 GOTO CONTINUE
+IF %J%==2 GOTO MENU
+IF %J%==3 GOTO CLOSE
 :CLOSE
 EXIT /B
