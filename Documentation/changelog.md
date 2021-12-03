@@ -14,6 +14,8 @@ Also there has been a new release of this script.
 
 - Alpha Release - v.0.1.2-alpha
 
+Oh ooh, made a typo, resolved it!
+
 ## 02-12-2021
 
 Added the function to open the battery report via the script.
