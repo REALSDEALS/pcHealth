@@ -7,6 +7,13 @@ Added some new menu's to navigate through.
 
 Made it possible to open logs ect, this was already possible but I optimized the way it works.
 
+Added a new file to the documentation folder; 'releases.md.'
+This keeps track on the latest releases.
+
+Also there has been a new release of this script.
+
+- Alpha Release - v.0.1.2-alpha
+
 ## 02-12-2021
 
 Added the function to open the battery report via the script.
