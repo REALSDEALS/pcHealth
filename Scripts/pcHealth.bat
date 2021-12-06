@@ -1,15 +1,18 @@
 echo off
-title pcHealth - Check your PC's Health!
+title pcHealth - Check your PC's Health! //\\ v0.1.2-alpha
 cd /
-color B
+color A
+cls
+
+:MENU
 cls
 echo.
 echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
+echo You are now using version 0.1.2-alpha
 echo.
 echo %DATE%, %TIME%
-:MENU
 echo.
 echo ...........................................................
 echo PRESS 1 TO RUN A SYSTEM SCAN
@@ -29,43 +32,24 @@ IF %A%==4 GOTO BATTERY
 IF %A%==5 GOTO BATOPEN
 IF %A%==6 GOTO OPENCBSLOG
 IF %A%==7 GOTO CLOSE
+
 :SCAN
 sfc /scannow
 pause
 echo.
-SET /P K=If the scan found corrupt files enter 1 to check the .log, enter 2 when you want to return to the menu. ENTER: 
-IF %K%==1 GOTO OPENCBSLOG
-IF %K%==2 GOTO MENU
-:BATTERY
-powercfg /batteryreport
-pause
-echo.
-SET /P G=Enter 1 to open the generated file, enter 2 to return to the menu. ENTER: 
-IF %G%==1 GOTO BATOPEN
-IF %G%==2 GOTO MENU
-:BATOPEN
-start %windir%\explorer.exe "C:\battery-report.html"
-pause
-echo.
-SET /P C=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
-IF %C%==1 GOTO MENU
-IF %C%==2 GOTO CLOSE
+SET /P B=If the scan found corrupt files enter 1 to check the .log, enter 2 when you want to return to the menu. ENTER: 
+IF %B%==1 GOTO OPENCBSLOG
+IF %B%==2 GOTO MENU
+
 :DISM
 DISM /online /cleanup-image /checkhealth
 DISM /online /cleanup-image /scanhealth
 pause
 echo.
-SET /P H=Enter 1 to open up the generated CBS.log, enter 2 to skip and try to repair the image. ENTER: 
-IF %H%==1 GOTO CBSLOGGER
-IF %H%==2 GOTO DISMRESTORE
-:CBSLOGGER
-start %windir%\explorer.exe "C:\Windows\Logs\CBS\CBS.log"
-pause
-echo.
-SET /P I=Enter 1 to continue the restore process, enter 2 to return to the menu or enter 3 to exit. ENTER: 
-IF %I%==1 GOTO DISMRESTORE
-IF %I%==2 GOTO MENU
-IF %I%==3 GOTO CLOSE
+SET /P C=Enter 1 to start repairing, enter 2 to return to the menu. ENTER: 
+IF %C%==1 GOTO DISMRESTORE
+IF %C%==2 GOTO MENU
+
 :DISMRESTORE
 DISM /online /cleanup-image /restorehealth
 pause
@@ -73,20 +57,25 @@ echo.
 SET /P D=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
 IF %D%==1 GOTO MENU
 IF %D%==2 GOTO CLOSE
-:OPENCBSLOG
-start %windir%\explorer.exe "C:\Windows\Logs\CBS\CBS.log"
-pause
-echo.
-SET /P J=Enter 1 to return to the main menu, enter 2 to exit. ENTER: 
-IF %J%==1 GOTO MENU
-IF %J%==2 GOTO CLOSE
+
 :SCSM
 sfc /scannow
 pause
 echo.
-SET /P L=If the scan found corrupt files enter 1 to check the .log, enter 2 to start an attempt to repair the corrupt files. ENTER: 
-IF %L%==1 GOTO SCSMOPENLOG
-IF %L%==2 GOTO CONTINUE
+SET /P E=If the scan found corrupt files enter 1 to check the .log, enter 2 to start an attempt to repair the corrupt files, enter 3 to return to the menu. ENTER: 
+IF %E%==1 GOTO SCSMOPENLOG
+IF %E%==2 GOTO CONTINUE
+IF %E%==3 GOTO MENU
+
+:SCSMOPENLOG
+start %windir%\explorer.exe "C:\Windows\Logs\CBS\CBS.log"
+pause
+echo.
+SET /P G=Enter 1 to start an attempt to repair the corrupt files, if any are found... Enter 2 to return to the main menu, enter 3 to quit the script. ENTER: 
+IF %G%==1 GOTO CONTINUE
+IF %G%==2 GOTO MENU
+IF %G%==3 GOTO CLOSE
+
 :CONTINUE
 DISM /online /cleanup-image /checkhealth
 DISM /online /cleanup-image /scanhealth
@@ -94,16 +83,33 @@ pause
 DISM /online /cleanup-image /restorehealth
 pause
 echo.
-SET /P E=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
-IF %E%==1 GOTO MENU
-IF %E%==2 GOTO CLOSE
-:SCSMOPENLOG
+SET /P H=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
+IF %H%==1 GOTO MENU
+IF %H%==2 GOTO CLOSE
+
+:BATTERY
+powercfg /batteryreport
+pause
+echo.
+SET /P I=Enter 1 to open the generated file, enter 2 to return to the menu. ENTER: 
+IF %I%==1 GOTO BATOPEN
+IF %I%==2 GOTO MENU
+
+:BATOPEN
+start %windir%\explorer.exe "C:\battery-report.html"
+pause
+echo.
+SET /P J=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
+IF %J%==1 GOTO MENU
+IF %J%==2 GOTO CLOSE
+
+:OPENCBSLOG
 start %windir%\explorer.exe "C:\Windows\Logs\CBS\CBS.log"
 pause
 echo.
-SET /P J=Enter 1 to start an attempt to repair the corrupt files, if any are found... Enter 2 to return to the main menu, enter 3 to quit the script. ENTER: 
-IF %J%==1 GOTO CONTINUE
-IF %J%==2 GOTO MENU
-IF %J%==3 GOTO CLOSE
+SET /P K=Enter 1 to return to the main menu, enter 2 to exit. ENTER: 
+IF %K%==1 GOTO MENU
+IF %K%==2 GOTO CLOSE
+
 :CLOSE
 EXIT /B

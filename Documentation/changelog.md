@@ -1,5 +1,12 @@
 # Changelog.md - pcHealth
 
+## 06-12-2021
+
+Reformatted the code, to make it easier for other dev's to start working on it or to understand what it does.
+Changed the color to Green.
+
+Reworked the DISM code, so it doesn't try to display a log that is made with the SFC command.
+
 ## 03-12-2021
 
 Changed some code to make it more streamlined.
