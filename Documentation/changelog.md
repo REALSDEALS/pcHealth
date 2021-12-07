@@ -1,5 +1,13 @@
 # Changelog.md - pcHealth
 
+## 08-12-2021
+
+Updated the README.md
+Updated releases.md
+Updated this Changelog.md
+
+New release has been pushed on GitHub.
+
 ## 07-12-2021
 
 Added code to make the program aware if it is being run in Admin mode.
