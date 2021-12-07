@@ -2,6 +2,9 @@
 
 ## 07-12-2021
 
+Added code to make the program aware if it is being run in Admin mode.
+If it isn't it will prompt the user to do so.
+
 Added a new function to the code.
 
 - You can now get your Ninite through the terminal!
