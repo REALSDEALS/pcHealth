@@ -21,7 +21,8 @@ echo PRESS 3 TO RUN A SYSTEM SCAN AND START REPAIRING IN ONE GO
 echo PRESS 4 TO GENERATE A BATTERY REPORT
 echo PRESS 5 TO RE-OPEN THE BATTERY REPORT
 echo PRESS 6 TO RE-OPEN THE CBS.log (DISM LOG)
-echo PRESS 7 TO CLOSE THIS BATCH FILE
+echo PRESS 7 TO GET YOUR NINITE (INCLUDES EDGE, CHROME, VLC AND 7ZIP)
+echo PRESS 8 TO CLOSE THIS BATCH FILE
 echo ...........................................................
 echo.
 SET /P A=Type one of the numbers above to run, then press ENTER: 
@@ -31,7 +32,8 @@ IF %A%==3 GOTO SCSM
 IF %A%==4 GOTO BATTERY
 IF %A%==5 GOTO BATOPEN
 IF %A%==6 GOTO OPENCBSLOG
-IF %A%==7 GOTO CLOSE
+IF %A%==7 GOTO NINITE
+IF %A%==8 GOTO CLOSE
 
 :SCAN
 sfc /scannow
@@ -110,6 +112,14 @@ echo.
 SET /P K=Enter 1 to return to the main menu, enter 2 to exit. ENTER: 
 IF %K%==1 GOTO MENU
 IF %K%==2 GOTO CLOSE
+
+:NINITE
+start "" https://ninite.com/7zip-chrome-edge-vlc/ninite.exe 
+pause
+echo.
+SET /P L=Enter 1 to return to the main menu, enter 2 to exit. ENTER: 
+IF %L%==1 GOTO MENU
+IF %L%==2 GOTO CLOSE
 
 :CLOSE
 EXIT /B
