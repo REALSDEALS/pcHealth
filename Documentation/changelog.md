@@ -1,5 +1,11 @@
 # Changelog.md - pcHealth
 
+## 07-12-2021
+
+Added a new function to the code.
+
+- You can now get your Ninite through the terminal!
+
 ## 06-12-2021
 
 Reformatted the code, to make it easier for other dev's to start working on it or to understand what it does.
