@@ -7,6 +7,7 @@ Updated releases.md
 Updated this Changelog.md
 
 New release has been pushed on GitHub.
+Made an error in the release, going to re-release the script...
 
 ## 07-12-2021
 
