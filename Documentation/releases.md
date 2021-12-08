@@ -5,13 +5,14 @@ For now only the version names will be displayed, in the future there might be e
 
 ## Latest Version
 
-Alpha Release - v.0.2.1-alpha
+Full Release - v1.0.0
 
 ### Older Releases
 
-- Alpha Release - v.0.2.0-alpha
-- Alpha Release - v.0.1.3-alpha
-- Alpha Release - v.0.1.2-alpha
-- Alpha Release - v.0.1.1-alpha
-- Alpha Release - v.0.1.0-alpha
-- Alpha Release - v.0.0.1-alpha
+- Alpha Release - v0.2.1-alpha
+- Alpha Release - v0.2.0-alpha
+- Alpha Release - v0.1.3-alpha
+- Alpha Release - v0.1.2-alpha
+- Alpha Release - v0.1.1-alpha
+- Alpha Release - v0.1.0-alpha
+- Alpha Release - v0.0.1-alpha

@@ -9,6 +9,11 @@ Updated this Changelog.md
 New release has been pushed on GitHub.
 Made an error in the release, going to re-release the script...
 
+Decided after a lot of testing today that we are going to full release the .bat file.
+The script works as it is now, more or other features maybe/will be added in the future.
+
+Full release version: v1.0.0
+
 ## 07-12-2021
 
 Added code to make the program aware if it is being run in Admin mode.
@@ -37,7 +42,7 @@ This keeps track on the latest releases.
 
 Also there has been a new release of this script.
 
-- Alpha Release - v.0.1.2-alpha
+- Alpha Release - v0.1.2-alpha
 
 Oh ooh, made a typo, resolved it!
 
