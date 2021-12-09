@@ -9,6 +9,9 @@ But this will be the placeholder for now.
 
 README.md has been updated to explain what 'Number 5 does.'
 
+Added 2 new functions, short ping en continues ping.
+Updated the README.md again for the explanation of what it does.
+
 ## 08-12-2021
 
 Updated the README.md
