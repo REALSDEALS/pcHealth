@@ -50,17 +50,25 @@ In this battery report you can read up on your battery status from your laptop.
 
 With this entry you will open the GUI to Windows Update, to search and start for Windows Update(s.)
 
-### Re-open the Battery Report - Number 6
+### Do a short Ping request - Number 6
+
+This command will run a short ping command with small package(s) so we can to get a conclusion if the pc/laptop gets a connection or not.
+
+### Do a continues Ping request with package bytes of 256 - Number 7
+
+Number 7 will run a continues ping test with package bytes of 256, you have to manually stop it with (ctrl + c.)
+
+### Re-open the Battery Report - Number 8
 
 This entry will re-open the generated battery report file.
 
-### Re-open the DISM Log - Number 7
+### Re-open the DISM Log - Number 9
 
 With this entry you can re-open the DISM/CBS.log.
 
-### Get your Ninite - Number 8
+### Get your Ninite - Number 10
 
-When entered number 8 a download will start, this download will install:
+When entered number 10 a download will start, this download will install:
 
 - Edge
 - Chrome
@@ -69,9 +77,9 @@ When entered number 8 a download will start, this download will install:
 
 Edge will be installed so you have the latest version of it, after a clean install this is recommanded.
 
-### Close the Script - Number 9
+### Close the Script - Number 11
 
-With number 9 you can close the script.
+With number 11 you can close the script.
 
 ## Questions
 
