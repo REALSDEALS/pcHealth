@@ -46,17 +46,21 @@ After the SFC you get the option to return to the menu when no corrupt files are
 When you enter this number the script will generate a battery report.
 In this battery report you can read up on your battery status from your laptop.
 
-### Re-open the Battery Report - Number 5
+### Open Windows Update - Number 5
+
+With this entry you will open the GUI to Windows Update, to search and start for Windows Update(s.)
+
+### Re-open the Battery Report - Number 6
 
 This entry will re-open the generated battery report file.
 
-### Re-open the DISM Log - Number 6
+### Re-open the DISM Log - Number 7
 
 With this entry you can re-open the DISM/CBS.log.
 
-### Get your Ninite - Number 7
+### Get your Ninite - Number 8
 
-When entered number 7 a download will start, this download will install:
+When entered number 8 a download will start, this download will install:
 
 - Edge
 - Chrome
@@ -65,9 +69,9 @@ When entered number 7 a download will start, this download will install:
 
 Edge will be installed so you have the latest version of it, after a clean install this is recommanded.
 
-### Close the Script
+### Close the Script - Number 9
 
-With number 8 you can close the script.
+With number 9 you can close the script.
 
 ## Questions
 

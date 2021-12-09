@@ -1,5 +1,14 @@
 # Changelog.md - pcHealth
 
+## 09-12-2021
+
+New function has been added, you can now open the GUI to check for Windows Updates.
+In the future I want to add something that will force to check for updates and install them directly or give the user the choice to force them.
+
+But this will be the placeholder for now.
+
+README.md has been updated to explain what 'Number 5 does.'
+
 ## 08-12-2021
 
 Updated the README.md
