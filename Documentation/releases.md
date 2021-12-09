@@ -5,9 +5,15 @@ For now only the version names will be displayed, in the future there might be e
 
 ## Latest Version
 
-Full Release - v1.0.0
+Full Release - v1.1.0
 
-### Older Releases
+## Older Releases
+
+### Full Release(s)
+
+- Full Release - v1.0.0
+
+### Alpha Release(s)
 
 - Alpha Release - v0.2.1-alpha
 - Alpha Release - v0.2.0-alpha

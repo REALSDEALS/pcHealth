@@ -27,9 +27,9 @@ if '%errorlevel%' NEQ '0' (
     pushd "%CD%"
     CD /D "%~dp0"
 :--------------------------------------    
-
+:: MainCode
 echo off
-title pcHealth - Check your PC's Health! //\\ v1.0.0
+title pcHealth - Check your PC's Health! //\\ v1.1.0
 cd /
 color A
 cls
@@ -40,7 +40,7 @@ echo.
 echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.0.0
+echo You are now using version 1.1.0
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -49,10 +49,11 @@ echo PRESS 1 TO RUN A SYSTEM SCAN
 echo PRESS 2 TO TRY AND REPAIR CORRUPT FILES
 echo PRESS 3 TO RUN A SYSTEM SCAN AND START REPAIRING IN ONE GO
 echo PRESS 4 TO GENERATE A BATTERY REPORT
-echo PRESS 5 TO RE-OPEN THE BATTERY REPORT
-echo PRESS 6 TO RE-OPEN THE CBS.log (DISM LOG)
-echo PRESS 7 TO GET YOUR NINITE (INCLUDES EDGE, CHROME, VLC AND 7ZIP)
-echo PRESS 8 TO CLOSE THIS BATCH FILE
+echo PRESS 5 TO OPEN WINDOWS UPDATE(S)
+echo PRESS 6 TO RE-OPEN THE BATTERY REPORT
+echo PRESS 7 TO RE-OPEN THE CBS.log (DISM LOG)
+echo PRESS 8 TO GET YOUR NINITE (INCLUDES EDGE, CHROME, VLC AND 7ZIP)
+echo PRESS 9 TO CLOSE THIS BATCH FILE
 echo ...........................................................
 echo.
 SET /P A=Type one of the numbers above to run, then press ENTER: 
@@ -60,10 +61,11 @@ IF %A%==1 GOTO SCAN
 IF %A%==2 GOTO DISM
 IF %A%==3 GOTO SCSM
 IF %A%==4 GOTO BATTERY
-IF %A%==5 GOTO BATOPEN
-IF %A%==6 GOTO OPENCBSLOG
-IF %A%==7 GOTO NINITE
-IF %A%==8 GOTO CLOSE
+IF %A%==5 GOTO UPDATE
+IF %A%==6 GOTO BATOPEN
+IF %A%==7 GOTO OPENCBSLOG
+IF %A%==8 GOTO NINITE
+IF %A%==9 GOTO CLOSE
 
 :SCAN
 sfc /scannow
@@ -127,29 +129,37 @@ SET /P I=Enter 1 to open the generated file, enter 2 to return to the menu. ENTE
 IF %I%==1 GOTO BATOPEN
 IF %I%==2 GOTO MENU
 
-:BATOPEN
-start %windir%\explorer.exe "C:\battery-report.html"
+:UPDATE
+control update
 pause
 echo.
 SET /P J=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
 IF %J%==1 GOTO MENU
 IF %J%==2 GOTO CLOSE
 
-:OPENCBSLOG
-start %windir%\explorer.exe "C:\Windows\Logs\CBS\CBS.log"
+:BATOPEN
+start %windir%\explorer.exe "C:\battery-report.html"
 pause
 echo.
-SET /P K=Enter 1 to return to the main menu, enter 2 to exit. ENTER: 
+SET /P K=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
 IF %K%==1 GOTO MENU
 IF %K%==2 GOTO CLOSE
 
-:NINITE
-start "" https://ninite.com/7zip-chrome-edge-vlc/ninite.exe 
+:OPENCBSLOG
+start %windir%\explorer.exe "C:\Windows\Logs\CBS\CBS.log"
 pause
 echo.
 SET /P L=Enter 1 to return to the main menu, enter 2 to exit. ENTER: 
 IF %L%==1 GOTO MENU
 IF %L%==2 GOTO CLOSE
+
+:NINITE
+start "" https://ninite.com/7zip-chrome-edge-vlc/ninite.exe 
+pause
+echo.
+SET /P M=Enter 1 to return to the main menu, enter 2 to exit. ENTER: 
+IF %M%==1 GOTO MENU
+IF %M%==2 GOTO CLOSE
 
 :CLOSE
 EXIT /B
