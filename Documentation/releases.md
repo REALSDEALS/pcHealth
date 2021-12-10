@@ -5,12 +5,13 @@ For now only the version names will be displayed, in the future there might be e
 
 ## Latest Version
 
-Full Release - v1.2.0
+Full Release - v1.2.1
 
 ## Older Releases
 
 ### Full Release(s)
 
+- Full Release - v1.2.0
 - Full Release - v1.1.0
 - Full Release - v1.0.0
 

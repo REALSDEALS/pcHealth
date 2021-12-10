@@ -1,5 +1,11 @@
 # Changelog.md - pcHealth
 
+## 10-12-2021
+
+Added a function to display and read the system information from the commandline.
+
+Updated README.md, Changelog.md and releases.md
+
 ## 09-12-2021
 
 New function has been added, you can now open the GUI to check for Windows Updates.
