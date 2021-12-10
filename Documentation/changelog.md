@@ -2,9 +2,11 @@
 
 ## 10-12-2021
 
-Added a function to display and read the system information from the commandline.
+Added a function to display and read the system information from the command line.
 
 Updated README.md, Changelog.md and releases.md
+
+Updated release.md, it now displays on which version we are, what the full releases are and which the alpha/beta builds were.
 
 ## 09-12-2021
 
