@@ -7,6 +7,9 @@ The script changes color.
 
 GREEN in standby/menu, RED when code is active/script is running.
 
+It's now possible to log off, restart and/or shutdown your PC/Laptop via the Script. 
+New Full Release will be pushed.
+
 ## 10-12-2021
 
 Added a function to display and read the system information from the command line.

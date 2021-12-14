@@ -5,7 +5,7 @@ For now only the version names will be displayed, in the future there might be e
 
 # Current Version
 
-Full Release - v1.2.4
+Full Release - v1.3.0
 
 ## Older Releases
 

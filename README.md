@@ -82,7 +82,11 @@ When entered number 11 a download will start, this download will install:
 
 Edge will be installed so you have the latest version of it, after a clean install this is recommanded.
 
-### Close the Script - Number 12
+### Log off, restart and/or shutdown - Number 12
+
+When entering this number you get to choose if you want to log off, restart or shutdown your pc.
+
+### Close the Script - Number 13
 
 With number 12 you can close the script.
 
