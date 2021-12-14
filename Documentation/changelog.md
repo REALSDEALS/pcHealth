@@ -1,5 +1,12 @@
 # Changelog.md - pcHealth
 
+## 14-12-2021
+
+Changed the main code, so it cleans after a command has been ran.
+The script changes color.
+
+GREEN in standby/menu, RED when code is active/script is running.
+
 ## 10-12-2021
 
 Added a function to display and read the system information from the command line.
