@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! //_\\ v1.2.4
+title pcHealth - Check your PC's Health! //_\\ v1.3.0
 cd /
 color A
 cls
@@ -41,7 +41,7 @@ echo.
 echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.2.4
+echo You are now using version 1.3.0
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -57,7 +57,8 @@ echo PRESS 8 TO START A CONTINUES PING TEST
 echo PRESS 9 TO RE-OPEN THE BATTERY REPORT
 echo PRESS 10 TO RE-OPEN THE CBS.log (DISM LOG)
 echo PRESS 11 TO GET YOUR NINITE (INCLUDES EDGE, CHROME, VLC AND 7ZIP)
-echo PRESS 12 TO CLOSE THIS BATCH FILE
+echo PRESS 12 TO RESTART OR SHUTDOWN YOUR PC/LAPTOP
+echo PRESS 13 TO CLOSE THIS BATCH FILE
 echo ...........................................................
 echo.
 SET /P A=Type one of the numbers above to run, then press ENTER: 
@@ -72,7 +73,8 @@ IF %A%==8 GOTO CONTINUESPING
 IF %A%==9 GOTO BATOPEN
 IF %A%==10 GOTO OPENCBSLOG
 IF %A%==11 GOTO NINITE
-IF %A%==12 GOTO CLOSE
+IF %A%==12 GOTO RESHUT
+IF %A%==13 GOTO CLOSE
 
 :SYSINFO
 cls
@@ -220,6 +222,58 @@ echo.
 SET /P Q=Enter 1 to return to the main menu, enter 2 to exit. ENTER: 
 IF %Q%==1 GOTO MENU
 IF %Q%==2 GOTO CLOSE
+
+:RESHUT
+cls
+color C
+echo. 
+SET /P R=If you want to log off from your PC/Laptop press 1, to restart press 2, to shutdown press 3 and to return to the main menu press 4. ENTER: 
+IF %R%==1 GOTO LOGOFF1
+IF %R%==2 GOTO RESTART2
+IF %R%==3 GOTO SHUTDOWN3
+IF %R%==4 GOTO CLOSE
+
+:LOGOFF1
+cls
+color C 
+echo. 
+SET /P S=Are you sure that you want to log off your PC? Press 1, Press 2 if you want to return to the menu. ENTER: 
+IF %S%==1 GOTO LOGOFFCONFIRM1
+IF %S%==2 GOTO MENU 
+
+:LOGOFFCONFIRM1
+cls
+color C  
+shutdown /l 
+pause
+
+:RESTART2
+cls
+color C
+echo.
+SET /P T=Are you sure that you want to restart your PC? Press 1, to do so. Press 2 to return to the main menu. ENTER: 
+IF %T%==1 GOTO RESTARTCONFIRM2
+IF %T%==2 GOTO MENU
+
+:RESTARTCONFIRM2
+cls
+color C 
+shutdown /r
+pause
+
+:SHUTDOWN3
+cls
+color C
+echo. 
+SET /P R=Are you sure that you want to shutdown your PC? Press 1, to continue. Enter 2 to return to the main menu. ENTER: 
+IF %R%==1 GOTO SHUTDOWNCONFIRM3
+IF %R%==2 GOTO MENU
+
+:SHUTDOWNCONFIRM3
+cls
+color C
+shutdown /s
+pause
 
 :CLOSE
 EXIT /B
