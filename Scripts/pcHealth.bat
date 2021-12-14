@@ -29,18 +29,19 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! //_\\ v1.2.2
+title pcHealth - Check your PC's Health! //_\\ v1.2.3
 cd /
 color A
 cls
 
 :MENU
 cls
+color A
 echo.
 echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.2.2
+echo You are now using version 1.2.3
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -74,6 +75,8 @@ IF %A%==11 GOTO NINITE
 IF %A%==12 GOTO CLOSE
 
 :SYSINFO
+cls
+color C
 systeminfo
 pause
 echo.
@@ -82,6 +85,8 @@ IF %B%==1 GOTO MENU
 IF %B%==2 GOTO CLOSE
 
 :SCAN
+cls
+color C
 sfc /scannow
 pause
 echo.
@@ -90,6 +95,8 @@ IF %C%==1 GOTO OPENCBSLOG
 IF %C%==2 GOTO MENU
 
 :DISM
+cls
+color C
 DISM /online /cleanup-image /checkhealth
 DISM /online /cleanup-image /scanhealth
 pause
@@ -99,6 +106,8 @@ IF %D%==1 GOTO DISMRESTORE
 IF %D%==2 GOTO MENU
 
 :DISMRESTORE
+cls
+color C
 DISM /online /cleanup-image /restorehealth
 pause
 echo.
@@ -107,6 +116,8 @@ IF %E%==1 GOTO MENU
 IF %E%==2 GOTO CLOSE
 
 :SCSM
+cls
+color C
 sfc /scannow
 pause
 echo.
@@ -116,6 +127,8 @@ IF %G%==2 GOTO CONTINUE
 IF %G%==3 GOTO MENU
 
 :SCSMOPENLOG
+cls
+color C
 start %windir%\explorer.exe "C:\Windows\Logs\CBS\CBS.log"
 pause
 echo.
@@ -125,6 +138,8 @@ IF %H%==2 GOTO MENU
 IF %H%==3 GOTO CLOSE
 
 :CONTINUE
+cls
+color C
 DISM /online /cleanup-image /checkhealth
 DISM /online /cleanup-image /scanhealth
 pause
@@ -136,6 +151,8 @@ IF %I%==1 GOTO MENU
 IF %I%==2 GOTO CLOSE
 
 :BATTERY
+cls
+color C
 powercfg /batteryreport
 pause
 echo.
@@ -144,6 +161,8 @@ IF %J%==1 GOTO BATOPEN
 IF %J%==2 GOTO MENU
 
 :UPDATE
+cls
+color C
 control update
 pause
 echo.
@@ -152,6 +171,8 @@ IF %K%==1 GOTO MENU
 IF %K%==2 GOTO CLOSE
 
 :SHORTPING
+cls
+color C
 ping 8.8.8.8 
 pause
 echo.
@@ -161,6 +182,8 @@ IF %L%==2 GOTO CONTINUESPING
 IF %L%==3 GOTO CLOSE
 
 :CONTINUESPING
+cls
+color C
 ping 8.8.8.8 -t -l 256
 pause
 echo.
@@ -169,6 +192,8 @@ IF %M%==1 GOTO MENU
 IF %M%==2 GOTO CLOSE
 
 :BATOPEN
+cls
+color C
 start %windir%\explorer.exe "C:\battery-report.html"
 pause
 echo.
@@ -177,6 +202,8 @@ IF %N%==1 GOTO MENU
 IF %N%==2 GOTO CLOSE
 
 :OPENCBSLOG
+cls
+color C
 start %windir%\explorer.exe "C:\Windows\Logs\CBS\CBS.log"
 pause
 echo.
@@ -185,6 +212,8 @@ IF %O%==1 GOTO MENU
 IF %O%==2 GOTO CLOSE
 
 :NINITE
+cls
+color C
 start "" https://ninite.com/7zip-chrome-edge-vlc/ninite.exe 
 pause
 echo.
