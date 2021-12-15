@@ -27,53 +27,57 @@ It's quite a handy tool for any IT'er or other computer related problem solving/
 Running this command will give you the information about the system.
 For example, which CPU, what the PC its name is ect.
 
-### SFC - Number 2
+### GPUINFO - Number 2
+
+When number 2 has ran, you can read back which GPU is in the system.
+
+### SFC - Number 3
 
 When running SFC the command will start an system scan, to check the integrity of the Windows files.
 When it comes back positive you don't have to do anything else, your system doesn't have any corrupt files, Windows related.
 
 When it comes back negative, you have the option to check the logs (be sure to check the bottem of the log) to see what is in need of a repair. After that you have the option to start the DISM command to try and repair the corrupt files. If this works you may want to restart your pc and run the SFC command again.
 
-### DISM - Number 3
+### DISM - Number 4
 
 The DISM command is a command to run an image scan/check and/or repair of your Windows image (iso.)
 
 If the commands fail, you get the option to repair the image.
 This may not work, if it doesn't and errors keep appearing, then it might be smart to re-install the pc with a clean version of Windows.
 
-### SFC & DISM - Number 4
+### SFC & DISM - Number 5
 
 This entry runs the SFC and the DISM command after each other.
 After the SFC you get the option to return to the menu when no corrupt files are found.
 
-### Battery report - Number 5
+### Battery report - Number 6
 
 When you enter this number the script will generate a battery report.
 In this battery report you can read up on your battery status from your laptop.
 
-### Open Windows Update - Number 6
+### Open Windows Update - Number 7
 
 With this entry you will open the GUI to Windows Update, to search and start for Windows Update(s.)
 
-### Do a short Ping request - Number 7
+### Do a short Ping request - Number 8
 
 This command will run a short ping command with small package(s) so we can to get a conclusion if the pc/laptop gets a connection or not.
 
-### Do a continues Ping request with package bytes of 256 - Number 8
+### Do a continues Ping request with package bytes of 256 - Number 9
 
-Number 8 will run a continues ping test with package bytes of 256, you have to manually stop it with (ctrl + c.)
+Number 9 will run a continues ping test with package bytes of 256, you have to manually stop it with (ctrl + c.)
 
-### Re-open the Battery Report - Number 9
+### Re-open the Battery Report - Number 10
 
 This entry will re-open the generated battery report file.
 
-### Re-open the DISM Log - Number 10
+### Re-open the DISM Log - Number 11
 
 With this entry you can re-open the DISM/CBS.log.
 
-### Get your Ninite - Number 11
+### Get your Ninite - Number 12
 
-When entered number 11 a download will start, this download will install:
+When entered number 12 a download will start, this download will install:
 
 - Edge
 - Chrome
@@ -82,13 +86,13 @@ When entered number 11 a download will start, this download will install:
 
 Edge will be installed so you have the latest version of it, after a clean install this is recommanded.
 
-### Log off, restart and/or shutdown - Number 12
+### Log off, restart and/or shutdown - Number 13
 
 When entering this number you get to choose if you want to log off, restart or shutdown your pc.
 
-### Close the Script - Number 13
+### Close the Script - Number 14
 
-With number 13 you can close the script.
+With number 14 you can close the script.
 
 ## Questions
 
