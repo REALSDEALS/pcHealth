@@ -47,34 +47,36 @@ echo %DATE%, %TIME%
 echo.
 echo ...........................................................
 echo PRESS 1 TO GATHER SYSTEM INFORMATION
-echo PRESS 2 TO RUN A SYSTEM SCAN
-echo PRESS 3 TO TRY AND REPAIR CORRUPT FILES
-echo PRESS 4 TO RUN A SYSTEM SCAN AND START REPAIRING IN ONE GO
-echo PRESS 5 TO GENERATE A BATTERY REPORT
-echo PRESS 6 TO OPEN WINDOWS UPDATE(S)
-echo PRESS 7 TO START A SHORT PING TEST
-echo PRESS 8 TO START A CONTINUES PING TEST
-echo PRESS 9 TO RE-OPEN THE BATTERY REPORT
-echo PRESS 10 TO RE-OPEN THE CBS.log (DISM LOG)
-echo PRESS 11 TO GET YOUR NINITE (INCLUDES EDGE, CHROME, VLC AND 7ZIP)
-echo PRESS 12 TO RESTART OR SHUTDOWN YOUR PC/LAPTOP
-echo PRESS 13 TO CLOSE THIS BATCH FILE
+echo PRESS 2 TO CHECK WHICH GPU IS IN THE SYSTEM
+echo PRESS 3 TO RUN A SYSTEM SCAN
+echo PRESS 4 TO TRY AND REPAIR CORRUPT FILES
+echo PRESS 5 TO RUN A SYSTEM SCAN AND START REPAIRING IN ONE GO
+echo PRESS 6 TO GENERATE A BATTERY REPORT
+echo PRESS 7 TO OPEN WINDOWS UPDATE(S)
+echo PRESS 8 TO START A SHORT PING TEST
+echo PRESS 9 TO START A CONTINUES PING TEST
+echo PRESS 10 TO RE-OPEN THE BATTERY REPORT
+echo PRESS 11 TO RE-OPEN THE CBS.log (DISM LOG)
+echo PRESS 12 TO GET YOUR NINITE (INCLUDES EDGE, CHROME, VLC AND 7ZIP)
+echo PRESS 13 TO RESTART OR SHUTDOWN YOUR PC/LAPTOP
+echo PRESS 14 TO CLOSE THIS BATCH FILE
 echo ...........................................................
 echo.
 SET /P A=Type one of the numbers above to run, then press ENTER: 
 IF %A%==1 GOTO SYSINFO
-IF %A%==2 GOTO SCAN
-IF %A%==3 GOTO DISM
-IF %A%==4 GOTO SCSM
-IF %A%==5 GOTO BATTERY
-IF %A%==6 GOTO UPDATE
-IF %A%==7 GOTO SHORTPING
-IF %A%==8 GOTO CONTINUESPING
-IF %A%==9 GOTO BATOPEN
-IF %A%==10 GOTO OPENCBSLOG
-IF %A%==11 GOTO NINITE
-IF %A%==12 GOTO RESHUT
-IF %A%==13 GOTO CLOSE
+IF %A%==2 GOTO GPUINFO
+IF %A%==3 GOTO SCAN
+IF %A%==4 GOTO DISM
+IF %A%==5 GOTO SCSM
+IF %A%==6 GOTO BATTERY
+IF %A%==7 GOTO UPDATE
+IF %A%==8 GOTO SHORTPING
+IF %A%==9 GOTO CONTINUESPING
+IF %A%==10 GOTO BATOPEN
+IF %A%==11 GOTO OPENCBSLOG
+IF %A%==12 GOTO NINITE
+IF %A%==13 GOTO RESHUT
+IF %A%==14 GOTO CLOSE
 
 :SYSINFO
 cls
@@ -96,6 +98,16 @@ SET /P C=If the scan found corrupt files enter 1 to check the .log, enter 2 when
 IF %C%==1 GOTO OPENCBSLOG
 IF %C%==2 GOTO MENU
 
+:GPUINFO
+cls
+color C 
+wmic path win32_VideoController get name
+pause
+echo.
+SET /P D=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
+IF %D%==1 GOTO MENU
+IF %D%==2 GOTO CLOSE
+
 :DISM
 cls
 color C
@@ -103,9 +115,9 @@ DISM /online /cleanup-image /checkhealth
 DISM /online /cleanup-image /scanhealth
 pause
 echo.
-SET /P D=Enter 1 to start repairing, enter 2 to return to the menu. ENTER: 
-IF %D%==1 GOTO DISMRESTORE
-IF %D%==2 GOTO MENU
+SET /P E=Enter 1 to start repairing, enter 2 to return to the menu. ENTER: 
+IF %E%==1 GOTO DISMRESTORE
+IF %E%==2 GOTO MENU
 
 :DISMRESTORE
 cls
@@ -113,9 +125,9 @@ color C
 DISM /online /cleanup-image /restorehealth
 pause
 echo.
-SET /P E=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
-IF %E%==1 GOTO MENU
-IF %E%==2 GOTO CLOSE
+SET /P G=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
+IF %G%==1 GOTO MENU
+IF %G%==2 GOTO CLOSE
 
 :SCSM
 cls
@@ -123,10 +135,10 @@ color C
 sfc /scannow
 pause
 echo.
-SET /P G=If the scan found corrupt files enter 1 to check the .log, enter 2 to start an attempt to repair the corrupt files, enter 3 to return to the menu. ENTER: 
-IF %G%==1 GOTO SCSMOPENLOG
-IF %G%==2 GOTO CONTINUE
-IF %G%==3 GOTO MENU
+SET /P H=If the scan found corrupt files enter 1 to check the .log, enter 2 to start an attempt to repair the corrupt files, enter 3 to return to the menu. ENTER: 
+IF %H%==1 GOTO SCSMOPENLOG
+IF %H%==2 GOTO CONTINUE
+IF %H%==3 GOTO MENU
 
 :SCSMOPENLOG
 cls
@@ -134,10 +146,10 @@ color C
 start %windir%\explorer.exe "C:\Windows\Logs\CBS\CBS.log"
 pause
 echo.
-SET /P H=Enter 1 to start an attempt to repair the corrupt files, if any are found... Enter 2 to return to the main menu, enter 3 to quit the script. ENTER: 
-IF %H%==1 GOTO CONTINUE
-IF %H%==2 GOTO MENU
-IF %H%==3 GOTO CLOSE
+SET /P I=Enter 1 to start an attempt to repair the corrupt files, if any are found... Enter 2 to return to the main menu, enter 3 to quit the script. ENTER: 
+IF %I%==1 GOTO CONTINUE
+IF %I%==2 GOTO MENU
+IF %I%==3 GOTO CLOSE
 
 :CONTINUE
 cls
@@ -148,9 +160,9 @@ pause
 DISM /online /cleanup-image /restorehealth
 pause
 echo.
-SET /P I=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
-IF %I%==1 GOTO MENU
-IF %I%==2 GOTO CLOSE
+SET /P J=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
+IF %J%==1 GOTO MENU
+IF %J%==2 GOTO CLOSE
 
 :BATTERY
 cls
@@ -158,9 +170,9 @@ color C
 powercfg /batteryreport
 pause
 echo.
-SET /P J=Enter 1 to open the generated file, enter 2 to return to the menu. ENTER: 
-IF %J%==1 GOTO BATOPEN
-IF %J%==2 GOTO MENU
+SET /P K=Enter 1 to open the generated file, enter 2 to return to the menu. ENTER: 
+IF %K%==1 GOTO BATOPEN
+IF %K%==2 GOTO MENU
 
 :UPDATE
 cls
@@ -168,9 +180,9 @@ color C
 control update
 pause
 echo.
-SET /P K=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
-IF %K%==1 GOTO MENU
-IF %K%==2 GOTO CLOSE
+SET /P L=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
+IF %L%==1 GOTO MENU
+IF %L%==2 GOTO CLOSE
 
 :SHORTPING
 cls
@@ -178,10 +190,10 @@ color C
 ping 8.8.8.8 
 pause
 echo.
-SET /P L=Enter 1 to return to the menu, enter 2 to start a continues ping test, enter 3 to exit. ENTER: 
-IF %L%==1 GOTO MENU
-IF %L%==2 GOTO CONTINUESPING
-IF %L%==3 GOTO CLOSE
+SET /P M=Enter 1 to return to the menu, enter 2 to start a continues ping test, enter 3 to exit. ENTER: 
+IF %M%==1 GOTO MENU
+IF %M%==2 GOTO CONTINUESPING
+IF %M%==3 GOTO CLOSE
 
 :CONTINUESPING
 cls
@@ -189,9 +201,9 @@ color C
 ping 8.8.8.8 -t -l 256
 pause
 echo.
-SET /P M=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
-IF %M%==1 GOTO MENU
-IF %M%==2 GOTO CLOSE
+SET /P N=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
+IF %N%==1 GOTO MENU
+IF %N%==2 GOTO CLOSE
 
 :BATOPEN
 cls
@@ -199,9 +211,9 @@ color C
 start %windir%\explorer.exe "C:\battery-report.html"
 pause
 echo.
-SET /P N=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
-IF %N%==1 GOTO MENU
-IF %N%==2 GOTO CLOSE
+SET /P O=Enter 1 to return to the menu, enter 2 to exit. ENTER: 
+IF %O%==1 GOTO MENU
+IF %O%==2 GOTO CLOSE
 
 :OPENCBSLOG
 cls
@@ -209,9 +221,9 @@ color C
 start %windir%\explorer.exe "C:\Windows\Logs\CBS\CBS.log"
 pause
 echo.
-SET /P O=Enter 1 to return to the main menu, enter 2 to exit. ENTER: 
-IF %O%==1 GOTO MENU
-IF %O%==2 GOTO CLOSE
+SET /P P=Enter 1 to return to the main menu, enter 2 to exit. ENTER: 
+IF %P%==1 GOTO MENU
+IF %P%==2 GOTO CLOSE
 
 :NINITE
 cls
@@ -265,9 +277,9 @@ pause
 cls
 color C
 echo. 
-SET /P R=Are you sure that you want to shutdown your PC? Press 1, to continue. Enter 2 to return to the main menu. ENTER: 
-IF %R%==1 GOTO SHUTDOWNCONFIRM3
-IF %R%==2 GOTO MENU
+SET /P U=Are you sure that you want to shutdown your PC? Press 1, to continue. Enter 2 to return to the main menu. ENTER: 
+IF %U%==1 GOTO SHUTDOWNCONFIRM3
+IF %U%==2 GOTO MENU
 
 :SHUTDOWNCONFIRM3
 cls
