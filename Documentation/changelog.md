@@ -9,6 +9,9 @@ Taggs have been updated, new beta release has been pushed.
 
 Updated the GPU command, to display CPU info too.
 
+pcHealth.bat has been moved inside a folder called CMD.
+It might be possible that there will be a PowerShell version of this script.
+
 ## 14-12-2021
 
 Changed the main code, so it cleans after a command has been ran.
