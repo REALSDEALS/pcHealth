@@ -88,7 +88,7 @@ When entering this number you get to choose if you want to log off, restart or s
 
 ### Close the Script - Number 13
 
-With number 12 you can close the script.
+With number 13 you can close the script.
 
 ## Questions
 
