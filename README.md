@@ -27,9 +27,9 @@ It's quite a handy tool for any IT'er or other computer related problem solving/
 Running this command will give you the information about the system.
 For example, which CPU, what the PC its name is ect.
 
-### GPUINFO - Number 2
+### CPUANDGPUINFO - Number 2
 
-When number 2 has ran, you can read back which GPU is in the system.
+When number 2 has ran, you can read back which CPU and GPU are in the system.
 
 ### SFC - Number 3
 

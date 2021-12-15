@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! //_\\ v1.3.2-beta
+title pcHealth - Check your PC's Health! //_\\ v1.3.3-beta
 cd /
 color A
 cls
@@ -41,13 +41,13 @@ echo.
 echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.3.2-beta
+echo You are now using version 1.3.3-beta
 echo.
 echo %DATE%, %TIME%
 echo.
 echo ...........................................................
 echo PRESS 1 TO GATHER SYSTEM INFORMATION
-echo PRESS 2 TO CHECK WHICH GPU IS IN THE SYSTEM
+echo PRESS 2 TO CHECK WHICH CPU AND GPU ARE IN THE SYSTEM
 echo PRESS 3 TO RUN A SYSTEM SCAN
 echo PRESS 4 TO TRY AND REPAIR CORRUPT FILES
 echo PRESS 5 TO RUN A SYSTEM SCAN AND START REPAIRING IN ONE GO
@@ -64,7 +64,7 @@ echo ...........................................................
 echo.
 SET /P A=Type one of the numbers above to run, then press ENTER: 
 IF %A%==1 GOTO SYSINFO
-IF %A%==2 GOTO GPUINFO
+IF %A%==2 GOTO CPUANDGPUINFO
 IF %A%==3 GOTO SCAN
 IF %A%==4 GOTO DISM
 IF %A%==5 GOTO SCSM
@@ -98,9 +98,16 @@ SET /P C=If the scan found corrupt files enter 1 to check the .log, enter 2 when
 IF %C%==1 GOTO OPENCBSLOG
 IF %C%==2 GOTO MENU
 
-:GPUINFO
+:CPUANDGPUINFO
 cls
 color C 
+echo. 
+echo Your CPU information:
+echo.
+wmic cpu get caption, deviceid, name, numberofcores, maxclockspeed, status
+echo.
+echo Your GPU information:
+echo.
 wmic path win32_VideoController get name
 pause
 echo.
