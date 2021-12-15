@@ -1,5 +1,12 @@
 # Changelog.md - pcHealth
 
+## 16-12-2021
+
+A new folder has been created, this folder contains the PowerShell variant of the pcHealth.bat.
+At this moment, the PowerShell script is unuseable.
+
+Keep track of this changelog.md or releases.md if there is a stable release of this PowerShell build.
+
 ## 15-12-2021
 
 Modified the code, added a new feature/command to the script.
