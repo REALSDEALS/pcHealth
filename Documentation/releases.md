@@ -5,7 +5,7 @@ For now only the version names will be displayed, in the future there might be e
 
 # Current Version
 
-Full Release - v1.3.1
+Beta Release - v1.3.2-beta
 
 ## Older Releases
 
@@ -20,6 +20,10 @@ Here you can see a overview of the older version.
 - Full Release - v1.2.0
 - Full Release - v1.1.0
 - Full Release - v1.0.0
+
+### Beta Release(s)
+
+- Beta Release - v1.3.1-beta
 
 ### Alpha Release(s)
 

@@ -5,6 +5,8 @@
 Modified the code, added a new feature/command to the script.
 It is now possible to run command 2, to display which GPU is in your system.
 
+Taggs have been updated, new beta release has been pushed.
+
 ## 14-12-2021
 
 Changed the main code, so it cleans after a command has been ran.
