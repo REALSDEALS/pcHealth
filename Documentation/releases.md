@@ -3,9 +3,11 @@
 In this file we will keep track on the latest releases.
 For now only the version names will be displayed, in the future there might be extra information about the release. The same or a 'deeper' insight on what is changed ect.
 
-# Current Version
+# Current Version(s)
 
 Beta Release - v1.3.3-beta
+Full Release - v1.3.0 (Stable)
+Alpha Release - v.0.1.0-alpha (PowerShell)
 
 ## Older Releases
 
@@ -26,7 +28,7 @@ Here you can see a overview of the older version.
 - Beta Release - v1.3.2-beta
 - Beta Release - v1.3.1-beta
 
-### Alpha Release(s)
+### Alpha Release(s) - pcHealth.bat
 
 - Alpha Release - v0.2.1-alpha
 - Alpha Release - v0.2.0-alpha
@@ -35,3 +37,8 @@ Here you can see a overview of the older version.
 - Alpha Release - v0.1.1-alpha
 - Alpha Release - v0.1.0-alpha
 - Alpha Release - v0.0.1-alpha
+
+
+### Alpha Release(s) - pcHealth.ps1
+
+- Alpha Release - v.0.1.0-alpha
