@@ -264,7 +264,7 @@ IF %S%==2 GOTO MENU
 cls
 color C  
 shutdown /l 
-pause
+EXIT /B
 
 :RESTART2
 cls
@@ -278,7 +278,7 @@ IF %T%==2 GOTO MENU
 cls
 color C 
 shutdown /r
-pause
+EXIT /B
 
 :SHUTDOWN3
 cls
@@ -292,7 +292,7 @@ IF %U%==2 GOTO MENU
 cls
 color C
 shutdown /s
-pause
+EXIT /B
 
 :CLOSE
 EXIT /B

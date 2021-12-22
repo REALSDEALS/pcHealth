@@ -1,5 +1,10 @@
 # Changelog.md - pcHealth
 
+## 22-12-2021
+
+Added the function to the code so the script closes itself when the user choses to use the reshut function.
+Releases and other documentation files have been updated.
+
 ## 16-12-2021
 
 A new folder has been created, this folder contains the PowerShell variant of the pcHealth.bat.
