@@ -1,5 +1,16 @@
 # Changelog.md - pcHealth
 
+## 24-12-2021
+
+Today we have reworked the visual representation of the script.
+The way it displays text to the user and guides the user through the script was a bit harse, so we made it somewhat easier to read.
+
+ - This includes the menu and function lines.
+
+This could get another rework in the future, but for now this will do.
+
+ - We could, in the future rework it again, to give the user the option(s) and visually 'gather' the input on the next line.
+
 ## 22-12-2021
 
 Added the function to the code so the script closes itself when the user choses to use the reshut function.
