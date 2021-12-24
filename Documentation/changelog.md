@@ -11,6 +11,9 @@ This could get another rework in the future, but for now this will do.
 
  - We could, in the future rework it again, to give the user the option(s) and visually 'gather' the input on the next line.
 
+PowerShell script has been updated to output some standard features.
+Not every function works yet, but most of them do now.
+
 ## 22-12-2021
 
 Added the function to the code so the script closes itself when the user choses to use the reshut function.

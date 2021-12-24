@@ -7,7 +7,7 @@ For now only the version names will be displayed, in the future there might be e
 
 Beta Release - v1.3.5-beta
 Full Release - v1.3.0 (Stable)
-Alpha Release - v.0.1.0-alpha (PowerShell)
+Alpha Release - v0.1.1-alpha (PowerShell)
 
 ## Older Releases
 
@@ -43,4 +43,4 @@ Here you can see a overview of the older version.
 
 ### Alpha Release(s) - pcHealth.ps1
 
-- Alpha Release - v.0.1.0-alpha
+- Alpha Release - v0.1.0-alpha
