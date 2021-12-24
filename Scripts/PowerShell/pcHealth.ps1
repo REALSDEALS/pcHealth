@@ -5,13 +5,26 @@ Write-Host ""
 Write-Host "This PowerShell script is made by REALSDEALS" 
 Write-Host "Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)"
 Write-Host ""
-Write-Host "You are now using PowerShell version v0.1.0-alpha"
+Write-Host "You are now using PowerShell version v0.1.1-alpha"
 Write-Host ""
+cd c:/
+
+function isAdmin {
+    #Check if the user runs this script as Administrator.
+    If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+        # Relaunch as an elevated process:
+        Start-Process powershell.exe "-File", ('"{0}"' -f $MyInvocation.MyCommand.Path) -Verb RunAs
+        exit
+    }
+    # Now running elevated so launch the script:
+    & "c:\long path name\script name.ps1" "Long Argument 1" "Long Argument 2"
+}
 
 function Show-Menu {
     param (
-        [string]$Title = 'pcHealth | v0.1.0-alpha'
+        [string]$Title = 'pcHealth | v0.1.1-alpha'
     )
+    Clear-Host
     Write-Host ""
     Write-Host "================ $Title ================"
     Write-Host ""
@@ -36,13 +49,23 @@ do {
     $selection = Read-Host "Enter the number of the instance that you want to run."
     switch ($selection) {
         '1' {
-            'Sorry, this option has no function yet.'
+            Write-Host ""
+            systeminfo
+            Write-Host ""
             pause 
         } '2' {
-            'Sorry, this option has no function yet.'
+            Write-Host ""
+            Write-Host "Your CPU information:"
+            Get-WmiObject -Class Win32_Processor -ComputerName $env:COMPUTERNAME
+            Write-Host ""
+            Write-Host "Your GPU information:"
+            Get-WmiObject win32_VideoController | Format-List Name
+            Write-Host ""
             pause
         } '3' {
-            'Sorry, this option has no function yet.'
+            Write-Host ""
+            sfc /scannow
+            Write-Host ""
             pause
         } '4' {
             'Sorry, this option has no function yet.'
@@ -51,16 +74,25 @@ do {
             'Sorry, this option has no function yet.'
             pause
         } '6' {
-            'Sorry, this option has no function yet.'
+            Write-Host ""
+            powercfg /batteryreport
+            start "C:\battery-report.html"
+            Write-Host ""
             pause
         } '7' {
-            'Sorry, this option has no function yet.'
+            Write-Host ""
+            control update
+            Write-Host ""
             pause
         } '8' {
-            'Sorry, this option has no function yet.'
+            Write-Host ""
+            ping 8.8.8.8 
+            Write-Host ""
             pause
         } '9' {
-            'Sorry, this option has no function yet.'
+            Write-Host ""
+            ping 8.8.8.8 -t -l 256
+            Write-Host ""
             pause
         } '10' {
             'Sorry, this option has no function yet.'
@@ -69,7 +101,8 @@ do {
             'Sorry, this option has no function yet.'
             pause
         } '12' {
-            'Sorry, this option has no function yet.'
+            Write-Host ""
+            start explorer.exe "https://ninite.com/7zip-chrome-edge-vlc/ninite.exe"
             pause
         } '13' {
             'Sorry, this option has no function yet.'
