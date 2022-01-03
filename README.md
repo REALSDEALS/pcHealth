@@ -86,11 +86,16 @@ When entered number 12 a download will start, this download will install:
 
 Edge will be installed so you have the latest version of it, after a clean install this is recommanded.
 
-### Log off, restart and/or shutdown - Number 13
+## Get your Windows License Key - Number 13
+
+Want to find your systems license key? 
+You can, just run this simple line of code.
+
+### Log off, restart and/or shutdown - Number 14
 
 When entering this number you get to choose if you want to log off, restart or shutdown your pc.
 
-### Close the Script - Number 14
+### Close the Script - Number 15
 
 With number 14 you can close the script.
 

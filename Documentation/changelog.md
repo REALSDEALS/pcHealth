@@ -1,5 +1,16 @@
 # Changelog.md - pcHealth
 
+## 03-01-2022
+
+After a small break we continue working on the script.
+Thanks to a colleague of me, I have added the license key function to the script.
+
+He provided the codeline and asked if I could implement it. 
+So credits were credits due.
+
+This function is in the new beta release.
+later this week I will push a official release.
+
 ## 24-12-2021
 
 Today we have reworked the visual representation of the script.
