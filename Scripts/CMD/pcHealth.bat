@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! //_\\ v1.3.5-beta
+title pcHealth - Check your PC's Health! //_\\ v1.3.6-beta
 cd /
 color A
 cls
@@ -41,7 +41,7 @@ echo.
 echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.3.5-beta
+echo You are now using version 1.3.6-beta
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -58,8 +58,9 @@ echo Enter number 9 to start a continues ping test.
 echo Enter number 10 to re-open the generated battery report file.
 echo Enter number 11 to re-open the CBS.log (AKA DISM.log)
 echo Enter number 12 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
-echo Enter number 13 to shutdown, reboot or log off from your PC/laptop.
-echo Enter number 14 to close this batch file.
+echo Enter number 13 to see your systems Windows License key.
+echo Enter number 14 to shutdown, reboot or log off from your PC/laptop.
+echo Enter number 15 to close this batch file.
 echo ...........................................................
 echo.
 SET /P A=Type one of the numbers from the menu above to run the desired function, then press ENTER. Enter: 
@@ -75,8 +76,9 @@ IF %A%==9 GOTO CONTINUESPING
 IF %A%==10 GOTO BATOPEN
 IF %A%==11 GOTO OPENCBSLOG
 IF %A%==12 GOTO NINITE
-IF %A%==13 GOTO RESHUT
-IF %A%==14 GOTO CLOSE
+IF %A%==13 GOTO LICENSE
+IF %A%==14 GOTO RESHUT
+IF %A%==15 GOTO CLOSE
 
 :SYSINFO
 cls
@@ -242,23 +244,35 @@ SET /P Q=Enter number 1 to return to the main menu, enter number 2 to exit. Ente
 IF %Q%==1 GOTO MENU
 IF %Q%==2 GOTO CLOSE
 
+:LICENSE
+cls
+color C
+echo.
+echo "Your systems license key:"
+wmic path SoftwareLicensingService get OA3xOriginalProductKey
+pause
+echo.
+SET /p R=If you want to return to the menu, enter number 1. To close the script, enter the number 2.
+IF %R%==1 GOTO MENU
+IF %R%==2 GOTO CLOSE
+
 :RESHUT
 cls
 color C
 echo. 
-SET /P R=If you want to log off from your PC/Laptop enter number 1, to restart enter number 2, to shutdown enter number 3 and to return to the main menu enter number 4. Enter: 
-IF %R%==1 GOTO LOGOFF1
-IF %R%==2 GOTO RESTART2
-IF %R%==3 GOTO SHUTDOWN3
-IF %R%==4 GOTO CLOSE
+SET /P S=If you want to log off from your PC/Laptop enter number 1, to restart enter number 2, to shutdown enter number 3 and to return to the main menu enter number 4. Enter: 
+IF %S%==1 GOTO LOGOFF1
+IF %S%==2 GOTO RESTART2
+IF %S%==3 GOTO SHUTDOWN3
+IF %S%==4 GOTO CLOSE
 
 :LOGOFF1
 cls
 color C 
 echo. 
-SET /P S=Are you sure that you want to log off your PC? Enter number 1, enter number 2 if you want to return to the menu. Enter: 
-IF %S%==1 GOTO LOGOFFCONFIRM1
-IF %S%==2 GOTO MENU 
+SET /P T=Are you sure that you want to log off your PC? Enter number 1, enter number 2 if you want to return to the menu. Enter: 
+IF %T%==1 GOTO LOGOFFCONFIRM1
+IF %T%==2 GOTO MENU 
 
 :LOGOFFCONFIRM1
 cls
@@ -270,9 +284,9 @@ EXIT /B
 cls
 color C
 echo.
-SET /P T=Are you sure that you want to restart your PC? Enter number 1, to do so. Enter number 2 to return to the main menu. Enter: 
-IF %T%==1 GOTO RESTARTCONFIRM2
-IF %T%==2 GOTO MENU
+SET /P U=Are you sure that you want to restart your PC? Enter number 1, to do so. Enter number 2 to return to the main menu. Enter: 
+IF %U%==1 GOTO RESTARTCONFIRM2
+IF %U%==2 GOTO MENU
 
 :RESTARTCONFIRM2
 cls
@@ -284,9 +298,9 @@ EXIT /B
 cls
 color C
 echo. 
-SET /P U=Are you sure that you want to shutdown your PC? Enter number 1, to continue. Enter number 2 to return to the main menu. Enter: 
-IF %U%==1 GOTO SHUTDOWNCONFIRM3
-IF %U%==2 GOTO MENU
+SET /P V=Are you sure that you want to shutdown your PC? Enter number 1, to continue. Enter number 2 to return to the main menu. Enter: 
+IF %V%==1 GOTO SHUTDOWNCONFIRM3
+IF %V%==2 GOTO MENU
 
 :SHUTDOWNCONFIRM3
 cls
