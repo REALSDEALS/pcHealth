@@ -95,7 +95,12 @@ You can, just run this simple line of code.
 
 When entering this number you get to choose if you want to log off, restart or shutdown your pc.
 
-### Close the Script - Number 15
+### Open up a sub-menu with downloadables! - Number 15
+
+Open up a handy dandy menu with direct links to download servers of a small handfull of usefull IT programs!
+So you can test your system.
+
+### Close the Script - Number 16
 
 With number 14 you can close the script.
 
