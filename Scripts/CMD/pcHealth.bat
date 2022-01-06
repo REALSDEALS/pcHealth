@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! //_\\ v1.3.6-beta
+title pcHealth - Check your PC's Health! //_\\ v1.3.7-beta
 cd /
 color A
 cls
@@ -41,7 +41,7 @@ echo.
 echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.3.6-beta
+echo You are now using version 1.3.7-beta
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -60,7 +60,8 @@ echo Enter number 11 to re-open the CBS.log (AKA DISM.log)
 echo Enter number 12 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
 echo Enter number 13 to see your systems Windows License key.
 echo Enter number 14 to shutdown, reboot or log off from your PC/laptop.
-echo Enter number 15 to close this batch file.
+echo Enter number 15 to enter a menu regarding usefull programs.
+echo Enter number 16 to close this batch file.
 echo ...........................................................
 echo.
 SET /P A=Type one of the numbers from the menu above to run the desired function, then press ENTER. Enter: 
@@ -78,7 +79,8 @@ IF %A%==11 GOTO OPENCBSLOG
 IF %A%==12 GOTO NINITE
 IF %A%==13 GOTO LICENSE
 IF %A%==14 GOTO RESHUT
-IF %A%==15 GOTO CLOSE
+IF %A%==15 GOTO DOWNLOADABLES
+IF %A%==16 GOTO CLOSE
 
 :SYSINFO
 cls
@@ -307,6 +309,93 @@ cls
 color C
 shutdown /s
 EXIT /B
+
+:DOWNLOADABLES
+cls
+color 8
+echo.
+echo You have now openend a menu to get direct download links to some usefull IT programs!
+echo.
+echo ...........................................................
+echo Enter number 1 to get the latest official version of pcHealth!
+echo Enter number 2 to get hardware info.
+echo Enter number 3 to get ADW Cleaner.
+echo Enter number 4 to get DiskInfo64.
+echo Enter number 5 to get DiskMark64.
+echo Enter number 6 to get Prime95.
+echo Enter number 7 to return to the previous menu.
+echo Enter number 8 to close the script.
+echo ...........................................................
+echo.
+SET /P AB=Type one of the numbers above to run the desired function.
+IF %AB%==1 GOTO PCHEALTHGETVER
+IF %AB%==2 GOTO HARDINFODOWN
+IF %AB%==3 GOTO ADWCLEANER
+IF %AB%==4 GOTO DISKINFODOWN
+IF %AB%==5 GOTO DISKMARKDOWN
+IF %AB%==6 GOTO PRIMEDOWN
+IF %AB%==7 GOTO MENU
+IF %AB%==8 GOTO CLOSE
+
+:PCHEALTHGETVER
+cls
+color 9
+echo.
+echo Are you sure that you want to download the newest version of pcHealth?
+echo.
+SET /P AC=If yes, enter the number 1, if not enter number 2 to return to the menu.
+IF %AC%==1 start "" https://github.com/REALSDEALS/pcHealth/archive/refs/heads/main.zip
+IF %AC%==2 GOTO MENU
+
+:HARDINFODOWN
+cls
+color 9
+echo.
+echo Are you sure that you want to download the newest version of Hardware Info?
+echo.
+SET /P AD=If yes, enter the number 1, if not enter number 2 to return to the menu.
+IF %AD%==1 start "" https://www.hwinfo.com/FossHub
+IF %AD%==2 GOTO DOWNLOADABLES
+
+:ADWCLEANER
+cls
+color 9
+echo.
+echo Are you sure that you want to download the latest version of ADW Cleaner?
+echo. 
+SET /P AE=If yes enter the number 1 to start the download, enter number 2 to return to the menu.
+IF %AE%==1 start "" https://downloads.malwarebytes.com/file/adwcleaner
+IF %AE%==2 GOTO MENU
+
+:DISKINFODOWN
+cls
+color 9
+echo. 
+echo Are you sure that you want to download the latest version of Disk Info?
+echo. 
+SET /P AF=If yes enter the number 1 to start the download, enter the number 2 to return to the menu.
+IF %AF%==1 start "" https://osdn.net/frs/redir.php?m=nchc&f=crystaldiskinfo%2F76462%2FCrystalDiskInfo8_13_3.zip
+IF %AF%==2 GOTO MENU
+
+:DISKMARKDOWN
+cls
+color 9
+echo. 
+echo Are you sure that you want to download the latest version of Disk Mark?
+echo. 
+SET /P AF=If yes enter the number 1 to start the download, enter the number 2 to return to the menu.
+IF %AF%==1 start "" https://osdn.net/frs/redir.php?m=nchc&f=crystaldiskmark%2F75540%2FCrystalDiskMark8_0_4.zip
+IF %AF%==2 GOTO MENU
+
+:PRIMEDOWN
+cls
+color 9
+echo. 
+echo Are you sure that you want to download the latest version of Prime95?
+echo. 
+SET /P AF=If yes enter the number 1 to start the download, enter the number 2 to return to the menu.
+IF %AF%==1 start "" https://www.guru3d.com/files-get/prime95-download,3.html
+IF %AF%==2 GOTO MENU
 
 :CLOSE
 EXIT /B

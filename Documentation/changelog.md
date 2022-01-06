@@ -1,10 +1,16 @@
 # Changelog.md - pcHealth
 
-## 06-01-2022
+## 06-01-2022 - 07-01-2022
 
 Updated the Project board on GitHub.
 This commit is due to these additions, see it as a reminder for me...
 Nothing special.
+
+I added a new menu inside the code. 
+Function number 15 has been added, this function opens a small menu with a small handfull of usefull test programs to run on your system.
+
+This will be updated and upgraded in the future.
+There will be a code format update too, so things may change and be not 'that clunky' anymore.
 
 ## 03-01-2022
 
