@@ -1,5 +1,11 @@
 # Changelog.md - pcHealth
 
+## 06-01-2022
+
+Updated the Project board on GitHub.
+This commit is due to these additions, see it as a reminder for me...
+Nothing special.
+
 ## 03-01-2022
 
 After a small break we continue working on the script.
