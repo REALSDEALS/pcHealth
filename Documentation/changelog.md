@@ -12,6 +12,8 @@ Function number 15 has been added, this function opens a small menu with a small
 This will be updated and upgraded in the future.
 There will be a code format update too, so things may change and be not 'that clunky' anymore.
 
+Updated some text issues that were being displayed in the script.
+
 ## 03-01-2022
 
 After a small break we continue working on the script.
