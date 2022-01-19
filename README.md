@@ -6,18 +6,19 @@ Check the health of your Windows installation and much more!
 
 ## What is the main purpose?
 
-pcHealth is an ececutable .bat file, which gives you the possibility to check not only your Windows installation on corrupt files, but it can also check your battery level. This is handy if your laptop can't hold its battery power properly. Besides that you can also get your Ninite from the script! It is also possible to open and re-open the created logs.
+pcHealth is an executable .bat/.ps1 file, which gives you the possibility to check not only your Windows installation on corrupt files, but it can also check your battery level. This is handy if your laptop can't hold its battery power properly. Besides that you can also get your Ninite from the script! It is also possible to open and re-open the created logs.
 
 ## How to use?
 
-First of all I want to thank your for installing/using my .bat script.
+First of all I want to thank your for installing/using my pcHealth script.
 It's quite a handy tool for any IT'er or other computer related problem solving/troubleshooting.
 
 ### Now more information on how to use it;
 
-- Download the .bat file.
-- Extract it to the desktop to be sure that it will run with the full permissions.
-- Once openend, read the rules carefully.
+- Download this repository.
+- Extract it to the desktop to be sure that it will run with full permissions.
+- Open the `scripts` folder and choose your preferred method by choosing the `CMD` or `PowerShell` folder.
+- Open the file in the chosen folder and read the rules carefully.
 - Enter in the number of the desired command that you want to run. (Number + ENTER)
 - Patiently wait for the script to finish.
 - You can chose, depending on the command, what you want to do next. (Open logs ect.)
