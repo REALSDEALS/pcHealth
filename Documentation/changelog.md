@@ -1,5 +1,10 @@
 # Changelog.md - pcHealth
 
+## 02-02-2022 
+
+Changed the download link from the HWinfo.
+So when you run this line it will redirect you to the latest HWinfo installer.
+
 ## 06-01-2022 - 07-01-2022
 
 Updated the Project board on GitHub.
