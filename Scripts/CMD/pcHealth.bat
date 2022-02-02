@@ -354,7 +354,7 @@ echo.
 echo Are you sure that you want to download the newest version of Hardware Info?
 echo.
 SET /P AD=If yes, enter the number 1, if not enter number 2 to return to the menu. ENTER: 
-IF %AD%==1 start "" https://www.hwinfo.com/FossHub
+IF %AD%==1 start "" https://www.fosshub.com/HWiNFO.html?dwl=hwi_716.exe
 IF %AD%==2 GOTO DOWNLOADABLES
 
 :ADWCLEANER
