@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! //_\\ v1.3.7-beta
+title pcHealth - Check your PC's Health! //_\\ v1.3.8-beta
 cd /
 color A
 cls
@@ -41,7 +41,7 @@ echo.
 echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.3.7-beta
+echo You are now using version 1.3.8-beta
 echo.
 echo %DATE%, %TIME%
 echo.
