@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! //_\\ v1.3.8-beta
+title pcHealth - Check your PC's Health! //_\\ v1.3.9-beta
 cd /
 color A
 cls
@@ -41,9 +41,24 @@ echo.
 echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.3.8-beta
+echo You are now using version 1.3.9-beta
 echo.
 echo %DATE%, %TIME%
+echo.
+echo ...........................................................
+echo Enter number 1 to open a menu regarding testing scripts
+echo Enter number 2 to open a menu regarding testing programs
+echo ...........................................................
+echo.
+
+SET /P A=Type one of the numbers from the menu above to open the desired menu and then press ENTER. Enter: 
+IF %A%==1 GOTO TOOLS
+IF %A%==2 GOTO PROGRAMS
+IF %A%==3 GOTO CLOSE
+
+:TOOLS
+cls 
+color A
 echo.
 echo ...........................................................
 echo Enter number 1 to gather generic information about the system.
@@ -60,27 +75,55 @@ echo Enter number 11 to re-open the CBS.log (AKA DISM.log)
 echo Enter number 12 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
 echo Enter number 13 to see your systems Windows License key.
 echo Enter number 14 to shutdown, reboot or log off from your PC/laptop.
-echo Enter number 15 to enter a menu regarding usefull programs.
+echo Enter number 15 to open the programs menu.
 echo Enter number 16 to close this batch file.
 echo ...........................................................
 echo.
-SET /P A=Type one of the numbers from the menu above to run the desired function, then press ENTER. Enter: 
-IF %A%==1 GOTO SYSINFO
-IF %A%==2 GOTO CPUANDGPUINFO
-IF %A%==3 GOTO SCAN
-IF %A%==4 GOTO DISM
-IF %A%==5 GOTO SCSM
-IF %A%==6 GOTO BATTERY
-IF %A%==7 GOTO UPDATE
-IF %A%==8 GOTO SHORTPING
-IF %A%==9 GOTO CONTINUESPING
-IF %A%==10 GOTO BATOPEN
-IF %A%==11 GOTO OPENCBSLOG
-IF %A%==12 GOTO NINITE
-IF %A%==13 GOTO LICENSE
-IF %A%==14 GOTO RESHUT
-IF %A%==15 GOTO DOWNLOADABLES
-IF %A%==16 GOTO CLOSE
+
+SET /P B=Type one of the numbers from the menu above to run the desired function, then press ENTER. Enter: 
+IF %B%==1 GOTO SYSINFO
+IF %B%==2 GOTO CPUANDGPUINFO
+IF %B%==3 GOTO SCAN
+IF %B%==4 GOTO DISM
+IF %B%==5 GOTO SCSM
+IF %B%==6 GOTO BATTERY
+IF %B%==7 GOTO UPDATE
+IF %B%==8 GOTO SHORTPING
+IF %B%==9 GOTO CONTINUESPING
+IF %B%==10 GOTO BATOPEN
+IF %B%==11 GOTO OPENCBSLOG
+IF %B%==12 GOTO NINITE
+IF %B%==13 GOTO LICENSE
+IF %B%==14 GOTO RESHUT
+IF %B%==15 GOTO PROGRAMS
+IF %B%==16 GOTO CLOSE
+
+:PROGRAMS
+cls
+color 9
+echo.
+echo ...........................................................
+echo Enter number 1 to get the latest official version of pcHealth!
+echo Enter number 2 to get hardware info.
+echo Enter number 3 to get ADW Cleaner.
+echo Enter number 4 to get DiskInfo64.
+echo Enter number 5 to get DiskMark64.
+echo Enter number 6 to get Prime95.
+echo Enter number 7 to return to the previous menu.
+echo Enter number 8 to open the tools menu.
+echo Enter number 9 to close the script.
+echo ...........................................................
+echo.
+SET /P AB=Type one of the numbers above to run the desired function. ENTER: 
+IF %AB%==1 GOTO PCHEALTHGETVER
+IF %AB%==2 GOTO HARDINFODOWN
+IF %AB%==3 GOTO ADWCLEANER
+IF %AB%==4 GOTO DISKINFODOWN
+IF %AB%==5 GOTO DISKMARKDOWN
+IF %AB%==6 GOTO PRIMEDOWN
+IF %AB%==7 GOTO MENU
+IF %AB%==8 GOTO TOOLS
+IF %AB%==9 GOTO CLOSE
 
 :SYSINFO
 cls
@@ -88,9 +131,9 @@ color C
 systeminfo
 pause
 echo.
-SET /P B=Enter number 1 to return to the menu, enter number 2 to exit. Enter: 
-IF %B%==1 GOTO MENU
-IF %B%==2 GOTO CLOSE
+SET /P C=Enter number 1 to return to the menu, enter number 2 to exit. Enter: 
+IF %C%==1 GOTO MENU
+IF %C%==2 GOTO CLOSE
 
 :SCAN
 cls
@@ -98,9 +141,9 @@ color C
 sfc /scannow
 pause
 echo.
-SET /P C=If the scan found any corrupt files, enter number 1 to check the .log, enter number 2 when you want to return to the menu. Enter: 
-IF %C%==1 GOTO OPENCBSLOG
-IF %C%==2 GOTO MENU
+SET /P D=If the scan found any corrupt files, enter number 1 to check the .log, enter number 2 when you want to return to the menu. Enter: 
+IF %D%==1 GOTO OPENCBSLOG
+IF %D%==2 GOTO MENU
 
 :CPUANDGPUINFO
 cls
@@ -115,9 +158,9 @@ echo.
 wmic path win32_VideoController get name
 pause
 echo.
-SET /P D=Enter number 1 to return to the menu, enter number 2 to exit. Enter: 
-IF %D%==1 GOTO MENU
-IF %D%==2 GOTO CLOSE
+SET /P E=Enter number 1 to return to the menu, enter number 2 to exit. Enter: 
+IF %E%==1 GOTO MENU
+IF %E%==2 GOTO CLOSE
 
 :DISM
 cls
@@ -126,9 +169,9 @@ DISM /online /cleanup-image /checkhealth
 DISM /online /cleanup-image /scanhealth
 pause
 echo.
-SET /P E=Enter number 1 to start an attempt on repairing, enter number 2 to return to the menu. Enter: 
-IF %E%==1 GOTO DISMRESTORE
-IF %E%==2 GOTO MENU
+SET /P F=Enter number 1 to start an attempt on repairing, enter number 2 to return to the menu. Enter: 
+IF %F%==1 GOTO DISMRESTORE
+IF %F%==2 GOTO MENU
 
 :DISMRESTORE
 cls
@@ -310,36 +353,9 @@ color C
 shutdown /s
 EXIT /B
 
-:DOWNLOADABLES
-cls
-color 8
-echo.
-echo You have now openend a menu to get direct download links to some usefull IT programs!
-echo.
-echo ...........................................................
-echo Enter number 1 to get the latest official version of pcHealth!
-echo Enter number 2 to get hardware info.
-echo Enter number 3 to get ADW Cleaner.
-echo Enter number 4 to get DiskInfo64.
-echo Enter number 5 to get DiskMark64.
-echo Enter number 6 to get Prime95.
-echo Enter number 7 to return to the previous menu.
-echo Enter number 8 to close the script.
-echo ...........................................................
-echo.
-SET /P AB=Type one of the numbers above to run the desired function. ENTER: 
-IF %AB%==1 GOTO PCHEALTHGETVER
-IF %AB%==2 GOTO HARDINFODOWN
-IF %AB%==3 GOTO ADWCLEANER
-IF %AB%==4 GOTO DISKINFODOWN
-IF %AB%==5 GOTO DISKMARKDOWN
-IF %AB%==6 GOTO PRIMEDOWN
-IF %AB%==7 GOTO MENU
-IF %AB%==8 GOTO CLOSE
-
 :PCHEALTHGETVER
 cls
-color 9
+color C
 echo.
 echo Are you sure that you want to download the newest version of pcHealth?
 echo.
@@ -349,7 +365,7 @@ IF %AC%==2 GOTO MENU
 
 :HARDINFODOWN
 cls
-color 9
+color C
 echo.
 echo Are you sure that you want to download the newest version of Hardware Info?
 echo.
@@ -359,7 +375,7 @@ IF %AD%==2 GOTO DOWNLOADABLES
 
 :ADWCLEANER
 cls
-color 9
+color C
 echo.
 echo Are you sure that you want to download the latest version of ADW Cleaner? ENTER: 
 echo. 
@@ -369,7 +385,7 @@ IF %AE%==2 GOTO MENU
 
 :DISKINFODOWN
 cls
-color 9
+color C
 echo. 
 echo Are you sure that you want to download the latest version of Disk Info?
 echo. 
@@ -379,7 +395,7 @@ IF %AF%==2 GOTO MENU
 
 :DISKMARKDOWN
 cls
-color 9
+color C
 echo. 
 echo Are you sure that you want to download the latest version of Disk Mark?
 echo. 
@@ -389,7 +405,7 @@ IF %AF%==2 GOTO MENU
 
 :PRIMEDOWN
 cls
-color 9
+color C
 echo. 
 echo Are you sure that you want to download the latest version of Prime95? ENTER: 
 echo. 
