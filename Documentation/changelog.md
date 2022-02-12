@@ -1,5 +1,10 @@
 # Changelog.md - pcHealth
 
+## 12-02-2022
+
+Updated the script to display 2 menu's instead of a bunch of un-organized options.
+This will keep it easier to read and more foolproof/noobfriendly.
+
 ## 02-02-2022 
 
 Changed the download link from the HWinfo.
