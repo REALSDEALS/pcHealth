@@ -6,7 +6,7 @@ For now only the version names will be displayed, in the future there might be e
 # Current Version(s)
 
 Beta Release - v1.3.9-beta
-Full Release - v1.3.0 (Stable)
+Full Release - v1.4.0 (Stable)
 Alpha Release - v0.1.1-alpha (PowerShell)
 
 ## Older Releases
@@ -15,6 +15,7 @@ Here you can see a overview of the older version.
 
 ### Full Release(s)
 
+- Full Release - V1.4.0
 - Full Release - v1.3.0
 - Full Release - v1.2.3
 - Full Release - v1.2.2
@@ -25,6 +26,7 @@ Here you can see a overview of the older version.
 
 ### Beta Release(s)
 
+- Beta Release - v1.3.9-beta
 - Beta Release - v1.3.8-beta
 - Beta Release - v1.3.7-beta
 - Beta Release - v1.3.6-beta

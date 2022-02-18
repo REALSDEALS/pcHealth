@@ -1,5 +1,15 @@
 # Changelog.md - pcHealth
 
+## 18-02-2022
+
+REWORK part 2, couldn't work in it in the past days, due to health issues.
+In this update/push we have reworked some of the main aspects that we promised to change on our latest stream.
+
+Removed some 'dead' lines of code, made them come back to life somewhere else in the script ;)
+
+Updated the README.md since a lot didn't apply anymore, since the rework has made some impact on how the script presents itself.
+A quick note on the PS (PowerShell) variant, that project will be finished and started on later this first Q of this year.
+
 ## 12-02-2022
 
 Updated the script to display 2 menu's instead of a bunch of un-organized options.
