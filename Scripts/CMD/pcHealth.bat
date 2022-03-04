@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.4.0
+title pcHealth - Check your PC's Health! - version 1.4.1-beta
 cd /
 color A
 cls
@@ -41,7 +41,7 @@ echo.
 echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.4.0
+echo You are now using version 1.4.1-beta
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -61,7 +61,7 @@ IF %A%==4 GOTO CLOSE
 
 :TOOLS
 cls 
-color A
+color B
 echo.
 echo ...........................................................
 echo Enter number 1 to gather generic information about the system.
@@ -79,7 +79,8 @@ echo Enter number 12 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
 echo Enter number 13 to see your systems Windows License key.
 echo Enter number 14 to shutdown, reboot or log off from your PC/laptop.
 echo Enter number 15 to open the programs menu.
-echo Enter number 16 to close this batch file.
+echo Enter number 16 to return to the previous menu.
+echo Enter number 17 to close this batch file.
 echo ...........................................................
 echo.
 
@@ -99,11 +100,12 @@ IF %B%==12 GOTO NINITE
 IF %B%==13 GOTO LICENSE
 IF %B%==14 GOTO RESHUT
 IF %B%==15 GOTO PROGRAMS
-IF %B%==16 GOTO CLOSE
+IF %B%==16 GOTO MENU
+IF %B%==17 GOTO CLOSE
 
 :PROGRAMS
 cls
-color 9
+color 3
 echo.
 echo ...........................................................
 echo Enter number 1 to get hardware info.
@@ -111,8 +113,8 @@ echo Enter number 2 to get ADW Cleaner.
 echo Enter number 3 to get DiskInfo64.
 echo Enter number 4 to get DiskMark64.
 echo Enter number 5 to get Prime95.
-echo Enter number 6 to return to the previous menu.
-echo Enter number 7 to open the tools menu.
+echo Enter number 6 to open the tools menu.
+echo Enter number 7 to return to the previous menu.
 echo Enter number 8 to close the script.
 echo ...........................................................
 echo.
@@ -122,8 +124,8 @@ IF %AB%==2 GOTO ADWCLEANER
 IF %AB%==3 GOTO DISKINFODOWN
 IF %AB%==4 GOTO DISKMARKDOWN
 IF %AB%==5 GOTO PRIMEDOWN
-IF %AB%==6 GOTO MENU
-IF %AB%==7 GOTO TOOLS
+IF %AB%==6 GOTO TOOLS
+IF %AB%==7 GOTO MENU
 IF %AB%==8 GOTO CLOSE
 
 :SYSINFO
