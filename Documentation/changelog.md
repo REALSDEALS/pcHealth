@@ -1,5 +1,10 @@
 # Changelog.md - pcHealth
 
+## 04-03-2022
+
+Change in colours regarding to the script.
+Added a return to the 'opening' menu in the Tools category.
+
 ## 18-02-2022
 
 REWORK part 2, couldn't work in it in the past days, due to health issues.
