@@ -69,6 +69,11 @@ I understand if people have their questions about that decision, but I wanted to
 7. Open the other menu, it's called 'Tools'.
 8. Close the script.
 
+#### KeyGrabber
+The key grabber script does what it says!
+
+It grabs the license key (windows) that's on your pc, and gives you an option to save it to your desktop.
+
 ## Questions
 If you still have questions, you can send me a message on Discord as mentioned above.
 My username is: REALSDEALS#6353

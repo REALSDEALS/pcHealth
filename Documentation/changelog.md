@@ -2,6 +2,17 @@
 
 ## 07-07-2022
 
+Updated option 13 - license key.
+
+It tells you automatically that you don't have to worry for a 'negative' callback from the script.
+Besides that it tells you about a different option you could try!
+
+Added a new script which allows you to grab the windows license key and gives you an possibility to save it to a text file on the desktop.
+
+This script is an extension for if the pcHealth.bat (option 13) doesn't comeback with a license key.
+
+## 07-07-2022
+
 Small update in the code, removed some small typo's.
 
 ## 04-03-2022
