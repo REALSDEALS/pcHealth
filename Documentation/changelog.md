@@ -1,5 +1,9 @@
 # Changelog.md - pcHealth
 
+## 07-07-2022
+
+Small update in the code, removed some small typo's.
+
 ## 04-03-2022
 
 Change in colours regarding to the script.

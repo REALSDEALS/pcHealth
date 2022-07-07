@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.4.1-beta
+title pcHealth - Check your PC's Health! - version 1.4.2-beta
 cd /
 color A
 cls
@@ -41,7 +41,7 @@ echo.
 echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.4.1-beta
+echo You are now using version 1.4.2-beta
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -300,7 +300,7 @@ echo "Your systems license key:"
 wmic path SoftwareLicensingService get OA3xOriginalProductKey
 pause
 echo.
-SET /p R=If you want to return to the menu, enter number 1. To close the script, enter the number 2.
+SET /p R=If you want to return to the menu, enter number 1. To close the script, enter the number 2. Enter: 
 IF %R%==1 GOTO MENU
 IF %R%==2 GOTO CLOSE
 
@@ -362,7 +362,7 @@ color C
 echo.
 echo Are you sure that you want to download the newest version of pcHealth?
 echo.
-SET /P AC=If yes, enter the number 1, if not enter number 2 to return to the menu. ENTER: 
+SET /P AC=If yes, enter the number 1, if not enter number 2 to return to the menu. Enter: 
 IF %AC%==1 start "" https://github.com/REALSDEALS/pcHealth/archive/refs/heads/main.zip 
 IF %AC%==2 GOTO MENU 
 
@@ -372,7 +372,7 @@ color C
 echo.
 echo Are you sure that you want to download the newest version of Hardware Info?
 echo.
-SET /P AD=If yes, enter the number 1, if not enter number 2 to return to the menu. ENTER: 
+SET /P AD=If yes, enter the number 1, if not enter number 2 to return to the menu. Enter: 
 IF %AD%==1 start "" https://www.fosshub.com/HWiNFO.html?dwl=hwi_716.exe
 IF %AD%==2 GOTO DOWNLOADABLES
 
@@ -380,7 +380,7 @@ IF %AD%==2 GOTO DOWNLOADABLES
 cls
 color C
 echo.
-echo Are you sure that you want to download the latest version of ADW Cleaner? ENTER: 
+echo Are you sure that you want to download the latest version of ADW Cleaner? Enter: 
 echo. 
 SET /P AE=If yes enter the number 1 to start the download, enter number 2 to return to the menu.
 IF %AE%==1 start "" https://downloads.malwarebytes.com/file/adwcleaner
@@ -392,7 +392,7 @@ color C
 echo. 
 echo Are you sure that you want to download the latest version of Disk Info?
 echo. 
-SET /P AF=If yes enter the number 1 to start the download, enter the number 2 to return to the menu. ENTER: 
+SET /P AF=If yes enter the number 1 to start the download, enter the number 2 to return to the menu. Enter: 
 IF %AF%==1 start "" https://osdn.net/frs/redir.php?m=nchc&f=crystaldiskinfo%2F76462%2FCrystalDiskInfo8_13_3.zip
 IF %AF%==2 GOTO MENU
 
@@ -402,7 +402,7 @@ color C
 echo. 
 echo Are you sure that you want to download the latest version of Disk Mark?
 echo. 
-SET /P AF=If yes enter the number 1 to start the download, enter the number 2 to return to the menu. ENTER: 
+SET /P AF=If yes enter the number 1 to start the download, enter the number 2 to return to the menu. Enter: 
 IF %AF%==1 start "" https://osdn.net/frs/redir.php?m=nchc&f=crystaldiskmark%2F75540%2FCrystalDiskMark8_0_4.zip
 IF %AF%==2 GOTO MENU
 
@@ -410,7 +410,7 @@ IF %AF%==2 GOTO MENU
 cls
 color C
 echo. 
-echo Are you sure that you want to download the latest version of Prime95? ENTER: 
+echo Are you sure that you want to download the latest version of Prime95? Enter: 
 echo. 
 SET /P AF=If yes enter the number 1 to start the download, enter the number 2 to return to the menu.
 IF %AF%==1 start "" https://www.guru3d.com/files-get/prime95-download,3.html
