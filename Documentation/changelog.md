@@ -11,9 +11,7 @@ Added a new script which allows you to grab the windows license key and gives yo
 
 This script is an extension for if the pcHealth.bat (option 13) doesn't comeback with a license key.
 
-## 07-07-2022
-
-Small update in the code, removed some small typo's.
++ Removed some typo's and made a change in the displaying color regarding to Option 13.
 
 ## 04-03-2022
 

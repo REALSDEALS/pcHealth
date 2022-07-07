@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.4.3-beta
+title pcHealth - Check your PC's Health! - version 1.4.4-beta
 cd /
 color A
 cls
@@ -41,7 +41,7 @@ echo.
 echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.4.3-beta
+echo You are now using version 1.4.4-beta
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -299,9 +299,11 @@ echo.
 echo "Your systems license key:"
 wmic path SoftwareLicensingService get OA3xOriginalProductKey
 pause
-echo "If it didn't showed a key, it is possible that this PC is using a 'illegal' key, or a key that was used for a previous installation of Windows 7/8 - then upgraded to 10/11."
+color B
 echo.
-echo "You can also try to use a different script for the license key, you can find it in the 'Scripts' folder in this pcHealth folder!"
+echo If it didn't showed a key, it is possible that this PC is using a 'illegal' key, or a key that was used for a previous installation of Windows 7/8 - then upgraded to 10/11.
+echo.
+echo You can also try to use a different script for the license key, you can find it in the 'Scripts' folder in this pcHealth folder!
 echo.
 SET /p R=If you want to return to the menu, enter number 1. To close the script, enter the number 2. Enter: 
 IF %R%==1 GOTO MENU
