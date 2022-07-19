@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.4.4-beta
+title pcHealth - Check your PC's Health! - version 1.4.5-beta
 cd /
 color A
 cls
@@ -40,8 +40,9 @@ color A
 echo.
 echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
+echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.4.4-beta
+echo You are now using version 1.4.5-beta
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -118,6 +119,7 @@ echo Enter number 7 to return to the previous menu.
 echo Enter number 8 to close the script.
 echo ...........................................................
 echo.
+
 SET /P AB=Type one of the numbers above to run the desired function. ENTER: 
 IF %AB%==1 GOTO HARDINFODOWN
 IF %AB%==2 GOTO ADWCLEANER
@@ -368,18 +370,42 @@ echo.
 echo Are you sure that you want to download the newest version of pcHealth?
 echo.
 SET /P AC=If yes, enter the number 1, if not enter number 2 to return to the menu. Enter: 
-IF %AC%==1 start "" https://github.com/REALSDEALS/pcHealth/archive/refs/heads/main.zip 
+IF %AC%==1 GOTO PCHEALTHGETVERDOWNLOADLINK
 IF %AC%==2 GOTO MENU 
 
+:PCHEALTHGETVERDOWNLOADLINK
+cls
+color C
+echo.
+echo Your download will start now!
+echo.
+start "" https://github.com/REALSDEALS/pcHealth/archive/refs/heads/main.zip 
+echo.
+SET /P AD=To return to the main menu enter 1, to close the script enter 2. Enter: 
+IF %AD%==1 GOTO MENU
+IF %AD%==2 GOTO CLOSE
+ 
 :HARDINFODOWN
 cls
 color C
 echo.
 echo Are you sure that you want to download the newest version of Hardware Info?
 echo.
-SET /P AD=If yes, enter the number 1, if not enter number 2 to return to the menu. Enter: 
-IF %AD%==1 start "" https://www.fosshub.com/HWiNFO.html?dwl=hwi_716.exe
-IF %AD%==2 GOTO DOWNLOADABLES
+SET /P AE=If yes, enter the number 1, if not enter number 2 to return to the menu. Enter: 
+IF %AE%==1 GOTO HARDINFODOWNLOADLINK
+IF %AE%==2 GOTO DOWNLOADABLES
+
+:HARDINFODOWNLOADLINK
+cls
+color c
+echo.
+echo Your download will start now; if not click on 'installer' on the download page!
+echo.
+start "" https://www.fosshub.com/HWiNFO.html?dwl=hwi_726.exe
+echo.
+SET /P AF=To return to the main menu enter 1, to close the script enter 2. Enter: 
+IF %AF%==1 GOTO MENU
+IF %AF%==2 GOTO CLOSE
 
 :ADWCLEANER
 cls
@@ -387,9 +413,21 @@ color C
 echo.
 echo Are you sure that you want to download the latest version of ADW Cleaner? Enter: 
 echo. 
-SET /P AE=If yes enter the number 1 to start the download, enter number 2 to return to the menu.
-IF %AE%==1 start "" https://downloads.malwarebytes.com/file/adwcleaner
-IF %AE%==2 GOTO MENU
+SET /P AG=If yes enter the number 1 to start the download, enter number 2 to return to the menu. Enter: 
+IF %AG%==1 GOTO ADWCLEANERDOWNLOADLINK
+IF %AG%==2 GOTO MENU
+
+:ADWCLEANERDOWNLOADLINK
+cls
+color C
+echo. 
+echo Your download will start now!
+echo.
+start "" https://downloads.malwarebytes.com/file/adwcleaner
+echo.
+SET /P AH=To return to the main menu enter 1, to close the script enter 2. Enter: 
+IF %AH%==1 GOTO MENU
+IF %AH%==2 GOTO CLOSE
 
 :DISKINFODOWN
 cls
@@ -397,9 +435,20 @@ color C
 echo. 
 echo Are you sure that you want to download the latest version of Disk Info?
 echo. 
-SET /P AF=If yes enter the number 1 to start the download, enter the number 2 to return to the menu. Enter: 
-IF %AF%==1 start "" https://osdn.net/frs/redir.php?m=nchc&f=crystaldiskinfo%2F76462%2FCrystalDiskInfo8_13_3.zip
-IF %AF%==2 GOTO MENU
+SET /P AI=If yes enter the number 1 to start the download, enter the number 2 to return to the menu. Enter: 
+IF %AI%==1 GOTO DISKINFODOWNLOADLINK
+IF %AI%==2 GOTO MENU
+
+:DISKINFODOWNLOADLINK
+cls
+color C
+echo.
+echo Your download will start now!
+start "" https://osdn.net/projects/crystaldiskinfo/downloads/77538/CrystalDiskInfo8_17_4.zip/
+echo.
+SET /P AJ=To return to the main menu enter 1, to close the script enter 2. Enter: 
+IF %AJ%==1 GOTO MENU
+IF %AJ%==2 GOTO CLOSE
 
 :DISKMARKDOWN
 cls
@@ -407,9 +456,20 @@ color C
 echo. 
 echo Are you sure that you want to download the latest version of Disk Mark?
 echo. 
-SET /P AF=If yes enter the number 1 to start the download, enter the number 2 to return to the menu. Enter: 
-IF %AF%==1 start "" https://osdn.net/frs/redir.php?m=nchc&f=crystaldiskmark%2F75540%2FCrystalDiskMark8_0_4.zip
-IF %AF%==2 GOTO MENU
+SET /P AK=If yes enter the number 1 to start the download, enter the number 2 to return to the menu. Enter: 
+IF %AK%==1 GOTO DISKMARKDOWNLOADLINK
+IF %AK%==2 GOTO MENU
+
+:DISKMARKDOWNLOADLINK
+cls
+color C
+echo.
+echo Your download will start now!
+start "" https://osdn.net/projects/crystaldiskmark/downloads/77539/CrystalDiskMark8_0_4b.zip/
+echo.
+SET /P AL=To return to the main menu enter 1, to close the script enter 2. Enter: 
+IF %AL%==1 GOTO MENU
+IF %AL%==2 GOTO CLOSE
 
 :PRIMEDOWN
 cls
@@ -417,9 +477,20 @@ color C
 echo. 
 echo Are you sure that you want to download the latest version of Prime95? Enter: 
 echo. 
-SET /P AF=If yes enter the number 1 to start the download, enter the number 2 to return to the menu.
-IF %AF%==1 start "" https://www.guru3d.com/files-get/prime95-download,3.html
-IF %AF%==2 GOTO MENU
+SET /P AM=If yes enter the number 1 to start the download, enter the number 2 to return to the menu.
+IF %AM%==1 GOTO PRIMEDOWNLOADLINK
+IF %AM%==2 GOTO MENU
+
+:PRIMEDOWNLOADLINK
+cls
+color C
+echo.
+echo Your download will start now!
+start "" https://www.guru3d.com/files-get/prime95-download,3.html
+echo.
+SET /P AN=If yes enter the number 1 to start the download, enter the number 2 to return to the menu.
+IF %AN%==1 GOTO PRIMEDOWNLOADLINK
+IF %AN%==2 GOTO MENU
 
 :CLOSE
 EXIT /B
