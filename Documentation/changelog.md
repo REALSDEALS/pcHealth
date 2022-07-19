@@ -1,5 +1,10 @@
 # Changelog.md - pcHealth
 
+## 20-07-2022 
+
+Reviewed the script by myself, saw some minor inconviences... fixed that.
+The changes that I made to the script regarding downloading of progams, is a succes!
+
 ## 20-07-2022
 
 Changed some small visual issues, re-adjusted some strange formats of text.

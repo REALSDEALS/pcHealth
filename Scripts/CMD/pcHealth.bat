@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.4.5-beta
+title pcHealth - Check your PC's Health! - version 1.4.6-beta
 cd /
 color A
 cls
@@ -42,13 +42,13 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.4.5-beta
+echo You are now using version 1.4.6-beta
 echo.
 echo %DATE%, %TIME%
 echo.
 echo ...........................................................
 echo Enter number 1 to open a menu regarding testing scripts.
-echo Enter number 2 to open a menu regarding testing programs.
+echo Enter number 2 to open a menu regarding programs for testing /w downloadable redirects.
 echo Enter number 3 to go to the repository of pcHealth.
 echo Enter number 4 to close this batch script.
 echo ...........................................................
@@ -120,7 +120,7 @@ echo Enter number 8 to close the script.
 echo ...........................................................
 echo.
 
-SET /P AB=Type one of the numbers above to run the desired function. ENTER: 
+SET /P AB=Type one of the numbers above to run the desired function. Enter: 
 IF %AB%==1 GOTO HARDINFODOWN
 IF %AB%==2 GOTO ADWCLEANER
 IF %AB%==3 GOTO DISKINFODOWN
@@ -411,7 +411,7 @@ IF %AF%==2 GOTO CLOSE
 cls
 color C
 echo.
-echo Are you sure that you want to download the latest version of ADW Cleaner? Enter: 
+echo Are you sure that you want to download the latest version of ADW Cleaner?
 echo. 
 SET /P AG=If yes enter the number 1 to start the download, enter number 2 to return to the menu. Enter: 
 IF %AG%==1 GOTO ADWCLEANERDOWNLOADLINK
