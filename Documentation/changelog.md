@@ -1,5 +1,12 @@
 # Changelog.md - pcHealth
 
+## 20-07-2022
+
+Changed some small visual issues, re-adjusted some strange formats of text.
+Huge update to the codelines/commands that bring you to a download page - submenu: 'tools'.
+
+Full version release will be near!
+
 ## 07-07-2022
 
 Updated option 13 - license key.
