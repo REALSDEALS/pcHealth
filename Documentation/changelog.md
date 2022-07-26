@@ -1,6 +1,23 @@
 # Changelog.md - pcHealth
 
-## 26-07-2022
+## 26-07-2022 - Full Version Release 1.5.0
+
+Version 1.5.0 will be available!
+
+We have removed a lot of issues which where present in the latest official release (1.4.0).
+
+Thanks for using the 'software'! 
+
+pcHealth will probably evolve in a different kind of program/software. With a GUI and a local database for people in the workfield that find it handy ;)
+
+At last, I want to thank everyone who has been using, or has used pcHealth! 
+I got a lot of feedback and was able to improve the script because of that, many thanks again.
+
+Special credits go to the following people:
+
+CREDITS: Jaccosf, Stensel and other testers!
+
+### 26-07-2022
 
 Added a feature to restart the audio-drivers on the host machine. 
 This will be in the test menu = '1' and at function = '10'.
@@ -9,19 +26,19 @@ Since it runs through a .PS extension it isn't able to return the user to the ma
 
 For this feature I have to give credit to Stensel, he recommanded and made a huge contribution to this specific feature. Thanks!
 
-## 20-07-2022 
+### 20-07-2022 
 
 Reviewed the script by myself, saw some minor inconviences... fixed that.
 The changes that I made to the script regarding downloading of progams, is a succes!
 
-## 20-07-2022
+### 20-07-2022
 
 Changed some small visual issues, re-adjusted some strange formats of text.
 Huge update to the codelines/commands that bring you to a download page - submenu: 'tools'.
 
 Full version release will be near!
 
-## 07-07-2022
+### 07-07-2022
 
 Updated option 13 - license key.
 
@@ -34,12 +51,12 @@ This script is an extension for if the pcHealth.bat (option 13) doesn't comeback
 
 + Removed some typo's and made a change in the displaying color regarding to Option 13.
 
-## 04-03-2022
+### 04-03-2022
 
 Change in colours regarding to the script.
 Added a return to the 'opening' menu in the Tools category.
 
-## 18-02-2022
+## 18-02-2022 - Full Version Release 1.4.0
 
 REWORK part 2, couldn't work in it in the past days, due to health issues.
 In this update/push we have reworked some of the main aspects that we promised to change on our latest stream.
@@ -49,17 +66,19 @@ Removed some 'dead' lines of code, made them come back to life somewhere else in
 Updated the README.md since a lot didn't apply anymore, since the rework has made some impact on how the script presents itself.
 A quick note on the PS (PowerShell) variant, that project will be finished and started on later this first Q of this year.
 
-## 12-02-2022
+CREDITS: @Jaccosf
+
+### 12-02-2022
 
 Updated the script to display 2 menu's instead of a bunch of un-organized options.
 This will keep it easier to read and more foolproof/noobfriendly.
 
-## 02-02-2022 
+### 02-02-2022 
 
 Changed the download link from the HWinfo.
 So when you run this line it will redirect you to the latest HWinfo installer.
 
-## 06-01-2022 - 07-01-2022
+### 06-01-2022 - 07-01-2022
 
 Updated the Project board on GitHub.
 This commit is due to these additions, see it as a reminder for me...
@@ -73,7 +92,7 @@ There will be a code format update too, so things may change and be not 'that cl
 
 Updated some text issues that were being displayed in the script.
 
-## 03-01-2022
+### 03-01-2022
 
 After a small break we continue working on the script.
 Thanks to a colleague of me, I have added the license key function to the script.
@@ -84,7 +103,7 @@ So credits were credits due.
 This function is in the new beta release.
 later this week I will push a official release.
 
-## 24-12-2021
+### 24-12-2021
 
 Today we have reworked the visual representation of the script.
 The way it displays text to the user and guides the user through the script was a bit harse, so we made it somewhat easier to read.
@@ -98,19 +117,19 @@ This could get another rework in the future, but for now this will do.
 PowerShell script has been updated to output some standard features.
 Not every function works yet, but most of them do now.
 
-## 22-12-2021
+### 22-12-2021
 
 Added the function to the code so the script closes itself when the user choses to use the reshut function.
 Releases and other documentation files have been updated.
 
-## 16-12-2021
+### 16-12-2021
 
 A new folder has been created, this folder contains the PowerShell variant of the pcHealth.bat.
 At this moment, the PowerShell script is unuseable.
 
 Keep track of this changelog.md or releases.md if there is a stable release of this PowerShell build.
 
-## 15-12-2021
+### 15-12-2021
 
 Modified the code, added a new feature/command to the script.
 It is now possible to run command 2, to display which GPU is in your system.
@@ -122,7 +141,7 @@ Updated the GPU command, to display CPU info too.
 pcHealth.bat has been moved inside a folder called CMD.
 It might be possible that there will be a PowerShell version of this script.
 
-## 14-12-2021
+## 14-12-2021 - Full Version Release 1.2.2 / 1.2.3 / 1.3.0
 
 Changed the main code, so it cleans after a command has been ran.
 The script changes color.
@@ -132,7 +151,7 @@ GREEN in standby/menu, RED when code is active/script is running.
 It's now possible to log off, restart and/or shutdown your PC/Laptop via the Script. 
 New Full Release will be pushed.
 
-## 10-12-2021
+## 10-12-2021 - Full Version Release 1.2.0 
 
 Added a function to display and read the system information from the command line.
 
@@ -140,7 +159,7 @@ Updated README.md, Changelog.md and releases.md
 
 Updated release.md, it now displays on which version we are, what the full releases are and which the alpha/beta builds were.
 
-## 09-12-2021
+### 09-12-2021
 
 New function has been added, you can now open the GUI to check for Windows Updates.
 In the future I want to add something that will force to check for updates and install them directly or give the user the choice to force them.
@@ -152,7 +171,7 @@ README.md has been updated to explain what 'Number 5 does.'
 Added 2 new functions, short ping en continues ping.
 Updated the README.md again for the explanation of what it does.
 
-## 08-12-2021
+## 08-12-2021 - Full Version Release 1.0.0
 
 Updated the README.md
 Updated releases.md
@@ -166,7 +185,7 @@ The script works as it is now, more or other features maybe/will be added in the
 
 Full release version: v1.0.0
 
-## 07-12-2021
+### 07-12-2021
 
 Added code to make the program aware if it is being run in Admin mode.
 If it isn't it will prompt the user to do so.
@@ -175,14 +194,14 @@ Added a new function to the code.
 
 - You can now get your Ninite through the terminal!
 
-## 06-12-2021
+### 06-12-2021
 
 Reformatted the code, to make it easier for other dev's to start working on it or to understand what it does.
 Changed the color to Green.
 
 Reworked the DISM code, so it doesn't try to display a log that is made with the SFC command.
 
-## 03-12-2021
+### 03-12-2021
 
 Changed some code to make it more streamlined.
 Added some new menu's to navigate through.
@@ -198,7 +217,7 @@ Also there has been a new release of this script.
 
 Oh ooh, made a typo, resolved it!
 
-## 02-12-2021
+### 02-12-2021
 
 Added the function to open the battery report via the script.
 So people won't have to navigate to the file to check the script.
@@ -211,7 +230,7 @@ User will get the option to open it or to skip it.
 When a log has been generated, user will the option to re-open it via the 'main' menu.
 Visual interface has been tweaked too.
 
-## 01-12-2021
+### 01-12-2021
 
 Added some new functions, overall updated the main code to function and display better.
 Added the date and time after the license.
@@ -220,7 +239,7 @@ Wanted to add a 'release' function, but this one is held back, since it worked i
 
 Created an extra return menu, but all these menus have their own variable, so the changes are minimal on creating bugs/other problems.
 
-## 29-11-2021
+### 29-11-2021
 
 Update on the 'return to menu' issue/function.
 Added a GOTO function to go back to the 'menu.'
@@ -232,25 +251,25 @@ Added an exrta feature to scan and repair right after eachother without making i
 
 Made a small mistake, didn't added the 'number 5' as an option in the code, so users that aren't familiar with the program wouldn't know they could use the 'number 5' to exit the batch program.
 
-## 23-11-2021
+### 23-11-2021
 
 Updated the README.md to tell a user more about the repository and how to use the .bat file.
 
-## 23-11-2021
+### 23-11-2021
 
 Added a new function to the main code.
 It is now possible to run a diagnostic to check your laptop it's battery state.
 
-## 22-11-2021
+### 22-11-2021
 
 I have taken a quick look at the code, to see what has to be changed.
 
-## 22-11-2021
+### 22-11-2021
 
 The main code has been created, this means that the batch file works.
 It is able to react on a user it's input and follow through with a function.
 
-## 21-11-2021
+### 21-11-2021
 
 Project has been started.
 
