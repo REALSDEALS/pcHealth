@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.4.6-beta
+title pcHealth - Check your PC's Health! - version 1.4.7-beta
 cd /
 color A
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.4.6-beta
+echo You are now using version 1.4.7-beta
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -74,14 +74,15 @@ echo Enter number 6 to generate a battery report. (Laptop only)
 echo Enter number 7 to open the GUI to Windows Updates.
 echo Enter number 8 to start a short ping test.
 echo Enter number 9 to start a continues ping test.
-echo Enter number 10 to re-open the generated battery report file.
-echo Enter number 11 to re-open the CBS.log (AKA DISM.log)
-echo Enter number 12 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
-echo Enter number 13 to see your systems Windows License key.
-echo Enter number 14 to shutdown, reboot or log off from your PC/laptop.
-echo Enter number 15 to open the programs menu.
-echo Enter number 16 to return to the previous menu.
-echo Enter number 17 to close this batch file.
+echo Enter number 10 to re-start the audio drivers of your system.
+echo Enter number 11 to re-open the generated battery report file.
+echo Enter number 12 to re-open the CBS.log (AKA DISM.log)
+echo Enter number 13 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
+echo Enter number 14 to see your systems Windows License key.
+echo Enter number 15 to shutdown, reboot or log off from your PC/laptop.
+echo Enter number 16 to open the programs menu.
+echo Enter number 17 to return to the previous menu.
+echo Enter number 18 to close this batch file.
 echo ...........................................................
 echo.
 
@@ -95,14 +96,15 @@ IF %B%==6 GOTO BATTERY
 IF %B%==7 GOTO UPDATE
 IF %B%==8 GOTO SHORTPING
 IF %B%==9 GOTO CONTINUESPING
-IF %B%==10 GOTO BATOPEN
-IF %B%==11 GOTO OPENCBSLOG
-IF %B%==12 GOTO NINITE
-IF %B%==13 GOTO LICENSE
-IF %B%==14 GOTO RESHUT
-IF %B%==15 GOTO PROGRAMS
-IF %B%==16 GOTO MENU
-IF %B%==17 GOTO CLOSE
+IF %B%==10 GOTO AUDIORE 
+IF %B%==11 GOTO BATOPEN
+IF %B%==12 GOTO OPENCBSLOG
+IF %B%==13 GOTO NINITE
+IF %B%==14 GOTO LICENSE
+IF %B%==15 GOTO RESHUT
+IF %B%==16 GOTO PROGRAMS
+IF %B%==17 GOTO MENU
+IF %B%==18 GOTO CLOSE
 
 :PROGRAMS
 cls
@@ -263,6 +265,19 @@ echo.
 SET /P N=Enter number 1 to return to the menu, enter number 2 to exit. Enter: 
 IF %N%==1 GOTO MENU
 IF %N%==2 GOTO CLOSE
+
+:AUDIORE
+cls
+color C
+if "%1"=="am_admin" (powershell start -verb runas '%0' am_admin) 
+net stop audiosrv
+net stop AudioEndPointBuilder
+net start AudioEndPointBuilder
+net start audiosrv
+pause
+echo.
+SET /P P=Sadly you aren't able to return to the 'main' menu. Please restart the script. Enter 1 to close. Enter: 
+IF %AO%==1 GOTO CLOSE
 
 :BATOPEN
 cls

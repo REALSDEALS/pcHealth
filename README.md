@@ -45,13 +45,14 @@ Otherwise I can keep no promise to that statement.
 7. Shortcut to Windows Update.
 8. Short ping test. (Do I have internet?)
 9. Continues ping test. (Does my internet stop at certain times?)
-10. Re-open the battery report. (Can't find my generated report anymore? Try opening it this way)
-11. Re-open the CBS.log (DISM log, report from option 4.) 
-12. Get your Ninite! (Standard program downloader/updater; Chrome, Edge, VLC and 7Zip)
-13. Check your Windows License Key.
-14. Shutdown, reboot and/or logout from the system.
-15. Open the other menu, it's called 'Programs'.
-16. Close the script.
+10. Re-enables the drivers, it restarts the audio drivers. (Having issues with sound?)
+11. Re-open the battery report. (Can't find my generated report anymore? Try opening it this way)
+12. Re-open the CBS.log (DISM log, report from option 4.) 
+13. Get your Ninite! (Standard program downloader/updater; Chrome, Edge, VLC and 7Zip)
+14. Check your Windows License Key.
+15. Shutdown, reboot and/or logout from the system.
+16. Open the other menu, it's called 'Programs'.
+17. Close the script.
 
 
 #### Programs menu:
