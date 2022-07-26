@@ -1,5 +1,14 @@
 # Changelog.md - pcHealth
 
+## 26-07-2022
+
+Added a feature to restart the audio-drivers on the host machine. 
+This will be in the test menu = '1' and at function = '10'.
+
+Since it runs through a .PS extension it isn't able to return the user to the main menu... This is one of the many limitations of .batch... :(
+
+For this feature I have to give credit to Stensel, he recommanded and made a huge contribution to this specific feature. Thanks!
+
 ## 20-07-2022 
 
 Reviewed the script by myself, saw some minor inconviences... fixed that.
