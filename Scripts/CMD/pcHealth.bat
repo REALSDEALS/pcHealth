@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.5.0
+title pcHealth - Check your PC's Health! - version 1.5.1-beta
 cd /
 color A
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.5.0 (Stable)
+echo You are now using version 1.5.1 (BETA)
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -138,9 +138,10 @@ color C
 systeminfo
 pause
 echo.
-SET /P C=Enter number 1 to return to the menu, enter number 2 to exit. Enter: 
+SET /P C=Enter number 1 to return to the main-menu, enter number 2 to go back to the previous sub-menu or enter number 3 to close the script. Enter: 
 IF %C%==1 GOTO MENU
-IF %C%==2 GOTO CLOSE
+IF %C%==2 GOTO TOOLS
+IF %C%==3 GOTO CLOSE
 
 :SCAN
 cls
@@ -148,9 +149,11 @@ color C
 sfc /scannow
 pause
 echo.
-SET /P D=If the scan found any corrupt files, enter number 1 to check the .log, enter number 2 when you want to return to the menu. Enter: 
+SET /P D=If the scan found any corrupt files, enter number 1 to check the .log, enter number 2 to return to the previous sub-menu, enter number 3 when you want to return to the menu or enter number 4 to close the script. Enter: 
 IF %D%==1 GOTO OPENCBSLOG
-IF %D%==2 GOTO MENU
+IF %D%==2 GOTO TOOLS
+IF %D%==3 GOTO MENU
+IF %D%==4 GOTO CLOSE
 
 :CPUANDGPUINFO
 cls
@@ -165,9 +168,10 @@ echo.
 wmic path win32_VideoController get name
 pause
 echo.
-SET /P E=Enter number 1 to return to the menu, enter number 2 to exit. Enter: 
+SET /P E=Enter number 1 to return to the main-menu, enter number 2 to go back to the previous sub-menu or enter number 3 to close the script. Enter: 
 IF %E%==1 GOTO MENU
-IF %E%==2 GOTO CLOSE
+IF %E%==2 GOTO TOOLS
+IF %E%==3 GOTO CLOSE
 
 :DISM
 cls
@@ -176,9 +180,11 @@ DISM /online /cleanup-image /checkhealth
 DISM /online /cleanup-image /scanhealth
 pause
 echo.
-SET /P F=Enter number 1 to start an attempt on repairing, enter number 2 to return to the menu. Enter: 
+SET /P F=Enter number 1 to start an attempt on repairing, enter number 2 to return to the previous sub-menu, number 3 for the main-menu or number 4 to exit the script. Enter: 
 IF %F%==1 GOTO DISMRESTORE
-IF %F%==2 GOTO MENU
+IF %F%==2 GOTO TOOLS
+IF %F%==3 GOTO MENU
+IF %F%==4 GOTO CLOSE
 
 :DISMRESTORE
 cls
@@ -186,9 +192,10 @@ color C
 DISM /online /cleanup-image /restorehealth
 pause
 echo.
-SET /P G=Enter number 1 to return to the menu, enter number 2 to exit. Enter: 
+SET /P G=Enter number 1 to return to the main-menu, enter number 2 to go back to the previous sub-menu or enter number 3 to close the script. Enter: 
 IF %G%==1 GOTO MENU
-IF %G%==2 GOTO CLOSE
+IF %G%==2 GOTO TOOLS
+IF %G%==3 GOTO CLOSE
 
 :SCSM
 cls
@@ -196,10 +203,12 @@ color C
 sfc /scannow
 pause
 echo.
-SET /P H=If the scan found any corrupt files, enter number 1 to check the .log, enter number 2 to start an attempt to repair the corrupt/missing files, enter number 3 to return to the menu. Enter: 
+SET /P H=If the scan found any corrupt files, enter number 1 to check the .log, enter number 2 to start an attempt to repair the corrupt/missing files,enter number 3 to return to the previous sub-menu, enter number 4 to return to the main-menu or enter number 5 to exit the script. Enter: 
 IF %H%==1 GOTO SCSMOPENLOG
 IF %H%==2 GOTO CONTINUE
-IF %H%==3 GOTO MENU
+IF %H%==3 GOTO TOOLS
+IF %H%==4 GOTO MENU
+IF %H%==5 GOTO CLOSE
 
 :SCSMOPENLOG
 cls
@@ -207,10 +216,11 @@ color C
 start %windir%\explorer.exe "C:\Windows\Logs\CBS\CBS.log"
 pause
 echo.
-SET /P I=Enter number 1 to start an attempt to repair the corrupt/missing files, if any are found... Enter number 2 to return to the main menu, enter number 3 to quit the script. Enter: 
+SET /P I=Enter number 1 to start an attempt to repair the corrupt/missing files, if any are found... Enter number 2 to return to the previous sub-menu, enter number 3 to return to the main-menu or enter number 4 to exit the script. Enter: 
 IF %I%==1 GOTO CONTINUE
-IF %I%==2 GOTO MENU
-IF %I%==3 GOTO CLOSE
+IF %I%==2 GOTO TOOLS
+IF %I%==3 GOTO MENU
+IF %I%==4 GOTO CLOSE
 
 :CONTINUE
 cls
@@ -221,9 +231,10 @@ pause
 DISM /online /cleanup-image /restorehealth
 pause
 echo.
-SET /P J=Enter number 1 to return to the menu, enter number 2 to exit. Enter: 
-IF %J%==1 GOTO MENU
-IF %J%==2 GOTO CLOSE
+SET /P J=Enter number 1 to return to the previous sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit. Enter: 
+IF %J%==1 GOTO TOOLS
+IF %J%==2 GOTO MENU
+IF %J%==3 GOTO CLOSE
 
 :BATTERY
 cls
@@ -231,9 +242,11 @@ color C
 powercfg /batteryreport
 pause
 echo.
-SET /P K=Enter number 1 to open the generated file, enter number 2 to return to the menu. Enter: 
+SET /P K=Enter number 1 to open the generated file, enter number 2 to return to the previous sub-menu, number 3 to return to the main-menu or enter number 4 to exit the script. Enter: 
 IF %K%==1 GOTO BATOPEN
-IF %K%==2 GOTO MENU
+IF %K%==2 GOTO TOOLS
+IF %K%==3 GOTO MENU
+IF %K%==4 GOTO CLOSE
 
 :UPDATE
 cls
@@ -241,9 +254,10 @@ color C
 control update
 pause
 echo.
-SET /P L=Enter number 1 to return to the menu, enter number 2 to exit. Enter: 
-IF %L%==1 GOTO MENU
-IF %L%==2 GOTO CLOSE
+SET /P L=Enter number 1 to return to the previous sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
+IF %L%==1 GOTO TOOLS
+IF %L%==2 GOTO MENU
+IF %L%==3 GOTO CLOSE
 
 :SHORTPING
 cls
@@ -251,10 +265,11 @@ color C
 ping 8.8.8.8 
 pause
 echo.
-SET /P M=Enter number 1 to return to the menu, enter number 2 to start a continues ping test, enter number 3 to exit. Enter: 
-IF %M%==1 GOTO MENU
-IF %M%==2 GOTO CONTINUESPING
-IF %M%==3 GOTO CLOSE
+SET /P M=Enter number 1 to return to the previous sub-menu, enter number 2 to return to the main-menu, enter number 3 to start a continues ping test or enter number 4 to exit the script. Enter: 
+IF %M%==1 GOTO TOOLS
+IF %M%==2 GOTO MENU
+IF %M%==3 GOTO CONTINUESPING
+IF %M%==4 GOTO CLOSE
 
 :CONTINUESPING
 cls
@@ -262,8 +277,9 @@ color C
 ping 8.8.8.8 -t -l 256
 pause
 echo.
-SET /P N=Enter number 1 to return to the menu, enter number 2 to exit. Enter: 
-IF %N%==1 GOTO MENU
+SET /P N=Enter number 1 to return to the previous sub-menu menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
+IF %N%==1 GOTO TOOLS
+IF %N%==2 GOTO MENU
 IF %N%==2 GOTO CLOSE
 
 :AUDIORE
@@ -285,9 +301,10 @@ color C
 start %windir%\explorer.exe "C:\battery-report.html"
 pause
 echo.
-SET /P O=Enter number 1 to return to the menu, enter number 2 to exit. Enter: 
-IF %O%==1 GOTO MENU
-IF %O%==2 GOTO CLOSE
+SET /P O=Enter number 1 to return to the previous sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
+IF %O%==1 GOTO TOOLS
+IF %O%==2 GOTO MENU
+IF %O%==3 GOTO CLOSE
 
 :OPENCBSLOG
 cls
@@ -295,9 +312,10 @@ color C
 start %windir%\explorer.exe "C:\Windows\Logs\CBS\CBS.log"
 pause
 echo.
-SET /P P=Enter number 1 to return to the main menu, enter number 2 to exit. Enter: 
-IF %P%==1 GOTO MENU
-IF %P%==2 GOTO CLOSE
+SET /P P=Enter number 1 to return to the previous sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
+IF %P%==1 GOTO TOOLS
+IF %P%==2 GOTO MENU
+IF %P%==3 GOTO CLOSE
 
 :NINITE
 cls
@@ -305,9 +323,10 @@ color C
 start "" https://ninite.com/7zip-chrome-edge-vlc/ninite.exe 
 pause
 echo.
-SET /P Q=Enter number 1 to return to the main menu, enter number 2 to exit. Enter: 
-IF %Q%==1 GOTO MENU
-IF %Q%==2 GOTO CLOSE
+SET /P Q=Enter number 1 to return to the previous sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
+IF %Q%==1 GOTO TOOLS
+IF %Q%==2 GOTO MENU
+IF %Q%==3 GOTO CLOSE
 
 :LICENSE
 cls
@@ -322,27 +341,31 @@ echo If it didn't showed a key, it is possible that this PC is using a 'illegal'
 echo.
 echo You can also try to use a different script for the license key, you can find it in the 'Scripts' folder in this pcHealth folder!
 echo.
-SET /p R=If you want to return to the menu, enter number 1. To close the script, enter the number 2. Enter: 
-IF %R%==1 GOTO MENU
+SET /p R=If you want to return to the previous sub-menu, enter number 1. To return to the main-menu, enter number 2. To exit the script, enter the number 3. Enter: 
+IF %R%==1 GOTO TOOLS
+IF %R%==2 GOTO MENU
 IF %R%==2 GOTO CLOSE
 
 :RESHUT
 cls
 color C
 echo. 
-SET /P S=If you want to log off from your PC/Laptop enter number 1, to restart enter number 2, to shutdown enter number 3 and to return to the main menu enter number 4. Enter: 
+SET /P S=If you want to log off from your PC/Laptop enter number 1, to restart enter number 2, to shutdown enter number 3 and to return to the previous sub-menu enter number 4 or to exit the script... enter number 5. Enter: 
 IF %S%==1 GOTO LOGOFF1
 IF %S%==2 GOTO RESTART2
 IF %S%==3 GOTO SHUTDOWN3
-IF %S%==4 GOTO CLOSE
+IF %S%==4 GOTO TOOLS
+IF %S%==5 GOTO CLOSE
 
 :LOGOFF1
 cls
 color C 
 echo. 
-SET /P T=Are you sure that you want to log off your PC? Enter number 1, enter number 2 if you want to return to the menu. Enter: 
+SET /P T=Are you sure that you want to log off your PC? Enter number 1, enter number 2 to return to the previous sub-menu, enter number 3 to return to the main-menu or enter number 4 to exit the script. Enter: 
 IF %T%==1 GOTO LOGOFFCONFIRM1
-IF %T%==2 GOTO MENU 
+IF %T%==2 GOTO TOOLS
+IF %T%==3 GOTO MENU 
+IF %T%==4 GOTO CLOSE
 
 :LOGOFFCONFIRM1
 cls
@@ -354,9 +377,11 @@ EXIT /B
 cls
 color C
 echo.
-SET /P U=Are you sure that you want to restart your PC? Enter number 1, to do so. Enter number 2 to return to the main menu. Enter: 
+SET /P U=Are you sure that you want to restart your PC? Enter number 1, to do so. Enter number 2 to return to the previous sub-menu, enter number 3 to return to the main-menu or enter number 4 to exit the script. Enter: 
 IF %U%==1 GOTO RESTARTCONFIRM2
-IF %U%==2 GOTO MENU
+IF %U%==2 GOTO TOOLS
+IF %U%==3 GOTO MENU
+IF %U%==4 GOTO CLOSE
 
 :RESTARTCONFIRM2
 cls
@@ -368,9 +393,11 @@ EXIT /B
 cls
 color C
 echo. 
-SET /P V=Are you sure that you want to shutdown your PC? Enter number 1, to continue. Enter number 2 to return to the main menu. Enter: 
+SET /P V=Are you sure that you want to shutdown your PC? Enter number 1, to continue. Enter number 2 to return to the previous sub-menu, enter number 3 to return to the main-menu or enter number 4 to exit the script. Enter: 
 IF %V%==1 GOTO SHUTDOWNCONFIRM3
-IF %V%==2 GOTO MENU
+IF %V%==2 GOTO TOOLS 
+IF %V%==3 GOTO MENU
+IF %V%==4 GOTO CLOSE
 
 :SHUTDOWNCONFIRM3
 cls
@@ -384,7 +411,7 @@ color C
 echo.
 echo Are you sure that you want to download the newest version of pcHealth?
 echo.
-SET /P AC=If yes, enter the number 1, if not enter number 2 to return to the menu. Enter: 
+SET /P AC=If yes, enter the number 1, if not enter number 2 to return to the previous sub-menu. Enter: 
 IF %AC%==1 GOTO PCHEALTHGETVERDOWNLOADLINK
 IF %AC%==2 GOTO MENU 
 
@@ -418,9 +445,10 @@ echo Your download will start now; if not click on 'installer' on the download p
 echo.
 start "" https://www.fosshub.com/HWiNFO.html?dwl=hwi_726.exe
 echo.
-SET /P AF=To return to the main menu enter 1, to close the script enter 2. Enter: 
-IF %AF%==1 GOTO MENU
-IF %AF%==2 GOTO CLOSE
+SET /P AF=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
+IF %AF%==1 GOTO DOWNLOADABLES
+IF %AF%==2 GOTO MENU
+IF %AF%==3 GOTO CLOSE
 
 :ADWCLEANER
 cls
@@ -428,9 +456,9 @@ color C
 echo.
 echo Are you sure that you want to download the latest version of ADW Cleaner?
 echo. 
-SET /P AG=If yes enter the number 1 to start the download, enter number 2 to return to the menu. Enter: 
+SET /P AG=If yes enter the number 1 to start the download, enter number 2 to return to the previous sub-menu. Enter: 
 IF %AG%==1 GOTO ADWCLEANERDOWNLOADLINK
-IF %AG%==2 GOTO MENU
+IF %AG%==2 GOTO DOWNLOADABLES
 
 :ADWCLEANERDOWNLOADLINK
 cls
@@ -440,9 +468,10 @@ echo Your download will start now!
 echo.
 start "" https://downloads.malwarebytes.com/file/adwcleaner
 echo.
-SET /P AH=To return to the main menu enter 1, to close the script enter 2. Enter: 
-IF %AH%==1 GOTO MENU
-IF %AH%==2 GOTO CLOSE
+SET /P AH=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
+IF %AH%==1 GOTO TOOLS
+IF %AH%==2 GOTO MENU
+IF %AH%==3 GOTO CLOSE
 
 :DISKINFODOWN
 cls
@@ -450,9 +479,9 @@ color C
 echo. 
 echo Are you sure that you want to download the latest version of Disk Info?
 echo. 
-SET /P AI=If yes enter the number 1 to start the download, enter the number 2 to return to the menu. Enter: 
+SET /P AI=If yes enter the number 1 to start the download, enter the number 2 to return to the previous sub-menu. Enter: 
 IF %AI%==1 GOTO DISKINFODOWNLOADLINK
-IF %AI%==2 GOTO MENU
+IF %AI%==2 GOTO DOWNLOADABLES
 
 :DISKINFODOWNLOADLINK
 cls
@@ -461,9 +490,10 @@ echo.
 echo Your download will start now!
 start "" https://osdn.net/projects/crystaldiskinfo/downloads/77538/CrystalDiskInfo8_17_4.zip/
 echo.
-SET /P AJ=To return to the main menu enter 1, to close the script enter 2. Enter: 
-IF %AJ%==1 GOTO MENU
-IF %AJ%==2 GOTO CLOSE
+SET /P AJ=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
+IF %AJ%==1 GOTO TOOLS
+IF %AJ%==2 GOTO MENU
+IF %AJ%==3 GOTO CLOSE
 
 :DISKMARKDOWN
 cls
@@ -471,9 +501,9 @@ color C
 echo. 
 echo Are you sure that you want to download the latest version of Disk Mark?
 echo. 
-SET /P AK=If yes enter the number 1 to start the download, enter the number 2 to return to the menu. Enter: 
+SET /P AK=If yes enter the number 1 to start the download, enter the number 2 to return to the previous sub-menu. Enter: 
 IF %AK%==1 GOTO DISKMARKDOWNLOADLINK
-IF %AK%==2 GOTO MENU
+IF %AK%==2 GOTO DOWNLOADABLES
 
 :DISKMARKDOWNLOADLINK
 cls
@@ -482,9 +512,10 @@ echo.
 echo Your download will start now!
 start "" https://osdn.net/projects/crystaldiskmark/downloads/77539/CrystalDiskMark8_0_4b.zip/
 echo.
-SET /P AL=To return to the main menu enter 1, to close the script enter 2. Enter: 
-IF %AL%==1 GOTO MENU
-IF %AL%==2 GOTO CLOSE
+SET /P AL=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
+IF %AL%==1 GOTO TOOLS
+IF %AL%==2 GOTO MENU
+IF %AL%==3 GOTO CLOSE
 
 :PRIMEDOWN
 cls
@@ -492,9 +523,9 @@ color C
 echo. 
 echo Are you sure that you want to download the latest version of Prime95? Enter: 
 echo. 
-SET /P AM=If yes enter the number 1 to start the download, enter the number 2 to return to the menu.
+SET /P AM=If yes enter the number 1 to start the download, enter the number 2 to return to the previous sub-menu.
 IF %AM%==1 GOTO PRIMEDOWNLOADLINK
-IF %AM%==2 GOTO MENU
+IF %AM%==2 GOTO DOWNLOADABLES
 
 :PRIMEDOWNLOADLINK
 cls
@@ -503,9 +534,10 @@ echo.
 echo Your download will start now!
 start "" https://www.guru3d.com/files-get/prime95-download,3.html
 echo.
-SET /P AN=If yes enter the number 1 to start the download, enter the number 2 to return to the menu.
-IF %AN%==1 GOTO PRIMEDOWNLOADLINK
+SET /P AN=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
+IF %AN%==1 GOTO TOOLS
 IF %AN%==2 GOTO MENU
+IF %AN%==3 GOTO CLOSE
 
 :CLOSE
 EXIT /B

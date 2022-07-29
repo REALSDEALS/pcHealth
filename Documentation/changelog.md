@@ -1,5 +1,10 @@
 # Changelog.md - pcHealth
 
+### 29-07-2022 
+
+You are now able to return to the previous menu. 
+You will be prompted with an option; returning to the previous (sub)-menu or returning to the (main)-menu.
+
 ## 26-07-2022 - Full Version Release 1.5.0
 
 Version 1.5.0 will be available!
