@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.5.1-beta
+title pcHealth - Check your PC's Health! - version 1.5.2-beta
 cd /
 color A
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.5.1 (BETA)
+echo You are now using version 1.5.2 (BETA)
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -435,7 +435,7 @@ echo Are you sure that you want to download the newest version of Hardware Info?
 echo.
 SET /P AE=If yes, enter the number 1, if not enter number 2 to return to the menu. Enter: 
 IF %AE%==1 GOTO HARDINFODOWNLOADLINK
-IF %AE%==2 GOTO DOWNLOADABLES
+IF %AE%==2 GOTO PROGRAMS
 
 :HARDINFODOWNLOADLINK
 cls
@@ -446,7 +446,7 @@ echo.
 start "" https://www.fosshub.com/HWiNFO.html?dwl=hwi_726.exe
 echo.
 SET /P AF=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
-IF %AF%==1 GOTO DOWNLOADABLES
+IF %AF%==1 GOTO PROGRAMS
 IF %AF%==2 GOTO MENU
 IF %AF%==3 GOTO CLOSE
 
@@ -458,7 +458,7 @@ echo Are you sure that you want to download the latest version of ADW Cleaner?
 echo. 
 SET /P AG=If yes enter the number 1 to start the download, enter number 2 to return to the previous sub-menu. Enter: 
 IF %AG%==1 GOTO ADWCLEANERDOWNLOADLINK
-IF %AG%==2 GOTO DOWNLOADABLES
+IF %AG%==2 GOTO PROGRAMS
 
 :ADWCLEANERDOWNLOADLINK
 cls
@@ -481,7 +481,7 @@ echo Are you sure that you want to download the latest version of Disk Info?
 echo. 
 SET /P AI=If yes enter the number 1 to start the download, enter the number 2 to return to the previous sub-menu. Enter: 
 IF %AI%==1 GOTO DISKINFODOWNLOADLINK
-IF %AI%==2 GOTO DOWNLOADABLES
+IF %AI%==2 GOTO PROGRAMS
 
 :DISKINFODOWNLOADLINK
 cls
@@ -503,7 +503,7 @@ echo Are you sure that you want to download the latest version of Disk Mark?
 echo. 
 SET /P AK=If yes enter the number 1 to start the download, enter the number 2 to return to the previous sub-menu. Enter: 
 IF %AK%==1 GOTO DISKMARKDOWNLOADLINK
-IF %AK%==2 GOTO DOWNLOADABLES
+IF %AK%==2 GOTO PROGRAMS
 
 :DISKMARKDOWNLOADLINK
 cls
@@ -525,7 +525,7 @@ echo Are you sure that you want to download the latest version of Prime95? Enter
 echo. 
 SET /P AM=If yes enter the number 1 to start the download, enter the number 2 to return to the previous sub-menu.
 IF %AM%==1 GOTO PRIMEDOWNLOADLINK
-IF %AM%==2 GOTO DOWNLOADABLES
+IF %AM%==2 GOTO PROGRAMS
 
 :PRIMEDOWNLOADLINK
 cls
