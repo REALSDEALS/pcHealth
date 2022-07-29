@@ -1,5 +1,13 @@
 # Changelog.md - pcHealth
 
+### 29-07-2022
+
+Made a small mistake...
+
+I made a wrong direction in the code for the programs menu, I redirected the 'return to sub-menu' function back to 'DOWNLOADABLES' but this wasn't a menu. Changed it to the right menu: 'PROGRAMS.'
+
+So it should be up and running now!
+
 ### 29-07-2022 
 
 You are now able to return to the previous menu. 
