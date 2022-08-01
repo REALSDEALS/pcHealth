@@ -1,5 +1,10 @@
 # Changelog.md - pcHealth
 
+### 01-08-2022
+
+BigoStream: Added a update instance.
+Function-key: 8
+
 ### 29-07-2022
 
 Made a small mistake...
