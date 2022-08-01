@@ -264,12 +264,13 @@ IF %L%==3 GOTO CLOSE
 :SYSUPDATE
 cls
 color C
-if "%1"=="am_admin" (powershell start -verb runas '%0' am_admin)
 winget upgrade --all
 pause
 echo.
-SET /P P=Sadly you aren't able to return to the 'main' menu. Please restart the script. Enter 1 to close. Enter: 
-IF %AP%==1 GOTO CLOSE
+SET /P P=Enter number 1 to return to the sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
+IF %AP%==1 GOTO TOOLS
+IF %AP%==2 GOTO MENU
+IF %AP%==3 GOTO CLOSE
 
 :SHORTPING
 cls
