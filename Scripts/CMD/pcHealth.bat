@@ -267,10 +267,10 @@ color C
 winget upgrade --all
 pause
 echo.
-SET /P P=Enter number 1 to return to the sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
-IF %AP%==1 GOTO TOOLS
-IF %AP%==2 GOTO MENU
-IF %AP%==3 GOTO CLOSE
+SET /P AO=Enter number 1 to return to the sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
+IF %AO%==1 GOTO TOOLS
+IF %AO%==2 GOTO MENU
+IF %AO%==3 GOTO CLOSE
 
 :SHORTPING
 cls
