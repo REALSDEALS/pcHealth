@@ -73,17 +73,17 @@ echo Enter number 5 to run a system scan and to start an attempt on repairing mi
 echo Enter number 6 to generate a battery report. (Laptop only)
 echo Enter number 7 to open the GUI to Windows Updates.
 echo Enter number 8 to update system programs.
-echo Enter number 8 to start a short ping test.
-echo Enter number 9 to start a continues ping test.
-echo Enter number 10 to re-start the audio drivers of your system.
-echo Enter number 11 to re-open the generated battery report file.
-echo Enter number 12 to re-open the CBS.log (AKA DISM.log)
-echo Enter number 13 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
-echo Enter number 14 to see your systems Windows License key.
-echo Enter number 15 to shutdown, reboot or log off from your PC/laptop.
-echo Enter number 16 to open the programs menu.
-echo Enter number 17 to return to the previous menu.
-echo Enter number 18 to close this batch file.
+echo Enter number 9 to start a short ping test.
+echo Enter number 10 to start a continues ping test.
+echo Enter number 11 to re-start the audio drivers of your system.
+echo Enter number 12 to re-open the generated battery report file.
+echo Enter number 13 to re-open the CBS.log (AKA DISM.log)
+echo Enter number 14 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
+echo Enter number 15 to see your systems Windows License key.
+echo Enter number 16 to shutdown, reboot or log off from your PC/laptop.
+echo Enter number 17 to open the programs menu.
+echo Enter number 18 to return to the previous menu.
+echo Enter number 19 to close this batch file.
 echo ...........................................................
 echo.
 
