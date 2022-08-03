@@ -1,5 +1,14 @@
 # Changelog.md - pcHealth
 
+### 01-08-2022
+
+BigoStream: Added a update instance.
+Function-key: 8
+
+Resolved hard-crash, regarding to function 8.
+
+Reworked the line of code, was workable in .batch.
+
 ### 29-07-2022
 
 Made a small mistake...

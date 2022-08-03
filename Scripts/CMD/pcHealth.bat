@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.5.2-beta
+title pcHealth - Check your PC's Health! - version 1.5.3-beta
 cd /
 color A
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.5.2 (BETA)
+echo You are now using version 1.5.3 (BETA)
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -72,17 +72,18 @@ echo Enter number 4 to try and repair missing/corrupt files.
 echo Enter number 5 to run a system scan and to start an attempt on repairing missing/corrupt files.
 echo Enter number 6 to generate a battery report. (Laptop only)
 echo Enter number 7 to open the GUI to Windows Updates.
-echo Enter number 8 to start a short ping test.
-echo Enter number 9 to start a continues ping test.
-echo Enter number 10 to re-start the audio drivers of your system.
-echo Enter number 11 to re-open the generated battery report file.
-echo Enter number 12 to re-open the CBS.log (AKA DISM.log)
-echo Enter number 13 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
-echo Enter number 14 to see your systems Windows License key.
-echo Enter number 15 to shutdown, reboot or log off from your PC/laptop.
-echo Enter number 16 to open the programs menu.
-echo Enter number 17 to return to the previous menu.
-echo Enter number 18 to close this batch file.
+echo Enter number 8 to update system programs.
+echo Enter number 9 to start a short ping test.
+echo Enter number 10 to start a continues ping test.
+echo Enter number 11 to re-start the audio drivers of your system.
+echo Enter number 12 to re-open the generated battery report file.
+echo Enter number 13 to re-open the CBS.log (AKA DISM.log)
+echo Enter number 14 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
+echo Enter number 15 to see your systems Windows License key.
+echo Enter number 16 to shutdown, reboot or log off from your PC/laptop.
+echo Enter number 17 to open the programs menu.
+echo Enter number 18 to return to the previous menu.
+echo Enter number 19 to close this batch file.
 echo ...........................................................
 echo.
 
@@ -94,17 +95,18 @@ IF %B%==4 GOTO DISM
 IF %B%==5 GOTO SCSM
 IF %B%==6 GOTO BATTERY
 IF %B%==7 GOTO UPDATE
-IF %B%==8 GOTO SHORTPING
-IF %B%==9 GOTO CONTINUESPING
-IF %B%==10 GOTO AUDIORE 
-IF %B%==11 GOTO BATOPEN
-IF %B%==12 GOTO OPENCBSLOG
-IF %B%==13 GOTO NINITE
-IF %B%==14 GOTO LICENSE
-IF %B%==15 GOTO RESHUT
-IF %B%==16 GOTO PROGRAMS
-IF %B%==17 GOTO MENU
-IF %B%==18 GOTO CLOSE
+IF %B%==8 GOTO SYSUPDATE
+IF %B%==9 GOTO SHORTPING
+IF %B%==10 GOTO CONTINUESPING
+IF %B%==11 GOTO AUDIORE 
+IF %B%==12 GOTO BATOPEN
+IF %B%==13 GOTO OPENCBSLOG
+IF %B%==14 GOTO NINITE
+IF %B%==15 GOTO LICENSE
+IF %B%==16 GOTO RESHUT
+IF %B%==17 GOTO PROGRAMS
+IF %B%==18 GOTO MENU
+IF %B%==19 GOTO CLOSE
 
 :PROGRAMS
 cls
@@ -258,6 +260,17 @@ SET /P L=Enter number 1 to return to the previous sub-menu, enter number 2 to re
 IF %L%==1 GOTO TOOLS
 IF %L%==2 GOTO MENU
 IF %L%==3 GOTO CLOSE
+
+:SYSUPDATE
+cls
+color C
+winget upgrade --all
+pause
+echo.
+SET /P AO=Enter number 1 to return to the sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
+IF %AO%==1 GOTO TOOLS
+IF %AO%==2 GOTO MENU
+IF %AO%==3 GOTO CLOSE
 
 :SHORTPING
 cls
