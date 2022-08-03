@@ -72,9 +72,9 @@ echo Enter number 4 to try and repair missing/corrupt files.
 echo Enter number 5 to run a system scan and to start an attempt on repairing missing/corrupt files.
 echo Enter number 6 to generate a battery report. (Laptop only)
 echo Enter number 7 to open the GUI to Windows Updates.
-echo Enter number 8 to update system programs.
-echo Enter number 9 to start a short ping test.
-echo Enter number 10 to start a continues ping test.
+echo Enter number 8 to start a short ping test.
+echo Enter number 9 to start a continues ping test.
+echo Enter number 10 to update system programs.
 echo Enter number 11 to re-start the audio drivers of your system.
 echo Enter number 12 to re-open the generated battery report file.
 echo Enter number 13 to re-open the CBS.log (AKA DISM.log)
@@ -95,9 +95,9 @@ IF %B%==4 GOTO DISM
 IF %B%==5 GOTO SCSM
 IF %B%==6 GOTO BATTERY
 IF %B%==7 GOTO UPDATE
-IF %B%==8 GOTO SYSUPDATE
-IF %B%==9 GOTO SHORTPING
-IF %B%==10 GOTO CONTINUESPING
+IF %B%==8 GOTO SHORTPING
+IF %B%==9 GOTO CONTINUESPING
+IF %B%==10 GOTO SYSUPDATE
 IF %B%==11 GOTO AUDIORE 
 IF %B%==12 GOTO BATOPEN
 IF %B%==13 GOTO OPENCBSLOG
@@ -133,6 +133,17 @@ IF %AB%==5 GOTO PRIMEDOWN
 IF %AB%==6 GOTO TOOLS
 IF %AB%==7 GOTO MENU
 IF %AB%==8 GOTO CLOSE
+
+:SYSUPDATE
+cls
+color C
+winget upgrade --all
+pause
+echo.
+SET /P LL=Enter number 1 to return to the sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
+IF %LL%==1 GOTO TOOLS
+IF %LL%==2 GOTO MENU
+IF %LL%==3 GOTO CLOSE
 
 :SYSINFO
 cls
@@ -260,17 +271,6 @@ SET /P L=Enter number 1 to return to the previous sub-menu, enter number 2 to re
 IF %L%==1 GOTO TOOLS
 IF %L%==2 GOTO MENU
 IF %L%==3 GOTO CLOSE
-
-:SYSUPDATE
-cls
-color C
-winget upgrade --all
-pause
-echo.
-SET /P AO=Enter number 1 to return to the sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
-IF %AO%==1 GOTO TOOLS
-IF %AO%==2 GOTO MENU
-IF %AO%==3 GOTO CLOSE
 
 :SHORTPING
 cls

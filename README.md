@@ -43,9 +43,9 @@ Otherwise I can keep no promise to that statement.
 5. Option 3. and 4. combined. (Puts both commands behind eachother)
 6. Generate a battery report. (To see how your laptop battery is doing)
 7. Shortcut to Windows Update.
-8. Script that opens a Powershell instance that updates system programs.
-9. Short ping test. (Do I have internet?)
-10. Continues ping test. (Does my internet stop at certain times?)
+8. Short ping test. (Do I have internet?)
+9. Continues ping test. (Does my internet stop at certain times?)
+10. Fetches updates for system programs, updates them too if needed.
 11. Re-enables the drivers, it restarts the audio drivers. (Having issues with sound?)
 12. Re-open the battery report. (Can't find my generated report anymore? Try opening it this way)
 13. Re-open the CBS.log (DISM log, report from option 4.) 
