@@ -1,5 +1,12 @@
 # Changelog.md - pcHealth
 
+## 04-08-2022 - Full Version Release 1.5.4
+
+Since the issue regarding the PR have been fixed and seemed to be up-to-date and stable enough, I will be releasing 1.5.4, since it has nice features people have been requested.
+
+Such as a way to return to the sub-menu, instead of going way back to the first (main) menu.
+Besides that it is now possible to fetch updates from system programs.
+
 ### 04-08-2022
 
 Looked at the PR from @BigoStream, wasn't working in the first case.
