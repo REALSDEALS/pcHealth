@@ -1,5 +1,12 @@
 # Changelog.md - pcHealth
 
+### 04-08-2022
+
+Looked at the PR from @BigoStream, wasn't working in the first case.
+Seemed to be an issue with some of the callbacks the script made... 
+
+Should be fixed now, this can be tested in beta version 1.5.3 at function '10' in TOOLS Menu.
+
 ### 01-08-2022
 
 BigoStream: Added a update instance.
