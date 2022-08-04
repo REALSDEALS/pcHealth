@@ -1,5 +1,12 @@
 # Changelog.md - pcHealth
 
+### 04-08-2022 
+
+Added templates for people to fill in, regarding to bugs/issues or requesting features.
+GitHub was being very intrusive about it, and has been prompting it to me for weeks now.
+
+So I have added them, they can be found under .github in the main directory from this repository.
+
 ## 04-08-2022 - Full Version Release 1.5.4
 
 Since the issue regarding the PR have been fixed and seemed to be up-to-date and stable enough, I will be releasing 1.5.4, since it has nice features people have been requested.
