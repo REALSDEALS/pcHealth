@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.5.5-beta
+title pcHealth - Check your PC's Health! - version 1.5.6
 cd /
 color A
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.5.5 (Beta)
+echo You are now using version 1.5.6 (Stable)
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -366,13 +366,15 @@ cls
 color C
 echo.
 echo The BIOS Password Recovery tool is a website that can be used to gather/generate a recovery code for the BIOS.
-echo If you don't know how to use this function/website than I would suggest that you enter '2' on the next line to learn more.
+echo.
+echo If you don't know how to use this function/website than, 
+echo I would suggest that you enter '2' on the next line to learn more.
 echo. 
 echo The credits for this function and repository goes to the owner: @bacher09
 echo.
 SET /P SK=Enter number 1 to visit the website, enter number 2 to go to the repository of BIOS-PW and learn more! Enter number 3 to return to the sub-menu, enter number 4 to return to the main-menu or enter number 5 to close the script. Enter: 
-IF %SK%==1 start "" https://bios-pw.org 
-IF %SK%==2 start "" https://github.com/bacher09/pwgen-for-bios 
+IF %SK%==1 start "" https://bios-pw.org && GOTO BIOSPW
+IF %SK%==2 start "" https://github.com/bacher09/pwgen-for-bios && GOTO BIOSPW
 IF %SK%==3 GOTO TOOLS
 IF %SK%==4 GOTO MENU
 IF %SK%==5 GOTO CLOSE 
