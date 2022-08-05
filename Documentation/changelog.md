@@ -1,5 +1,16 @@
 # Changelog.md - pcHealth
 
+### 05-08-2022
+
+Added a new feature to the script.
+
+BIOS-PW has been intergrated, it will redirect the user to the website of BIOS-PW or redirect to the original repository were people can learn more about it and what it does.
+
+It has been given the 16th function number in the Tools menu.
+
+- To learn more about bios-pw I would suggest taking a look at the main repository from @bacher09
+- https://github.com/bacher09/pwgen-for-bios 
+
 ### 04-08-2022 
 
 Added templates for people to fill in, regarding to bugs/issues or requesting features.
