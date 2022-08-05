@@ -1,5 +1,13 @@
 # Changelog.md - pcHealth
 
+## 05-08-2022
+
+Function has been tweaked, can be implemented in the main code now.
+
+#### Credits again: 
+- To learn more about bios-pw I would suggest taking a look at the main repository from @bacher09
+- https://github.com/bacher09/pwgen-for-bios 
+
 ### 05-08-2022
 
 Added a new feature to the script.
