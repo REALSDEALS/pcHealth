@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.5.4
+title pcHealth - Check your PC's Health! - version 1.5.5-beta
 cd /
 color A
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.5.4 (Stable)
+echo You are now using version 1.5.5 (Beta)
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -80,10 +80,11 @@ echo Enter number 12 to re-open the generated battery report file.
 echo Enter number 13 to re-open the CBS.log (AKA DISM.log)
 echo Enter number 14 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
 echo Enter number 15 to see your systems Windows License key.
-echo Enter number 16 to shutdown, reboot or log off from your PC/laptop.
-echo Enter number 17 to open the programs menu.
-echo Enter number 18 to return to the previous menu.
-echo Enter number 19 to close this batch file.
+echo Enter number 16 BIOS Password Recovery.
+echo Enter number 17 to shutdown, reboot or log off from your PC/laptop.
+echo Enter number 18 to open the programs menu.
+echo Enter number 19 to return to the previous menu.
+echo Enter number 20 to close this batch file.
 echo ...........................................................
 echo.
 
@@ -103,10 +104,11 @@ IF %B%==12 GOTO BATOPEN
 IF %B%==13 GOTO OPENCBSLOG
 IF %B%==14 GOTO NINITE
 IF %B%==15 GOTO LICENSE
-IF %B%==16 GOTO RESHUT
-IF %B%==17 GOTO PROGRAMS
-IF %B%==18 GOTO MENU
-IF %B%==19 GOTO CLOSE
+IF %B%==16 GOTO BIOSPW
+IF %B%==17 GOTO RESHUT
+IF %B%==18 GOTO PROGRAMS
+IF %B%==19 GOTO MENU
+IF %B%==20 GOTO CLOSE
 
 :PROGRAMS
 cls
@@ -358,6 +360,22 @@ SET /p R=If you want to return to the previous sub-menu, enter number 1. To retu
 IF %R%==1 GOTO TOOLS
 IF %R%==2 GOTO MENU
 IF %R%==2 GOTO CLOSE
+
+:BIOSPW
+cls
+color C
+echo.
+echo The BIOS Password Recovery tool is a website that can be used to gather/generate a recovery code for the BIOS.
+echo If you don't know how to use this function/website than I would suggest that you enter '2' on the next line to learn more.
+echo. 
+echo The credits for this function and repository goes to the owner: @bacher09
+echo.
+SET /P SK=Enter number 1 to visit the website, enter number 2 to go to the repository of BIOS-PW and learn more! Enter number 3 to return to the sub-menu, enter number 4 to return to the main-menu or enter number 5 to close the script. Enter: 
+IF %SK%==1 start "" https://bios-pw.org 
+IF %SK%==2 start "" https://github.com/bacher09/pwgen-for-bios 
+IF %SK%==3 GOTO TOOLS
+IF %SK%==4 GOTO MENU
+IF %SK%==5 GOTO CLOSE 
 
 :RESHUT
 cls

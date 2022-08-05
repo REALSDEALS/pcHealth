@@ -51,9 +51,11 @@ Otherwise I can keep no promise to that statement.
 13. Re-open the CBS.log (DISM log, report from option 4.) 
 14. Get your Ninite! (Standard program downloader/updater; Chrome, Edge, VLC and 7Zip)
 15. Check your Windows License Key.
-16. Shutdown, reboot and/or logout from the system.
-17. Open the other menu, it's called 'Programs'.
-18. Close the script.
+16. BIOS password recovery.
+17. Shutdown, reboot and/or logout from the system.
+18. Open the other menu, it's called 'Programs'.
+19. Returning to the previous menu, main-menu.
+20. Close the script.
 
 
 #### Programs menu:
