@@ -1,5 +1,9 @@
 # Changelog.md - pcHealth
 
+## 08-08-2022
+
+Script has gotten some small adjustments and some of the colours have been changed.
+
 ## 05-08-2022
 
 Function has been tweaked, can be implemented in the main code now.
