@@ -1,5 +1,9 @@
 # Changelog.md - pcHealth
 
+## 04-10-2022 - @BigoStream
+
+PowerShell script has seen some changes, some small feature updates. Nothing special yet.
+
 ## 08-08-2022
 
 Script has gotten some small adjustments and some of the colours have been changed.
