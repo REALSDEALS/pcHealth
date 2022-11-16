@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.5.7-beta
+title pcHealth - Check your PC's Health! - version 1.5.8
 cd /
 color D
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.5.7 (Beta)
+echo You are now using version 1.5.8
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -153,9 +153,9 @@ color A
 systeminfo
 pause
 echo.
-SET /P C=Enter number 1 to return to the main-menu, enter number 2 to go back to the previous sub-menu or enter number 3 to close the script. Enter: 
-IF %C%==1 GOTO MENU
-IF %C%==2 GOTO TOOLS
+SET /P C=Enter number 1 to return to the sub-menu, enter number 2 to go back to the main menu or enter number 3 to close the script. Enter: 
+IF %C%==1 GOTO TOOLS
+IF %C%==2 GOTO MENU
 IF %C%==3 GOTO CLOSE
 
 :SCAN
@@ -183,9 +183,9 @@ echo.
 wmic path win32_VideoController get name
 pause
 echo.
-SET /P E=Enter number 1 to return to the main-menu, enter number 2 to go back to the previous sub-menu or enter number 3 to close the script. Enter: 
-IF %E%==1 GOTO MENU
-IF %E%==2 GOTO TOOLS
+SET /P E=Enter number 1 to return to the sub-menu, enter number 2 to go back to the main menu or enter number 3 to close the script. Enter: 
+IF %E%==1 GOTO TOOLS
+IF %E%==2 GOTO MENU
 IF %E%==3 GOTO CLOSE
 
 :DISM
@@ -207,9 +207,9 @@ color A
 DISM /online /cleanup-image /restorehealth
 pause
 echo.
-SET /P G=Enter number 1 to return to the main-menu, enter number 2 to go back to the previous sub-menu or enter number 3 to close the script. Enter: 
-IF %G%==1 GOTO MENU
-IF %G%==2 GOTO TOOLS
+SET /P G=Enter number 1 to return to the sub-menu, enter number 2 to go back to the main menu or enter number 3 to close the script. Enter: 
+IF %G%==1 GOTO TOOLS
+IF %G%==2 GOTO MENU
 IF %G%==3 GOTO CLOSE
 
 :SCSM
@@ -447,7 +447,7 @@ echo Are you sure that you want to download the newest version of pcHealth?
 echo.
 SET /P AC=If yes, enter the number 1, if not enter number 2 to return to the previous sub-menu. Enter: 
 IF %AC%==1 GOTO PCHEALTHGETVERDOWNLOADLINK
-IF %AC%==2 GOTO MENU 
+IF %AC%==2 GOTO PROGRAMS 
 
 :PCHEALTHGETVERDOWNLOADLINK
 cls
@@ -457,9 +457,10 @@ echo Your download will start now!
 echo.
 start "" https://github.com/REALSDEALS/pcHealth/archive/refs/heads/main.zip 
 echo.
-SET /P AD=To return to the main menu enter 1, to close the script enter 2. Enter: 
-IF %AD%==1 GOTO MENU
-IF %AD%==2 GOTO CLOSE
+SET /P AD=To return to the sub-menu enter 1, to return to the main menu enter 2 or to close the script enter 3. Enter: 
+IF %AD%==1 GOTO PROGRAMS
+IF %AD%==2 GOTO MENU
+IF %AD%==3 GOTO CLOSE
  
 :HARDINFODOWN
 cls
@@ -503,7 +504,7 @@ echo.
 start "" https://downloads.malwarebytes.com/file/adwcleaner
 echo.
 SET /P AH=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
-IF %AH%==1 GOTO TOOLS
+IF %AH%==1 GOTO PROGRAMS
 IF %AH%==2 GOTO MENU
 IF %AH%==3 GOTO CLOSE
 
@@ -525,7 +526,7 @@ echo Your download will start now!
 start "" https://osdn.net/projects/crystaldiskinfo/downloads/77538/CrystalDiskInfo8_17_4.zip/
 echo.
 SET /P AJ=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
-IF %AJ%==1 GOTO TOOLS
+IF %AJ%==1 GOTO PROGRAMS
 IF %AJ%==2 GOTO MENU
 IF %AJ%==3 GOTO CLOSE
 
@@ -547,7 +548,7 @@ echo Your download will start now!
 start "" https://osdn.net/projects/crystaldiskmark/downloads/77539/CrystalDiskMark8_0_4b.zip/
 echo.
 SET /P AL=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
-IF %AL%==1 GOTO TOOLS
+IF %AL%==1 GOTO PROGRAMS
 IF %AL%==2 GOTO MENU
 IF %AL%==3 GOTO CLOSE
 
@@ -569,7 +570,7 @@ echo Your download will start now!
 start "" https://www.guru3d.com/files-get/prime95-download,3.html
 echo.
 SET /P AN=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
-IF %AN%==1 GOTO TOOLS
+IF %AN%==1 GOTO PROGRAMS
 IF %AN%==2 GOTO MENU
 IF %AN%==3 GOTO CLOSE
 
