@@ -1,5 +1,10 @@
 # Changelog.md - pcHealth
 
+## 16-11-2022 - @BigoStream - Full Version Release 1.5.8
+
+Changed some minor faults in the script. 
+Some 'return' to menu functions were moving the user to the wrong 'sub-'menu.
+
 ## 04-10-2022 - @BigoStream
 
 PowerShell script has seen some changes, some small feature updates. Nothing special yet.
