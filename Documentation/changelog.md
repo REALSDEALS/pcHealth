@@ -1,5 +1,9 @@
 # Changelog.md - pcHealth
 
+## 22-11-2022 - @BigoStream - Full Version Release 1.5.9
+
+Changed some colors.
+
 ## 16-11-2022 - @BigoStream - Full Version Release 1.5.8
 
 Changed some minor faults in the script. 

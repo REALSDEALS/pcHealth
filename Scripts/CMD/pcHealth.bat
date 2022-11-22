@@ -29,20 +29,20 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.5.8
+title pcHealth - Check your PC's Health! - version 1.5.9
 cd /
 color D
 cls
 
 :MENU
 cls
-color D
+color 79
 echo.
 echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.5.8
+echo You are now using version 1.5.9
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -62,7 +62,7 @@ IF %A%==4 GOTO CLOSE
 
 :TOOLS
 cls 
-color 9
+color 09
 echo.
 echo ...........................................................
 echo Enter number 1 to gather generic information about the system.
@@ -112,7 +112,7 @@ IF %B%==20 GOTO CLOSE
 
 :PROGRAMS
 cls
-color B
+color 0B
 echo.
 echo ...........................................................
 echo Enter number 1 to get hardware info.
@@ -138,7 +138,7 @@ IF %AB%==8 GOTO CLOSE
 
 :SYSUPDATE
 cls
-color A
+color 0A
 winget upgrade --all
 pause
 echo.
@@ -149,7 +149,7 @@ IF %LL%==3 GOTO CLOSE
 
 :SYSINFO
 cls
-color A
+color 0A
 systeminfo
 pause
 echo.
@@ -160,7 +160,7 @@ IF %C%==3 GOTO CLOSE
 
 :SCAN
 cls
-color A
+color 0A
 sfc /scannow
 pause
 echo.
@@ -172,7 +172,7 @@ IF %D%==4 GOTO CLOSE
 
 :CPUANDGPUINFO
 cls
-color A 
+color 0A 
 echo. 
 echo Your CPU information:
 echo.
@@ -190,7 +190,7 @@ IF %E%==3 GOTO CLOSE
 
 :DISM
 cls
-color A
+color 0A
 DISM /online /cleanup-image /checkhealth
 DISM /online /cleanup-image /scanhealth
 pause
@@ -203,7 +203,7 @@ IF %F%==4 GOTO CLOSE
 
 :DISMRESTORE
 cls
-color A
+color 0A
 DISM /online /cleanup-image /restorehealth
 pause
 echo.
@@ -214,7 +214,7 @@ IF %G%==3 GOTO CLOSE
 
 :SCSM
 cls
-color A
+color 0A
 sfc /scannow
 pause
 echo.
@@ -227,7 +227,7 @@ IF %H%==5 GOTO CLOSE
 
 :SCSMOPENLOG
 cls
-color A
+color 0A
 start %windir%\explorer.exe "C:\Windows\Logs\CBS\CBS.log"
 pause
 echo.
@@ -239,7 +239,7 @@ IF %I%==4 GOTO CLOSE
 
 :CONTINUE
 cls
-color A
+color 0A
 DISM /online /cleanup-image /checkhealth
 DISM /online /cleanup-image /scanhealth
 pause
@@ -253,7 +253,7 @@ IF %J%==3 GOTO CLOSE
 
 :BATTERY
 cls
-color A
+color 0A
 powercfg /batteryreport
 pause
 echo.
@@ -265,7 +265,7 @@ IF %K%==4 GOTO CLOSE
 
 :UPDATE
 cls
-color A
+color 0A
 control update
 pause
 echo.
@@ -276,7 +276,7 @@ IF %L%==3 GOTO CLOSE
 
 :SHORTPING
 cls
-color A
+color 0A
 ping 8.8.8.8 
 pause
 echo.
@@ -288,7 +288,7 @@ IF %M%==4 GOTO CLOSE
 
 :CONTINUESPING
 cls
-color A
+color 0A
 ping 8.8.8.8 -t -l 256
 pause
 echo.
@@ -299,7 +299,7 @@ IF %N%==2 GOTO CLOSE
 
 :AUDIORE
 cls
-color A
+color 0A
 if "%1"=="am_admin" (powershell start -verb runas '%0' am_admin) 
 net stop audiosrv
 net stop AudioEndPointBuilder
@@ -313,7 +313,7 @@ GOTO TOOLS
 
 :BATOPEN
 cls
-color A
+color 0A
 start %windir%\explorer.exe "C:\battery-report.html"
 pause
 echo.
@@ -324,7 +324,7 @@ IF %O%==3 GOTO CLOSE
 
 :OPENCBSLOG
 cls
-color A
+color 0A
 start %windir%\explorer.exe "C:\Windows\Logs\CBS\CBS.log"
 pause
 echo.
@@ -335,7 +335,7 @@ IF %P%==3 GOTO CLOSE
 
 :NINITE
 cls
-color A
+color 0A
 start "" https://ninite.com/7zip-chrome-edge-vlc/ninite.exe 
 pause
 echo.
@@ -346,12 +346,12 @@ IF %Q%==3 GOTO CLOSE
 
 :LICENSE
 cls
-color A
+color 0A
 echo.
 echo "Your systems license key:"
 wmic path SoftwareLicensingService get OA3xOriginalProductKey
 pause
-color E
+color 0E
 echo.
 echo If it didn't showed a key, it is possible that this PC is using a 'illegal' key, or a key that was used for a previous installation of Windows 7/8 - then upgraded to 10/11.
 echo.
@@ -364,7 +364,7 @@ IF %R%==2 GOTO CLOSE
 
 :BIOSPW
 cls
-color E
+color 0E
 echo.
 echo The BIOS Password Recovery tool is a website that can be used to gather/generate a recovery code for the BIOS.
 echo.
@@ -382,7 +382,7 @@ IF %SK%==5 GOTO CLOSE
 
 :RESHUT
 cls
-color A
+color 0A
 echo. 
 SET /P S=If you want to log off from your PC/Laptop enter number 1, to restart enter number 2, to shutdown enter number 3 and to return to the previous sub-menu enter number 4 or to exit the script... enter number 5. Enter: 
 IF %S%==1 GOTO LOGOFF1
@@ -393,7 +393,7 @@ IF %S%==5 GOTO CLOSE
 
 :LOGOFF1
 cls
-color A 
+color 0A 
 echo. 
 SET /P T=Are you sure that you want to log off your PC? Enter number 1, enter number 2 to return to the previous sub-menu, enter number 3 to return to the main-menu or enter number 4 to exit the script. Enter: 
 IF %T%==1 GOTO LOGOFFCONFIRM1
@@ -403,13 +403,13 @@ IF %T%==4 GOTO CLOSE
 
 :LOGOFFCONFIRM1
 cls
-color A  
+color 0A  
 shutdown /l 
 EXIT /B
 
 :RESTART2
 cls
-color A
+color 0A
 echo.
 SET /P U=Are you sure that you want to restart your PC? Enter number 1, to do so. Enter number 2 to return to the previous sub-menu, enter number 3 to return to the main-menu or enter number 4 to exit the script. Enter: 
 IF %U%==1 GOTO RESTARTCONFIRM2
@@ -419,13 +419,13 @@ IF %U%==4 GOTO CLOSE
 
 :RESTARTCONFIRM2
 cls
-color A 
+color 0A 
 shutdown /r
 EXIT /B
 
 :SHUTDOWN3
 cls
-color A
+color 0A
 echo. 
 SET /P V=Are you sure that you want to shutdown your PC? Enter number 1, to continue. Enter number 2 to return to the previous sub-menu, enter number 3 to return to the main-menu or enter number 4 to exit the script. Enter: 
 IF %V%==1 GOTO SHUTDOWNCONFIRM3
@@ -435,13 +435,13 @@ IF %V%==4 GOTO CLOSE
 
 :SHUTDOWNCONFIRM3
 cls
-color A
+color 0A
 shutdown /s
 EXIT /B
 
 :PCHEALTHGETVER
 cls
-color A
+color 0A
 echo.
 echo Are you sure that you want to download the newest version of pcHealth?
 echo.
@@ -451,7 +451,7 @@ IF %AC%==2 GOTO PROGRAMS
 
 :PCHEALTHGETVERDOWNLOADLINK
 cls
-color A
+color 0A
 echo.
 echo Your download will start now!
 echo.
@@ -464,7 +464,7 @@ IF %AD%==3 GOTO CLOSE
  
 :HARDINFODOWN
 cls
-color A
+color 0A
 echo.
 echo Are you sure that you want to download the newest version of Hardware Info?
 echo.
@@ -474,7 +474,7 @@ IF %AE%==2 GOTO PROGRAMS
 
 :HARDINFODOWNLOADLINK
 cls
-color A
+color 0A
 echo.
 echo Your download will start now; if not click on 'installer' on the download page!
 echo.
@@ -487,7 +487,7 @@ IF %AF%==3 GOTO CLOSE
 
 :ADWCLEANER
 cls
-color A
+color 0A
 echo.
 echo Are you sure that you want to download the latest version of ADW Cleaner?
 echo. 
@@ -497,7 +497,7 @@ IF %AG%==2 GOTO PROGRAMS
 
 :ADWCLEANERDOWNLOADLINK
 cls
-color A
+color 0A
 echo. 
 echo Your download will start now!
 echo.
@@ -510,7 +510,7 @@ IF %AH%==3 GOTO CLOSE
 
 :DISKINFODOWN
 cls
-color A
+color 0A
 echo. 
 echo Are you sure that you want to download the latest version of Disk Info?
 echo. 
@@ -520,7 +520,7 @@ IF %AI%==2 GOTO PROGRAMS
 
 :DISKINFODOWNLOADLINK
 cls
-color A
+color 0A
 echo.
 echo Your download will start now!
 start "" https://osdn.net/projects/crystaldiskinfo/downloads/77538/CrystalDiskInfo8_17_4.zip/
@@ -532,7 +532,7 @@ IF %AJ%==3 GOTO CLOSE
 
 :DISKMARKDOWN
 cls
-color A
+color 0A
 echo. 
 echo Are you sure that you want to download the latest version of Disk Mark?
 echo. 
@@ -542,7 +542,7 @@ IF %AK%==2 GOTO PROGRAMS
 
 :DISKMARKDOWNLOADLINK
 cls
-color A
+color 0A
 echo.
 echo Your download will start now!
 start "" https://osdn.net/projects/crystaldiskmark/downloads/77539/CrystalDiskMark8_0_4b.zip/
@@ -554,7 +554,7 @@ IF %AL%==3 GOTO CLOSE
 
 :PRIMEDOWN
 cls
-color A
+color 0A
 echo. 
 echo Are you sure that you want to download the latest version of Prime95? Enter: 
 echo. 
@@ -564,7 +564,7 @@ IF %AM%==2 GOTO PROGRAMS
 
 :PRIMEDOWNLOADLINK
 cls
-color A
+color 0A
 echo.
 echo Your download will start now!
 start "" https://www.guru3d.com/files-get/prime95-download,3.html
