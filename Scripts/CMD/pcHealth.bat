@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.6.0-beta
+title pcHealth - Check your PC's Health! - version 1.6.1-beta
 cd /
 color D
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.6.0-beta
+echo You are now using version 1.6.1-beta
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -72,20 +72,22 @@ echo Enter number 4 to try and repair missing/corrupt files.
 echo Enter number 5 to run a system scan and to start an attempt on repairing missing/corrupt files.
 echo Enter number 6 to generate a battery report. (Laptop only)
 echo Enter number 7 to open the GUI to Windows Updates.
-echo Enter number 8 to start a short ping test.
-echo Enter number 9 to start a continues ping test.
-echo Enter number 10 to start a trace route to Google.
-echo Enter number 11 to update system programs.
-echo Enter number 12 to re-start the audio drivers of your system.
-echo Enter number 13 to re-open the generated battery report file.
-echo Enter number 14 to re-open the CBS.log (AKA DISM.log)
-echo Enter number 15 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
-echo Enter number 16 to see your systems Windows License key.
-echo Enter number 17 BIOS Password Recovery.
-echo Enter number 18 to shutdown, reboot or log off from your PC/laptop.
-echo Enter number 19 to open the programs menu.
-echo Enter number 20 to return to the previous menu.
-echo Enter number 21 to close this batch file.
+echo Enter number 8 to open a menu regarding Disk Optimization. (Windows Function)
+echo Enter number 9 to start Disk cleaner to clean your drive(s). (Windows Function)
+echo Enter number 10 to start a short ping test.
+echo Enter number 11 to start a continues ping test.
+echo Enter number 12 to start a trace route to Google.
+echo Enter number 13 to update system programs.
+echo Enter number 14 to re-start the audio drivers of your system.
+echo Enter number 15 to re-open the generated battery report file.
+echo Enter number 16 to re-open the CBS.log (AKA DISM.log)
+echo Enter number 17 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
+echo Enter number 18 to see your systems Windows License key.
+echo Enter number 19 BIOS Password Recovery.
+echo Enter number 20 to shutdown, reboot or log off from your PC/laptop.
+echo Enter number 21 to open the programs menu.
+echo Enter number 22 to return to the previous menu.
+echo Enter number 23 to close this batch file.
 echo ...........................................................
 echo.
 

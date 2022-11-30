@@ -7,6 +7,8 @@ Added new functions to the script:
 - Disk Cleaning through the script.
 - Trace route (tracert) through the script.
 
+Tweaked a small error in the nav-menu: didn't display the new features...
+
 ## 22-11-2022 - @BigoStream - Full Version Release 1.5.9
 
 Changed some colors.
