@@ -43,19 +43,22 @@ Otherwise I can keep no promise to that statement.
 5. Option 3. and 4. combined. (Puts both commands behind eachother)
 6. Generate a battery report. (To see how your laptop battery is doing)
 7. Shortcut to Windows Update.
-8. Short ping test. (Do I have internet?)
-9. Continues ping test. (Does my internet stop at certain times?)
-10. Fetches updates for system programs, updates them too if needed.
-11. Re-enables the drivers, it restarts the audio drivers. (Having issues with sound?)
-12. Re-open the battery report. (Can't find my generated report anymore? Try opening it this way)
-13. Re-open the CBS.log (DISM log, report from option 4.) 
-14. Get your Ninite! (Standard program downloader/updater; Chrome, Edge, VLC and 7Zip)
-15. Check your Windows License Key.
-16. BIOS password recovery.
-17. Shutdown, reboot and/or logout from the system.
-18. Open the other menu, it's called 'Programs'.
-19. Returning to the previous menu, main-menu.
-20. Close the script.
+8. Open a menu regarding disk optimization, this is a standard Windows function.
+9. Opens and starts a disk clean program, this is a standard Windows function.
+10. Short ping test. (Do I have internet?)
+11. Continues ping test. (Does my internet stop at certain times?)
+12. Starts the function 'TRACERT' and traces how many hops your system has to make before establishing an connection with the host. (Google)
+13. Fetches updates for system programs, updates them too if needed.
+14. Re-enables the drivers, it restarts the audio drivers. (Having issues with sound?)
+15. Re-open the battery report. (Can't find my generated report anymore? Try opening it this way)
+16. Re-open the CBS.log (DISM log, report from option 4.) 
+17. Get your Ninite! (Standard program downloader/updater; Chrome, Edge, VLC and 7Zip)
+18. Check your Windows License Key.
+19. BIOS password recovery.
+20. Shutdown, reboot and/or logout from the system.
+21. Open the other menu, it's called 'Programs'.
+22. Returning to the previous menu, main-menu.
+23. Close the script.
 
 
 #### Programs menu:
