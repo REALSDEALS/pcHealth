@@ -1,5 +1,12 @@
 # Changelog.md - pcHealth
 
+## 30-11-2022 - @BigoStream 
+
+Added new functions to the script:
+- Disk Optimilisation through the script.
+- Disk Cleaning through the script.
+- Trace route (tracert) through the script.
+
 ## 22-11-2022 - @BigoStream - Full Version Release 1.5.9
 
 Changed some colors.
