@@ -5,6 +5,8 @@
 Added the functionality to let user navigate to the repository to (mainly cause) fetch their own download and/or version. 
 They will be redirected to the main page of pcHealth.
 
+Added a feature to the main screen, users can choose to check for early releases.
+
 ## 30-11-2022 - @BigoStream 
 
 Added new functions to the script:
