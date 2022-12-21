@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.6.1-beta
+title pcHealth - Check your PC's Health! - version 1.6.2-beta
 cd /
 color D
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.6.1-beta
+echo You are now using version 1.6.2-beta
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -487,9 +487,10 @@ color 0A
 echo.
 echo Are you sure that you want to download the newest version of pcHealth?
 echo.
-SET /P AC=If yes, enter the number 1, if not enter number 2 to return to the previous sub-menu. Enter: 
+SET /P AC=If yes, enter the number 1, if not enter number 2 to return to the previous sub-menu or enter number 3 to navigate to the repository itself and fetch your own download there. Enter: 
 IF %AC%==1 GOTO PCHEALTHGETVERDOWNLOADLINK
-IF %AC%==2 GOTO PROGRAMS 
+IF %AC%==2 GOTO PROGRAMS
+IF %AC%==3 GOTO PCHEALTHGOTOREPO
 
 :PCHEALTHGETVERDOWNLOADLINK
 cls
@@ -503,6 +504,19 @@ SET /P AD=To return to the sub-menu enter 1, to return to the main menu enter 2 
 IF %AD%==1 GOTO PROGRAMS
 IF %AD%==2 GOTO MENU
 IF %AD%==3 GOTO CLOSE
+
+:PCHEALTHGOTOREPO
+cls
+color 0A
+echo.
+echo You will be redirected to the repository to fetch your own download.
+echo.
+start "" https://github.com/REALSDEALS/pcHealth
+echo.
+SET /P AP=To return to the sub-menu enter 1, to return to the main menu enter 2 or to close the script enter 3. Enter: 
+IF %AP%==1 GOTO PROGRAMS
+IF %AP%==2 GOTO MENU
+IF %AP%==3 GOTO CLOSE
  
 :HARDINFODOWN
 cls

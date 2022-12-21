@@ -1,5 +1,10 @@
 # Changelog.md - pcHealth
 
+## 21-12-2022 - @BigoStream
+
+Added the functionality to let user navigate to the repository to (mainly cause) fetch their own download and/or version. 
+They will be redirected to the main page of pcHealth.
+
 ## 30-11-2022 - @BigoStream 
 
 Added new functions to the script:
