@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.6.1-beta
+title pcHealth - Check your PC's Health! - version 1.6.2-beta
 cd /
 color D
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.6.1-beta
+echo You are now using version 1.6.2-beta
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -50,7 +50,8 @@ echo ...........................................................
 echo Enter number 1 to open a menu regarding testing scripts.
 echo Enter number 2 to open a menu regarding programs for testing /w downloadable redirects.
 echo Enter number 3 to go to the repository of pcHealth.
-echo Enter number 4 to close this batch script.
+echo Enter number 4 to check for pre-releases.
+echo Enter number 5 to close this batch script.
 echo ...........................................................
 echo.
 
@@ -58,7 +59,8 @@ SET /P A=Type one of the numbers from the menu above to open the desired menu an
 IF %A%==1 GOTO TOOLS
 IF %A%==2 GOTO PROGRAMS
 IF %A%==3 GOTO PCHEALTHGETVER
-IF %A%==4 GOTO CLOSE
+IF %A%==4 GOTO PRERELEASE
+IF %A%==5 GOTO CLOSE
 
 :TOOLS
 cls 
@@ -487,9 +489,10 @@ color 0A
 echo.
 echo Are you sure that you want to download the newest version of pcHealth?
 echo.
-SET /P AC=If yes, enter the number 1, if not enter number 2 to return to the previous sub-menu. Enter: 
+SET /P AC=If yes, enter the number 1, if not enter number 2 to return to the previous sub-menu or enter number 3 to navigate to the repository itself and fetch your own download there. Enter: 
 IF %AC%==1 GOTO PCHEALTHGETVERDOWNLOADLINK
-IF %AC%==2 GOTO PROGRAMS 
+IF %AC%==2 GOTO PROGRAMS
+IF %AC%==3 GOTO PCHEALTHGOTOREPO
 
 :PCHEALTHGETVERDOWNLOADLINK
 cls
@@ -503,6 +506,19 @@ SET /P AD=To return to the sub-menu enter 1, to return to the main menu enter 2 
 IF %AD%==1 GOTO PROGRAMS
 IF %AD%==2 GOTO MENU
 IF %AD%==3 GOTO CLOSE
+
+:PCHEALTHGOTOREPO
+cls
+color 0A
+echo.
+echo You will be redirected to the repository to fetch your own download.
+echo.
+start "" https://github.com/REALSDEALS/pcHealth
+echo.
+SET /P AP=To return to the sub-menu enter 1, to return to the main menu enter 2 or to close the script enter 3. Enter: 
+IF %AP%==1 GOTO PROGRAMS
+IF %AP%==2 GOTO MENU
+IF %AP%==3 GOTO CLOSE
  
 :HARDINFODOWN
 cls
@@ -615,6 +631,28 @@ SET /P AN=To return to the previous sub-menu enter 1, enter number 2 to return t
 IF %AN%==1 GOTO PROGRAMS
 IF %AN%==2 GOTO MENU
 IF %AN%==3 GOTO CLOSE
+
+:PRERELEASE
+cls
+color 0A
+echo.
+echo Are you sure that you want to try out a pre-release? 
+echo.
+echo
+SET /P AO=If yes you could enter number 1 to be redirected to our version page on GitHub, we would like to recieve feedback on your experience with a pre-release build! Because it could help us out, improving our script! You can enter number 2 to return to the main menu or you could enter number 3 to close the script.
+IF %AO%==1 GOTO GETEARLYRLS
+IF %AO%==2 GOTO MENU
+IF %AO%==3 GOTO CLOSE
+
+:GETEARLYRLS
+cls
+color 0A
+echo.
+echo You will be redirected to the repository and their respective version page.
+start "" https://github.com/REALSDEALS/pcHealth/releases
+echo.
+GOTO MENU
+
 
 :CLOSE
 EXIT /B
