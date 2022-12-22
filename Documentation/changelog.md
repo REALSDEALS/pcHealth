@@ -1,5 +1,9 @@
 # Changelog.md - pcHealth
 
+## 22-12-2022 - @BigoStream
+
+Got rid of the buggs from the new feature... Those nasty little things...
+
 ## 21-12-2022 - @BigoStream
 
 Added the functionality to let user navigate to the repository to (mainly cause) fetch their own download and/or version. 
