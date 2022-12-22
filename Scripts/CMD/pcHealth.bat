@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.6.2-beta
+title pcHealth - Check your PC's Health! - version 1.6.3-beta
 cd /
 color D
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.6.2-beta
+echo You are now using version 1.6.3-beta
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -491,7 +491,7 @@ echo Are you sure that you want to download the newest version of pcHealth?
 echo.
 SET /P AC=If yes, enter the number 1, if not enter number 2 to return to the previous sub-menu or enter number 3 to navigate to the repository itself and fetch your own download there. Enter: 
 IF %AC%==1 GOTO PCHEALTHGETVERDOWNLOADLINK
-IF %AC%==2 GOTO PROGRAMS
+IF %AC%==2 GOTO MENU
 IF %AC%==3 GOTO PCHEALTHGOTOREPO
 
 :PCHEALTHGETVERDOWNLOADLINK
@@ -639,7 +639,7 @@ echo.
 echo Are you sure that you want to try out a pre-release? 
 echo.
 echo
-SET /P AO=If yes you could enter number 1 to be redirected to our version page on GitHub, we would like to recieve feedback on your experience with a pre-release build! Because it could help us out, improving our script! You can enter number 2 to return to the main menu or you could enter number 3 to close the script.
+SET /P AO=If yes you could enter number 1 to be redirected to our version page on GitHub, we would like to recieve feedback on your experience with a pre-release build! Because it could help us out, improving our script! You can enter number 2 to return to the main menu or you could enter number 3 to close the script. Enter: 
 IF %AO%==1 GOTO GETEARLYRLS
 IF %AO%==2 GOTO MENU
 IF %AO%==3 GOTO CLOSE
