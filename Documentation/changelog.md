@@ -1,5 +1,9 @@
 # Changelog.md - pcHealth
 
+## 24-01-2022 - @BigoStream
+
+Added a small detail to let the user know in which menu he/she is.
+
 ## 22-12-2022 - @BigoStream
 
 Got rid of the buggs from the new feature... Those nasty little things...

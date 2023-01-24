@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.6.3-beta
+title pcHealth - Check your PC's Health! - version 1.6.4-beta
 cd /
 color D
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.6.3-beta
+echo You are now using version 1.6.4-beta
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -65,6 +65,8 @@ IF %A%==5 GOTO CLOSE
 :TOOLS
 cls 
 color 09
+echo.
+echo You are now in the Tools menu:
 echo.
 echo ...........................................................
 echo Enter number 1 to gather generic information about the system.
@@ -121,6 +123,8 @@ IF %B%==23 GOTO CLOSE
 :PROGRAMS
 cls
 color 0B
+echo.
+echo You are now in the Programs menu:
 echo.
 echo ...........................................................
 echo Enter number 1 to get hardware info.
