@@ -1,6 +1,11 @@
 # Changelog.md - pcHealth
 
-## 24-01-2022 - @BigoStream
+## 26-01-2023 - @BigoStream
+
+Centered the title from the menu that you are currently in.
+- This update is a tweak for/on the previous update.
+
+## 24-01-2023 - @BigoStream
 
 Added a small detail to let the user know in which menu he/she is.
 
