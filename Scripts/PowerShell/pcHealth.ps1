@@ -5,7 +5,7 @@ Write-Host ""
 Write-Host "This PowerShell script is made by REALSDEALS" 
 Write-Host "Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)"
 Write-Host ""
-Write-Host "You are now using PowerShell version v0.2.1-alpha"
+Write-Host "You are now using PowerShell version v0.3.0-alpha"
 Write-Host ""
 cd c:/
 
@@ -22,7 +22,7 @@ function isAdmin {
 
 function Show-Menu {
     param (
-        [string]$Title = 'pcHealth | v0.2.1-alpha'
+        [string]$Title = 'pcHealth | v0.3.0-alpha'
     )
     Clear-Host
     Write-Host ""
