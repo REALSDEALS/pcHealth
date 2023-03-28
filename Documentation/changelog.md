@@ -1,5 +1,12 @@
 # Changelog.md - pcHealth
 
+## 29-03-2023 - @REALSDEALS
+
+Added some new functionality to the PowerShell script.
+It is now possible to use the 5th and 6th function.
+--> The 5th function is almost the same as the 5th function from the pcHealth.bat script.
+--> The 6th function will open the log after the 5th function has been ran.
+
 ## 26-01-2023 - @BigoStream
 
 Centered the title from the menu that you are currently in.
