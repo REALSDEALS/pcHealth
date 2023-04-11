@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.6.5-beta
+title pcHealth - Check your PC's Health! - version 1.6.6-beta
 cd /
 color D
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.6.5-beta
+echo You are now using version 1.6.6-beta
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -81,17 +81,18 @@ echo Enter number 9 to start Disk cleaner to clean your drive(s). (Windows Funct
 echo Enter number 10 to start a short ping test.
 echo Enter number 11 to start a continues ping test.
 echo Enter number 12 to start a trace route to Google.
-echo Enter number 13 to update system programs.
-echo Enter number 14 to re-start the audio drivers of your system.
-echo Enter number 15 to re-open the generated battery report file.
-echo Enter number 16 to re-open the CBS.log (AKA DISM.log)
-echo Enter number 17 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
-echo Enter number 18 to see your systems Windows License key.
-echo Enter number 19 BIOS Password Recovery.
-echo Enter number 20 to shutdown, reboot or log off from your PC/laptop.
-echo Enter number 21 to open the programs menu.
-echo Enter number 22 to return to the previous menu.
-echo Enter number 23 to close this batch file.
+echo Enter number 13 to start a trace route to a designated place.
+echo Enter number 14 to update system programs.
+echo Enter number 15 to re-start the audio drivers of your system.
+echo Enter number 16 to re-open the generated battery report file.
+echo Enter number 17 to re-open the CBS.log (AKA DISM.log)
+echo Enter number 18 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
+echo Enter number 19 to see your systems Windows License key.
+echo Enter number 20 BIOS Password Recovery.
+echo Enter number 21 to shutdown, reboot or log off from your PC/laptop.
+echo Enter number 22 to open the programs menu.
+echo Enter number 23 to return to the previous menu.
+echo Enter number 24 to close this batch file.
 echo ...........................................................
 echo.
 
@@ -108,17 +109,18 @@ IF %B%==9 GOTO CLMGR
 IF %B%==10 GOTO SHORTPING
 IF %B%==11 GOTO CONTINUESPING
 IF %B%==12 GOTO TRACEGOOGLE
-IF %B%==13 GOTO SYSUPDATE
-IF %B%==14 GOTO AUDIORE 
-IF %B%==15 GOTO BATOPEN
-IF %B%==16 GOTO OPENCBSLOG
-IF %B%==17 GOTO NINITE
-IF %B%==18 GOTO LICENSE
-IF %B%==19 GOTO BIOSPW
-IF %B%==20 GOTO RESHUT
-IF %B%==21 GOTO PROGRAMS
-IF %B%==22 GOTO MENU
-IF %B%==23 GOTO CLOSE
+IF %B%==13 GOTO TRACEDESIG
+IF %B%==14 GOTO SYSUPDATE
+IF %B%==15 GOTO AUDIORE 
+IF %B%==16 GOTO BATOPEN
+IF %B%==17 GOTO OPENCBSLOG
+IF %B%==18 GOTO NINITE
+IF %B%==19 GOTO LICENSE
+IF %B%==20 GOTO BIOSPW
+IF %B%==21 GOTO RESHUT
+IF %B%==22 GOTO PROGRAMS
+IF %B%==23 GOTO MENU
+IF %B%==24 GOTO CLOSE
 
 :PROGRAMS
 cls
@@ -344,6 +346,35 @@ SET /P NM=Enter number 1 to return to the previous sub-menu menu, enter number 2
 IF %NM%==1 GOTO TOOLS
 IF %NM%==2 GOTO MENU
 IF %NM%==3 GOTO CLOSE
+
+:TRACEDESIG
+cls
+color 0A
+echo. 
+echo Please enter a URL to start a trace route: (example: www.google.com)
+echo.
+set /p ip=Tell me your target: 
+echo %ip%
+pause
+IF "%ip%" equ "" (
+    cls & color 4f
+    echo This is not a correct URL or route to trace, please try again.
+    pause
+    exit
+    ) ELSE (
+    cls
+    echo Code will be executed, give it a hot minute...
+    echo tracing...
+    tracert %IP% > "C:\trace-%ip%.txt"
+    echo pinging...
+    ping %IP% > "C:\ping-%ip%.txt"
+    )
+    pause
+    SET /P OPEN=Enter 1 to open the folder were the text files (logs) are being stored, enter 2 to return to the main menu or enter number 3 to close the script. Enter: 
+    IF %XX%==1 start %windir%\explorer.exe "C:\"
+    IF %XX%==2 GOTO MENU
+    IF %XX%==3 GOTO CLOSE
+
 
 :AUDIORE
 cls
