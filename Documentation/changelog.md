@@ -1,5 +1,9 @@
 # Changelog.md - pcHealth
 
+## 11-04-2023 - @REALSDEALS
+
+Added a function so the user can designate his/her own url to trace/ping.
+
 ## 29-03-2023 - @REALSDEALS
 
 Added some new functionality to the PowerShell script.
