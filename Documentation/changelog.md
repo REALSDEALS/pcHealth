@@ -1,5 +1,14 @@
 # Changelog.md - pcHealth
 
+## 25-05-2023 - @REALSDEALS & @Stensel8
+
+Created a issue, issue is about the following:
+- The log file couldn't be openend after the log file was created due to a typo in the code. @Stensel8 fixed this issue.
+
+Besides that the code has had some revisions, some quality of life changes have been made and it's made a little bit easier on how to use function 13 in the tools menu.
+
+Thanks again for helping me out @Stensel8!
+
 ## 11-04-2023 - @REALSDEALS
 
 Added a function so the user can designate his/her own url to trace/ping.
