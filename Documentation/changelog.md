@@ -1,5 +1,10 @@
 # Changelog.md - pcHealth
 
+## 10-07-2023 - @REALSDEALS
+
+Checked the script and reviewed it, it seems to be working fine.
+Will be releasing a new, full version soon.
+
 ## 25-05-2023 - @REALSDEALS & @Stensel8
 
 Created a issue, issue is about the following:
