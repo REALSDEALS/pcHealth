@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.6.7-beta
+title pcHealth - Check your PC's Health! - version 1.6.9-beta
 cd /
 color D
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.6.7-beta
+echo You are now using version 1.6.9-beta
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -82,17 +82,18 @@ echo Enter number 10 to start a short ping test.
 echo Enter number 11 to start a continues ping test.
 echo Enter number 12 to start a trace route to Google.
 echo Enter number 13 to start a trace route to a designated place.
-echo Enter number 14 to update system programs.
-echo Enter number 15 to re-start the audio drivers of your system.
-echo Enter number 16 to re-open the generated battery report file.
-echo Enter number 17 to re-open the CBS.log (AKA DISM.log)
-echo Enter number 18 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
-echo Enter number 19 to see your systems Windows License key.
-echo Enter number 20 BIOS Password Recovery.
-echo Enter number 21 to shutdown, reboot or log off from your PC/laptop.
-echo Enter number 22 to open the programs menu.
-echo Enter number 23 to return to the previous menu.
-echo Enter number 24 to close this batch file.
+echo Enter number 14 to check your IP adresses.
+echo Enter number 15 to update system programs.
+echo Enter number 16 to re-start the audio drivers of your system.
+echo Enter number 17 to re-open the generated battery report file.
+echo Enter number 18 to re-open the CBS.log (AKA DISM.log)
+echo Enter number 19 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
+echo Enter number 20 to see your systems Windows License key.
+echo Enter number 21 BIOS Password Recovery.
+echo Enter number 22 to shutdown, reboot or log off from your PC/laptop.
+echo Enter number 23 to open the programs menu.
+echo Enter number 24 to return to the previous menu.
+echo Enter number 25 to close this batch file.
 echo ...........................................................
 echo.
 
@@ -110,17 +111,18 @@ IF %B%==10 GOTO SHORTPING
 IF %B%==11 GOTO CONTINUESPING
 IF %B%==12 GOTO TRACEGOOGLE
 IF %B%==13 GOTO TRACEDESIG
-IF %B%==14 GOTO SYSUPDATE
-IF %B%==15 GOTO AUDIORE
-IF %B%==16 GOTO BATOPEN
-IF %B%==17 GOTO OPENCBSLOG
-IF %B%==18 GOTO NINITE
-IF %B%==19 GOTO LICENSE
-IF %B%==20 GOTO BIOSPW
-IF %B%==21 GOTO RESHUT
-IF %B%==22 GOTO PROGRAMS
-IF %B%==23 GOTO MENU
-IF %B%==24 GOTO CLOSE
+IF %B%==14 GOTO IPCONFIG
+IF %B%==15 GOTO SYSUPDATE
+IF %B%==16 GOTO AUDIORE
+IF %B%==17 GOTO BATOPEN
+IF %B%==18 GOTO OPENCBSLOG
+IF %B%==19 GOTO NINITE
+IF %B%==20 GOTO LICENSE
+IF %B%==21 GOTO BIOSPW
+IF %B%==22 GOTO RESHUT
+IF %B%==23 GOTO PROGRAMS
+IF %B%==24 GOTO MENU
+IF %B%==25 GOTO CLOSE
 
 :PROGRAMS
 cls
@@ -379,6 +381,19 @@ IF %OPEN%==1 (
     IF %OPEN%==2 GOTO EXECLOG
     IF %OPEN%==3 GOTO MENU
     IF %OPEN%==4 GOTO CLOSE
+
+:IPCONFIG
+cls
+color 0A
+echo.
+ipconfig /all
+pause
+echo.
+SET /P PO=Enter number 1 to return to the previous sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter:
+IF %PO%==1 GOTO TOOLS
+IF %PO%==2 GOTO MENU
+IF %PO%==3 GOTO CLOSE
+
 
 :EXECLOG
 cls
