@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.6.9-beta
+title pcHealth - Check your PC's Health! - version 1.6.10-beta
 cd /
 color D
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.6.9-beta
+echo You are now using version 1.6.10-beta
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -136,9 +136,10 @@ echo Enter number 2 to get ADW Cleaner.
 echo Enter number 3 to get DiskInfo64.
 echo Enter number 4 to get DiskMark64.
 echo Enter number 5 to get Prime95.
-echo Enter number 6 to open the tools menu.
-echo Enter number 7 to return to the previous menu.
-echo Enter number 8 to close the script.
+echo Enter number 6 to open the VBS script.
+echo Enter number 7 to open the tools menu.
+echo Enter number 8 to return to the previous menu.
+echo Enter number 9 to close the script.
 echo ...........................................................
 echo.
 
@@ -148,9 +149,10 @@ IF %AB%==2 GOTO ADWCLEANER
 IF %AB%==3 GOTO DISKINFODOWN
 IF %AB%==4 GOTO DISKMARKDOWN
 IF %AB%==5 GOTO PRIMEDOWN
-IF %AB%==6 GOTO TOOLS
-IF %AB%==7 GOTO MENU
-IF %AB%==8 GOTO CLOSE
+IF %AB%==6 GOTO VBS
+IF %AB%==7 GOTO TOOLS
+IF %AB%==8 GOTO MENU
+IF %AB%==9 GOTO CLOSE
 
 :SYSUPDATE
 cls
@@ -719,6 +721,28 @@ start "" https://github.com/REALSDEALS/pcHealth/releases
 echo.
 GOTO MENU
 
+:VBS
+cls
+color 0A
+echo.
+echo Are you sure that you want to open the VBS script?
+echo.
+SET /P AP=If yes enter the number 1 to open the VBS script, enter number 2 to return to the previous sub-menu. Enter:
+IF %AP%==1 GOTO VBSOPEN
+IF %AP%==2 GOTO PROGRAMS
+
+:VBSOPEN
+cls
+color 0A
+echo.
+echo Your VBS script will open now!
+echo.
+start "" "C:\Users\%username%\Downloads\pcHealth\Scripts\VBS\KeyGrabber.vbs"
+echo.
+SET /P AQ=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter:
+IF %AQ%==1 GOTO PROGRAMS
+IF %AQ%==2 GOTO MENU
+IF %AQ%==3 GOTO CLOSE
 
 :CLOSE
 EXIT /B

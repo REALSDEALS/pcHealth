@@ -6,6 +6,8 @@ Added some new simple functions to the script.
 - TRACERT to user provided URL. (Number 13 in the Tools menu.)
 - IPCONFIG to display the IP address of the system. (Number 14 in the Tools menu.)
 
+Added a auto run VBS option to the Programs menu.
+
 ## 10-07-2023 - @REALSDEALS
 
 Checked the script and reviewed it, it seems to be working fine.
