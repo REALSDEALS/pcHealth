@@ -48,17 +48,19 @@ Otherwise I can keep no promise to that statement.
 10. Short ping test. (Do I have internet?)
 11. Continues ping test. (Does my internet stop at certain times?)
 12. Starts the function 'TRACERT' and traces how many hops your system has to make before establishing an connection with the host. (Google)
-13. Fetches updates for system programs, updates them too if needed.
-14. Re-enables the drivers, it restarts the audio drivers. (Having issues with sound?)
-15. Re-open the battery report. (Can't find my generated report anymore? Try opening it this way)
-16. Re-open the CBS.log (DISM log, report from option 4.) 
-17. Get your Ninite! (Standard program downloader/updater; Chrome, Edge, VLC and 7Zip)
-18. Check your Windows License Key.
-19. BIOS password recovery.
-20. Shutdown, reboot and/or logout from the system.
-21. Open the other menu, it's called 'Programs'.
-22. Returning to the previous menu, main-menu.
-23. Close the script.
+13. Starts the function 'TRACERT' and traces how many hops your system has to make before establishing an connection with the host. (URL User Provided)
+14. Starts the function 'IPCONFIG' and shows you the IP address of your system.
+15. Fetches updates for system programs, updates them too if needed.
+16. Re-enables the drivers, it restarts the audio drivers. (Having issues with sound?)
+17. Re-open the battery report. (Can't find my generated report anymore? Try opening it this way)
+18. Re-open the CBS.log (DISM log, report from option 4.) 
+19. Get your Ninite! (Standard program downloader/updater; Chrome, Edge, VLC and 7Zip)
+20. Check your Windows License Key.
+21. BIOS password recovery.
+22. Shutdown, reboot and/or logout from the system.
+23. Open the other menu, it's called 'Programs'.
+24. Returning to the previous menu, main-menu.
+25. Close the script.
 
 
 #### Programs menu:

@@ -1,5 +1,11 @@
 # Changelog.md - pcHealth
 
+## 9-10-2023 - @REALSDEALS
+
+Added some new simple functions to the script.
+- TRACERT to user provided URL. (Number 13 in the Tools menu.)
+- IPCONFIG to display the IP address of the system. (Number 14 in the Tools menu.)
+
 ## 10-07-2023 - @REALSDEALS
 
 Checked the script and reviewed it, it seems to be working fine.
