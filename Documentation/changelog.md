@@ -1,10 +1,17 @@
 # Changelog.md - pcHealth
 
+## 12-10-2023 - @REALSDEALS
+
+Redirected the function to use the VBS script to the Desktop location, instead of the Documents folder; this change has been made because of the following reason:
+- Users are instructed to download the script to the Desktop, so it would be easier to use the script.
+
 ## 9-10-2023 - @REALSDEALS
 
 Added some new simple functions to the script.
 - TRACERT to user provided URL. (Number 13 in the Tools menu.)
 - IPCONFIG to display the IP address of the system. (Number 14 in the Tools menu.)
+
+Added a auto run VBS option to the Programs menu.
 
 ## 10-07-2023 - @REALSDEALS
 

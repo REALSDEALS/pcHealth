@@ -19,7 +19,7 @@ Feel free to contact me on discord: REALSDEALS#6353
 ### More information regarding on how to install and use it:
 
 - Download this repository.
-- Extract it to the desktop to be sure that it will run with full permissions.
+- Extract it to the DESKTOP to be sure that it will run with full permissions.
 - Open the `scripts` folder and choose your preferred method by choosing the `CMD` or `PowerShell` folder.
 - Open the file in the chosen folder and read the rules carefully.
 - Enter in the number of the desired command that you want to run. (Number + ENTER)
@@ -74,9 +74,10 @@ I understand if people have their questions about that decision, but I wanted to
 3. DiskInfo64 - This program will check information about your HDD/SDD (serial etc.)
 4. DiskMark64 - This program will test your HDD/SDD on possible malfunctions.
 5. Prime95 - This program will stress test your CPU.
-6. Return to the previous menu.
-7. Open the other menu, it's called 'Tools'.
-8. Close the script.
+6. (TEST) - Auto run VBS script.
+7. Return to the previous menu.
+8. Open the other menu, it's called 'Tools'.
+9. Close the script.
 
 #### KeyGrabber
 The key grabber script does what it says!
