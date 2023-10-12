@@ -19,7 +19,7 @@ Feel free to contact me on discord: REALSDEALS#6353
 ### More information regarding on how to install and use it:
 
 - Download this repository.
-- Extract it to the desktop to be sure that it will run with full permissions.
+- Extract it to the DESKTOP to be sure that it will run with full permissions.
 - Open the `scripts` folder and choose your preferred method by choosing the `CMD` or `PowerShell` folder.
 - Open the file in the chosen folder and read the rules carefully.
 - Enter in the number of the desired command that you want to run. (Number + ENTER)

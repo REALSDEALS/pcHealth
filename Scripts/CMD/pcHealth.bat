@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.6.10-beta
+title pcHealth - Check your PC's Health! - version 1.6.11-beta
 cd /
 color D
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.6.10-beta
+echo You are now using version 1.6.11-beta
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -737,7 +737,7 @@ color 0A
 echo.
 echo Your VBS script will open now!
 echo.
-start "" "C:\Users\%username%\Downloads\pcHealth\Scripts\VBS\KeyGrabber.vbs"
+start "" "C:\Users\%username%\Desktop\pcHealth\Scripts\VBS\KeyGrabber.vbs"
 echo.
 SET /P AQ=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter:
 IF %AQ%==1 GOTO PROGRAMS

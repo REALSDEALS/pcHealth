@@ -1,5 +1,10 @@
 # Changelog.md - pcHealth
 
+## 12-10-2023 - @REALSDEALS
+
+Redirected the function to use the VBS script to the Desktop location, instead of the Documents folder; this change has been made because of the following reason:
+- Users are instructed to download the script to the Desktop, so it would be easier to use the script.
+
 ## 9-10-2023 - @REALSDEALS
 
 Added some new simple functions to the script.
