@@ -26,10 +26,10 @@ if '%errorlevel%' NEQ '0' (
 :gotAdmin
     pushd "%CD%"
     CD /D "%~dp0"
-:--------------------------------------
+:--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.6.11-beta
+title pcHealth - Check your PC's Health! - version 1.7.0
 cd /
 color D
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.6.11-beta
+echo You are now using version 1.7.0 of pcHealth.
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -63,7 +63,7 @@ IF %A%==4 GOTO PRERELEASE
 IF %A%==5 GOTO CLOSE
 
 :TOOLS
-cls
+cls 
 color 09
 echo.
 echo        You are now in the Tools menu:
@@ -81,19 +81,17 @@ echo Enter number 9 to start Disk cleaner to clean your drive(s). (Windows Funct
 echo Enter number 10 to start a short ping test.
 echo Enter number 11 to start a continues ping test.
 echo Enter number 12 to start a trace route to Google.
-echo Enter number 13 to start a trace route to a designated place.
-echo Enter number 14 to check your IP adresses.
-echo Enter number 15 to update system programs.
-echo Enter number 16 to re-start the audio drivers of your system.
-echo Enter number 17 to re-open the generated battery report file.
-echo Enter number 18 to re-open the CBS.log (AKA DISM.log)
-echo Enter number 19 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
-echo Enter number 20 to see your systems Windows License key.
-echo Enter number 21 BIOS Password Recovery.
-echo Enter number 22 to shutdown, reboot or log off from your PC/laptop.
-echo Enter number 23 to open the programs menu.
-echo Enter number 24 to return to the previous menu.
-echo Enter number 25 to close this batch file.
+echo Enter number 13 to update system programs.
+echo Enter number 14 to re-start the audio drivers of your system.
+echo Enter number 15 to re-open the generated battery report file.
+echo Enter number 16 to re-open the CBS.log (AKA DISM.log)
+echo Enter number 17 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
+echo Enter number 18 to see your systems Windows License key.
+echo Enter number 19 BIOS Password Recovery.
+echo Enter number 20 to shutdown, reboot or log off from your PC/laptop.
+echo Enter number 21 to open the programs menu.
+echo Enter number 22 to return to the previous menu.
+echo Enter number 23 to close this batch file.
 echo ...........................................................
 echo.
 
@@ -110,19 +108,17 @@ IF %B%==9 GOTO CLMGR
 IF %B%==10 GOTO SHORTPING
 IF %B%==11 GOTO CONTINUESPING
 IF %B%==12 GOTO TRACEGOOGLE
-IF %B%==13 GOTO TRACEDESIG
-IF %B%==14 GOTO IPCONFIG
-IF %B%==15 GOTO SYSUPDATE
-IF %B%==16 GOTO AUDIORE
-IF %B%==17 GOTO BATOPEN
-IF %B%==18 GOTO OPENCBSLOG
-IF %B%==19 GOTO NINITE
-IF %B%==20 GOTO LICENSE
-IF %B%==21 GOTO BIOSPW
-IF %B%==22 GOTO RESHUT
-IF %B%==23 GOTO PROGRAMS
-IF %B%==24 GOTO MENU
-IF %B%==25 GOTO CLOSE
+IF %B%==13 GOTO SYSUPDATE
+IF %B%==14 GOTO AUDIORE 
+IF %B%==15 GOTO BATOPEN
+IF %B%==16 GOTO OPENCBSLOG
+IF %B%==17 GOTO NINITE
+IF %B%==18 GOTO LICENSE
+IF %B%==19 GOTO BIOSPW
+IF %B%==20 GOTO RESHUT
+IF %B%==21 GOTO PROGRAMS
+IF %B%==22 GOTO MENU
+IF %B%==23 GOTO CLOSE
 
 :PROGRAMS
 cls
@@ -136,10 +132,9 @@ echo Enter number 2 to get ADW Cleaner.
 echo Enter number 3 to get DiskInfo64.
 echo Enter number 4 to get DiskMark64.
 echo Enter number 5 to get Prime95.
-echo Enter number 6 to open the VBS script.
-echo Enter number 7 to open the tools menu.
-echo Enter number 8 to return to the previous menu.
-echo Enter number 9 to close the script.
+echo Enter number 6 to open the tools menu.
+echo Enter number 7 to return to the previous menu.
+echo Enter number 8 to close the script.
 echo ...........................................................
 echo.
 
@@ -149,10 +144,9 @@ IF %AB%==2 GOTO ADWCLEANER
 IF %AB%==3 GOTO DISKINFODOWN
 IF %AB%==4 GOTO DISKMARKDOWN
 IF %AB%==5 GOTO PRIMEDOWN
-IF %AB%==6 GOTO VBS
-IF %AB%==7 GOTO TOOLS
-IF %AB%==8 GOTO MENU
-IF %AB%==9 GOTO CLOSE
+IF %AB%==6 GOTO TOOLS
+IF %AB%==7 GOTO MENU
+IF %AB%==8 GOTO CLOSE
 
 :SYSUPDATE
 cls
@@ -190,8 +184,8 @@ IF %D%==4 GOTO CLOSE
 
 :CPUANDGPUINFO
 cls
-color 0A
-echo.
+color 0A 
+echo. 
 echo Your CPU information:
 echo.
 wmic cpu get caption, deviceid, name, numberofcores, maxclockspeed, status
@@ -295,9 +289,9 @@ IF %L%==3 GOTO CLOSE
 :DFR
 cls
 color 0A
-dfrgui.exe
+dfrgui.exe 
 pause
-echo.
+echo. 
 SET /P LK=Enter number 1 to return to the previous sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
 IF %L%==1 GOTO TOOLS
 IF %L%==2 GOTO MENU
@@ -308,7 +302,7 @@ cls
 color 0A
 cleanmgr.exe
 pause
-echo.
+echo. 
 SET /P LKT=Enter number 1 to return to the previous sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
 IF %L%==1 GOTO TOOLS
 IF %L%==2 GOTO MENU
@@ -317,7 +311,7 @@ IF %L%==3 GOTO CLOSE
 :SHORTPING
 cls
 color 0A
-ping 8.8.8.8
+ping 8.8.8.8 
 pause
 echo.
 SET /P M=Enter number 1 to return to the previous sub-menu, enter number 2 to return to the main-menu, enter number 3 to start a continues ping test or enter number 4 to exit the script. Enter: 
@@ -351,68 +345,10 @@ IF %NM%==1 GOTO TOOLS
 IF %NM%==2 GOTO MENU
 IF %NM%==3 GOTO CLOSE
 
-:TRACEDESIG
-cls
-color 0A
-echo.
-echo Please enter a URL to start a trace route: (example: www.google.com)
-echo.
-set /p ip=Tell me your target: 
-echo %ip%
-pause
-IF "%ip%" equ "" (
-    cls & color 4f
-    echo This is not a correct URL or route to trace, please try again.
-    pause
-    exit
-    ) ELSE (
-    cls
-    echo Code will be executed, give it a hot minute...
-    echo tracing...
-    tracert %IP% > "C:\trace-%ip%.txt"
-    echo pinging...
-    ping %IP% > "C:\ping-%ip%.txt"
-    )
-    pause
-    SET /P OPEN=Enter 1 to open the C directory of your pc where the files are located, enter 2 to open the logs; 2 .txt files will open, enter 3 to return to the main menu or enter number 4 to close the script. Enter: 
-IF %OPEN%==1 (
-    start %windir%\explorer.exe "C:\"
-    pause
-    GOTO MENU
-    )
-    IF %OPEN%==2 GOTO EXECLOG
-    IF %OPEN%==3 GOTO MENU
-    IF %OPEN%==4 GOTO CLOSE
-
-:IPCONFIG
-cls
-color 0A
-echo.
-ipconfig /all
-pause
-echo.
-SET /P PO=Enter number 1 to return to the previous sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter:
-IF %PO%==1 GOTO TOOLS
-IF %PO%==2 GOTO MENU
-IF %PO%==3 GOTO CLOSE
-
-
-:EXECLOG
-cls
-color 0A
-echo.
-start %windir%\explorer.exe "C:\trace-%ip%.txt" & start %windir%\explorer.exe "C:\ping-%ip%.txt"
-pause
-echo.
-SET /P OP=Enter number 1 to return to the previous sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
-IF %OP%==1 GOTO TOOLS
-IF %OP%==2 GOTO MENU
-IF %OP%==3 GOTO CLOSE
-
 :AUDIORE
 cls
 color 0A
-if "%1"=="am_admin" (powershell start -verb runas '%0' am_admin)
+if "%1"=="am_admin" (powershell start -verb runas '%0' am_admin) 
 net stop audiosrv
 net stop AudioEndPointBuilder
 net start AudioEndPointBuilder
@@ -448,7 +384,7 @@ IF %P%==3 GOTO CLOSE
 :NINITE
 cls
 color 0A
-start "" https://ninite.com/7zip-chrome-edge-vlc/ninite.exe
+start "" https://ninite.com/7zip-chrome-edge-vlc/ninite.exe 
 pause
 echo.
 SET /P Q=Enter number 1 to return to the previous sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
@@ -480,9 +416,9 @@ color 0E
 echo.
 echo The BIOS Password Recovery tool is a website that can be used to gather/generate a recovery code for the BIOS.
 echo.
-echo If you don't know how to use this function/website, then
+echo If you don't know how to use this function/website, then 
 echo I would suggest that you enter '2' on the next line to learn more.
-echo.
+echo. 
 echo The credits for this function and repository goes to the owner: @bacher09
 echo.
 SET /P SK=Enter number 1 to visit the website, enter number 2 to go to the repository of BIOS-PW and learn more! Enter number 3 to return to the sub-menu, enter number 4 to return to the main-menu or enter number 5 to close the script. Enter: 
@@ -490,12 +426,12 @@ IF %SK%==1 start "" https://bios-pw.org && GOTO BIOSPW
 IF %SK%==2 start "" https://github.com/bacher09/pwgen-for-bios && GOTO BIOSPW
 IF %SK%==3 GOTO TOOLS
 IF %SK%==4 GOTO MENU
-IF %SK%==5 GOTO CLOSE
+IF %SK%==5 GOTO CLOSE 
 
 :RESHUT
 cls
 color 0A
-echo.
+echo. 
 SET /P S=If you want to log off from your PC/Laptop enter number 1, to restart enter number 2, to shutdown enter number 3 and to return to the previous sub-menu enter number 4 or to exit the script... enter number 5. Enter: 
 IF %S%==1 GOTO LOGOFF1
 IF %S%==2 GOTO RESTART2
@@ -505,18 +441,18 @@ IF %S%==5 GOTO CLOSE
 
 :LOGOFF1
 cls
-color 0A
-echo.
+color 0A 
+echo. 
 SET /P T=Are you sure that you want to log off your PC? Enter number 1, enter number 2 to return to the previous sub-menu, enter number 3 to return to the main-menu or enter number 4 to exit the script. Enter: 
 IF %T%==1 GOTO LOGOFFCONFIRM1
 IF %T%==2 GOTO TOOLS
-IF %T%==3 GOTO MENU
+IF %T%==3 GOTO MENU 
 IF %T%==4 GOTO CLOSE
 
 :LOGOFFCONFIRM1
 cls
-color 0A
-shutdown /l
+color 0A  
+shutdown /l 
 EXIT /B
 
 :RESTART2
@@ -531,17 +467,17 @@ IF %U%==4 GOTO CLOSE
 
 :RESTARTCONFIRM2
 cls
-color 0A
+color 0A 
 shutdown /r
 EXIT /B
 
 :SHUTDOWN3
 cls
 color 0A
-echo.
+echo. 
 SET /P V=Are you sure that you want to shutdown your PC? Enter number 1, to continue. Enter number 2 to return to the previous sub-menu, enter number 3 to return to the main-menu or enter number 4 to exit the script. Enter: 
 IF %V%==1 GOTO SHUTDOWNCONFIRM3
-IF %V%==2 GOTO TOOLS
+IF %V%==2 GOTO TOOLS 
 IF %V%==3 GOTO MENU
 IF %V%==4 GOTO CLOSE
 
@@ -568,7 +504,7 @@ color 0A
 echo.
 echo Your download will start now!
 echo.
-start "" https://github.com/REALSDEALS/pcHealth/archive/refs/heads/main.zip
+start "" https://github.com/REALSDEALS/pcHealth/archive/refs/heads/main.zip 
 echo.
 SET /P AD=To return to the sub-menu enter 1, to return to the main menu enter 2 or to close the script enter 3. Enter: 
 IF %AD%==1 GOTO PROGRAMS
@@ -587,7 +523,7 @@ SET /P AP=To return to the sub-menu enter 1, to return to the main menu enter 2 
 IF %AP%==1 GOTO PROGRAMS
 IF %AP%==2 GOTO MENU
 IF %AP%==3 GOTO CLOSE
-
+ 
 :HARDINFODOWN
 cls
 color 0A
@@ -595,7 +531,7 @@ echo.
 echo Are you sure that you want to download the newest version of Hardware Info?
 echo.
 SET /P AE=If yes, enter the number 1, if not enter number 2 to return to the sub-menu. Enter: 
-IF %AE%==1 GOTO HARDINFODOWNLOADLINK
+IF %AE%==1 GOTO HARDINFODOWNLOADLINK 
 IF %AE%==2 GOTO PROGRAMS
 
 :HARDINFODOWNLOADLINK
@@ -616,7 +552,7 @@ cls
 color 0A
 echo.
 echo Are you sure that you want to download the latest version of ADW Cleaner?
-echo.
+echo. 
 SET /P AG=If yes enter the number 1 to start the download, enter number 2 to return to the previous sub-menu. Enter: 
 IF %AG%==1 GOTO ADWCLEANERDOWNLOADLINK
 IF %AG%==2 GOTO PROGRAMS
@@ -624,7 +560,7 @@ IF %AG%==2 GOTO PROGRAMS
 :ADWCLEANERDOWNLOADLINK
 cls
 color 0A
-echo.
+echo. 
 echo Your download will start now!
 echo.
 start "" https://downloads.malwarebytes.com/file/adwcleaner
@@ -637,9 +573,9 @@ IF %AH%==3 GOTO CLOSE
 :DISKINFODOWN
 cls
 color 0A
-echo.
+echo. 
 echo Are you sure that you want to download the latest version of Disk Info?
-echo.
+echo. 
 SET /P AI=If yes enter the number 1 to start the download, enter the number 2 to return to the previous sub-menu. Enter: 
 IF %AI%==1 GOTO DISKINFODOWNLOADLINK
 IF %AI%==2 GOTO PROGRAMS
@@ -659,9 +595,9 @@ IF %AJ%==3 GOTO CLOSE
 :DISKMARKDOWN
 cls
 color 0A
-echo.
+echo. 
 echo Are you sure that you want to download the latest version of Disk Mark?
-echo.
+echo. 
 SET /P AK=If yes enter the number 1 to start the download, enter the number 2 to return to the previous sub-menu. Enter: 
 IF %AK%==1 GOTO DISKMARKDOWNLOADLINK
 IF %AK%==2 GOTO PROGRAMS
@@ -681,9 +617,9 @@ IF %AL%==3 GOTO CLOSE
 :PRIMEDOWN
 cls
 color 0A
-echo.
+echo. 
 echo Are you sure that you want to download the latest version of Prime95? Enter: 
-echo.
+echo. 
 SET /P AM=If yes enter the number 1 to start the download, enter the number 2 to return to the previous sub-menu.
 IF %AM%==1 GOTO PRIMEDOWNLOADLINK
 IF %AM%==2 GOTO PROGRAMS
@@ -704,7 +640,7 @@ IF %AN%==3 GOTO CLOSE
 cls
 color 0A
 echo.
-echo Are you sure that you want to try out a pre-release?
+echo Are you sure that you want to try out a pre-release? 
 echo.
 echo
 SET /P AO=If yes you could enter number 1 to be redirected to our version page on GitHub, we would like to recieve feedback on your experience with a pre-release build! Because it could help us out, improving our script! You can enter number 2 to return to the main menu or you could enter number 3 to close the script. Enter: 
@@ -721,28 +657,6 @@ start "" https://github.com/REALSDEALS/pcHealth/releases
 echo.
 GOTO MENU
 
-:VBS
-cls
-color 0A
-echo.
-echo Are you sure that you want to open the VBS script?
-echo.
-SET /P AP=If yes enter the number 1 to open the VBS script, enter number 2 to return to the previous sub-menu. Enter:
-IF %AP%==1 GOTO VBSOPEN
-IF %AP%==2 GOTO PROGRAMS
-
-:VBSOPEN
-cls
-color 0A
-echo.
-echo Your VBS script will open now!
-echo.
-start "" "C:\Users\%username%\Desktop\pcHealth\Scripts\VBS\KeyGrabber.vbs"
-echo.
-SET /P AQ=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter:
-IF %AQ%==1 GOTO PROGRAMS
-IF %AQ%==2 GOTO MENU
-IF %AQ%==3 GOTO CLOSE
 
 :CLOSE
 EXIT /B

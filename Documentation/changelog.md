@@ -1,35 +1,13 @@
 # Changelog.md - pcHealth
 
-## 12-10-2023 - @REALSDEALS
+## 02-11-2023 - @REALSDEALS
 
-Redirected the function to use the VBS script to the Desktop location, instead of the Documents folder; this change has been made because of the following reason:
-- Users are instructed to download the script to the Desktop, so it would be easier to use the script.
+In this release the Powershell capability has been removed from the script. 
+This is due to the fact that .bat won't be supported in upcoming releases of Windows. Or the rumors are there that it won't be supported anymore.
 
-## 9-10-2023 - @REALSDEALS
+Because of the fact that .bat might not survive the next Windows release (W12.) I will be archiving this repository and will be working on a new project regarding the functionality of pcHealth but in Powershell. This repository will be named pcHealthPlus.
 
-Added some new simple functions to the script.
-- TRACERT to user provided URL. (Number 13 in the Tools menu.)
-- IPCONFIG to display the IP address of the system. (Number 14 in the Tools menu.)
-
-Added a auto run VBS option to the Programs menu.
-
-## 10-07-2023 - @REALSDEALS
-
-Checked the script and reviewed it, it seems to be working fine.
-Will be releasing a new, full version soon.
-
-## 25-05-2023 - @REALSDEALS & @Stensel8
-
-Created a issue, issue is about the following:
-- The log file couldn't be openend after the log file was created due to a typo in the code. @Stensel8 fixed this issue.
-
-Besides that the code has had some revisions, some quality of life changes have been made and it's made a little bit easier on how to use function 13 in the tools menu.
-
-Thanks again for helping me out @Stensel8!
-
-## 11-04-2023 - @REALSDEALS
-
-Added a function so the user can designate his/her own url to trace/ping.
+I'm currently in the first phase of the project, so it will take some time before it will be released.
 
 ## 29-03-2023 - @REALSDEALS
 
@@ -37,8 +15,6 @@ Added some new functionality to the PowerShell script.
 It is now possible to use the 5th and 6th function.
 --> The 5th function is almost the same as the 5th function from the pcHealth.bat script.
 --> The 6th function will open the log after the 5th function has been ran.
-
-Updated documentation regarding to version numbers etc.
 
 ## 26-01-2023 - @BigoStream
 
