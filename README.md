@@ -16,12 +16,14 @@ It really means a lot to me!
 If you have any tips/tricks or remarks? 
 Feel free to contact me on discord: REALSDEALS#6353
 
+Sidenote: since version 1.6 and onwards, the Powershell section has been removed from the script. To read more about this decision, please read the changelog.
+
 ### More information regarding on how to install and use it:
 
 - Download this repository.
 - Extract it to the desktop to be sure that it will run with full permissions.
-- Open the `scripts` folder and choose your preferred method by choosing the `CMD` or `PowerShell` folder.
-- Open the file in the chosen folder and read the rules carefully.
+- Open the `scripts` folder and open the CMD folder in there.
+- Open the file in the CMD folder and read the rules/commands carefully.
 - Enter in the number of the desired command that you want to run. (Number + ENTER)
 - Patiently wait for the script to finish.
 - You can chose, depending on the command, what you want to do next. (Open logs ect.)

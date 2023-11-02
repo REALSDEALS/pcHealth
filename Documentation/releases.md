@@ -5,7 +5,7 @@ For now only the version names will be displayed, in the future there might be e
 
 # Current Version(s)
 
-Full Release - v1.5.9 (Stable)
+Full Release - v1.6.0 (Stable)
 Beta Release - v1.6.5-beta
 Alpha Release - v0.2.1-alpha (PowerShell)
 
@@ -15,6 +15,7 @@ Here you can see a overview of the older version.
 
 ### Full Release(s)
 
+- Full Release - v1.6.0
 - Full Release - v1.5.9
 - Full Release - v1.5.8
 - Full Release - v1.5.6

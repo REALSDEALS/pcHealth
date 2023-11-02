@@ -1,5 +1,14 @@
 # Changelog.md - pcHealth
 
+## 02-11-2023 - @REALSDEALS
+
+In this release the Powershell capability has been removed from the script. 
+This is due to the fact that .bat won't be supported in upcoming releases of Windows. Or the rumors are there that it won't be supported anymore.
+
+Because of the fact that .bat might not survive the next Windows release (W12.) I will be archiving this repository and will be working on a new project regarding the functionality of pcHealth but in Powershell. This repository will be named pcHealthPlus.
+
+I'm currently in the first phase of the project, so it will take some time before it will be released.
+
 ## 29-03-2023 - @REALSDEALS
 
 Added some new functionality to the PowerShell script.
