@@ -30,7 +30,7 @@ Sidenote: since version 1.6 and onwards, the Powershell section has been removed
 
 ### For users that are not that known about what everything may or may not do...
 
-#### Tools Menu:
+## Tools Menu:
 The entries that you may enter in this menu will execute some standard line of code.
 So keep in mind that the .exe (this script) needs to be in administrator mode, it will prompt you when you open the program.
 
@@ -63,7 +63,7 @@ Otherwise I can keep no promise to that statement.
 23. Close the script.
 
 
-#### Programs menu:
+## Programs menu:
 The entries that you may put in here will redirect you to the download page of the program.
 Most of them are 'direct links.'
 
@@ -78,18 +78,18 @@ I understand if people have their questions about that decision, but I wanted to
 7. Open the other menu, it's called 'Tools'.
 8. Close the script.
 
-#### KeyGrabber
+## KeyGrabber
 The key grabber script does what it says!
 
 It grabs the license key (windows) that's on your pc, and gives you an option to save it to your desktop.
 
-## Questions
+### Questions
 If you still have questions, you can send me a message on Discord as mentioned above.
 My username is: REALSDEALS#6353
 
 There is also a possibility to e-mail me, if that's what you desire (check my GitHub profile for that).
 
-## Win_Scan
+#### Win_Scan
 
 Yes, Win_Scan is my other repository, but the function that Win_Scan does has been implemented here...
 So you can use both, I'll keep both of them up, but this one will be more advanced when it's finished.
