@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.7.0
+title pcHealth - Check your PC's Health! - version 1.7.1-beta
 cd /
 color D
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.7.0 of pcHealth.
+echo You are now using version 1.7.1-beta of pcHealth.
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -51,7 +51,8 @@ echo Enter number 1 to open a menu regarding testing scripts.
 echo Enter number 2 to open a menu regarding programs for testing /w downloadable redirects.
 echo Enter number 3 to go to the repository of pcHealth.
 echo Enter number 4 to check for pre-releases.
-echo Enter number 5 to close this batch script.
+echo Enter number 5 to learn more about pcHealthPlus.
+echo Enter number 6 to close this batch script.
 echo ...........................................................
 echo.
 
@@ -60,7 +61,8 @@ IF %A%==1 GOTO TOOLS
 IF %A%==2 GOTO PROGRAMS
 IF %A%==3 GOTO PCHEALTHGETVER
 IF %A%==4 GOTO PRERELEASE
-IF %A%==5 GOTO CLOSE
+IF %A%==5 GOTO PCHEALTHPLUSVS
+IF %A%==6 GOTO CLOSE
 
 :TOOLS
 cls 
@@ -657,6 +659,18 @@ start "" https://github.com/REALSDEALS/pcHealth/releases
 echo.
 GOTO MENU
 
+:PCHEALTHPLUSVS
+cls
+color 0A
+echo.
+echo You are about to be redirected to the repository of pcHealthPlus.
+echo There you can find more information about pcHealthPlus; in short it is a version of pcHealth that is more advanced and has 'more' features.
+echo.
+start "" https://github.com/REALSDEALS/pcHealthPlus-VS/blob/master/README.md
+echo.
+SET /P AP=To return to the main menu enter 1 or to close the script enter 2. Enter:
+IF %AP%==1 GOTO MENU
+IF %AP%==2 GOTO CLOSE
 
 :CLOSE
 EXIT /B

@@ -1,5 +1,12 @@
 # Changelog.md - pcHealth
 
+## 25-11-2023 - @REALSDEALS
+
+In the main menu a shortcut has been added to learn more about the 'new' pcHealthPlus project.
+The option opens a new tab in your default browser and redirects you to the main page of the pcHealthPlus repository; to be precise it will redirect you to the README.md file.
+
+- Updated version numbers in the releases.md file.
+
 ## 02-11-2023 - @REALSDEALS
 
 In this release the Powershell capability has been removed from the script. 
