@@ -1,5 +1,9 @@
 # Changelog.md - pcHealth
 
+## 11-12-2023 - @REALSDEALS
+
+Colour scheme has been changed; small enter bug has been fixed.
+
 ## 25-11-2023 - @REALSDEALS
 
 In the main menu a shortcut has been added to learn more about the 'new' pcHealthPlus project.
