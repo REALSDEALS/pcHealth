@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.7.1-beta
+title pcHealth - Check your PC's Health! - version 1.7.2
 cd /
 color D
 cls
@@ -42,7 +42,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.7.1-beta of pcHealth.
+echo You are now using version 1.7.2 of pcHealth.
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -542,7 +542,7 @@ color 0A
 echo.
 echo Your download will start now; if not click on 'installer' on the download page!
 echo.
-start "" https://www.fosshub.com/HWiNFO.html?dwl=hwi_726.exe
+start "" https://www.fosshub.com/HWiNFO.html?dwl=hwi_768.exe
 echo.
 SET /P AF=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
 IF %AF%==1 GOTO PROGRAMS
@@ -587,7 +587,7 @@ cls
 color 0A
 echo.
 echo Your download will start now!
-start "" https://osdn.net/projects/crystaldiskinfo/downloads/77538/CrystalDiskInfo8_17_4.zip/
+start "" https://sourceforge.net/projects/crystaldiskinfo/files/9.2.1/CrystalDiskInfo9_2_1.exe/download
 echo.
 SET /P AJ=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
 IF %AJ%==1 GOTO PROGRAMS
@@ -609,7 +609,7 @@ cls
 color 0A
 echo.
 echo Your download will start now!
-start "" https://osdn.net/projects/crystaldiskmark/downloads/77539/CrystalDiskMark8_0_4b.zip/
+start "" https://sourceforge.net/projects/crystaldiskmark/files/8.0.4c/CrystalDiskMark8_0_4c.exe/download
 echo.
 SET /P AL=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
 IF %AL%==1 GOTO PROGRAMS
@@ -631,7 +631,7 @@ cls
 color 0A
 echo.
 echo Your download will start now!
-start "" https://www.guru3d.com/files-get/prime95-download,3.html
+start "" https://www.guru3d.com/getdownload/2c1b2414f56a6594ffef91236a87c0e976d52e051ab2343846bab016c2f20c7c4d6ce7dfe19a0bc843da8d448bbb670058b0c9ee9a26f5cf49bc39c97da070e6eb314629af3da2d25bb346390afa2dcf705c87ec7c3da347e18659a3b948c3070ffcc0d3e8b64372a1b9cb358969eb4e3c0f5dfa331505ae3d1cc694687ac9764e3f9a584af4b257b93021590ebe2718970193f9c9e422bd44cbf572
 echo.
 SET /P AN=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
 IF %AN%==1 GOTO PROGRAMS

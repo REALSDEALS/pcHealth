@@ -13,7 +13,7 @@ ProductID = "Product ID: " & objshell.RegRead(Path & "ProductID")
 ProductKey = "Installed Key: " & ConvertToKey(DigitalID)  
 ProductData = ProductName  & vbNewLine & ProductID  & vbNewLine & ProductKey 
 'Show messbox if save to a file  
-If vbYes = MsgBox(ProductData  & vblf & vblf & "Save to a file?", vbYesNo + vbQuestion, "Windows Key Grabber - pcHealth!") then 
+If vbYes = MsgBox(ProductData  & vblf & vblf & "Save your key to a file?", vbYesNo + vbQuestion, "pcHealth | Windows Key Grabber") then 
    Save ProductData  
 End If 
  
