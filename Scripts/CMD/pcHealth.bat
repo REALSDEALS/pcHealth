@@ -29,20 +29,22 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.7.2
+title pcHealth - Check your PC's Health! - version 1.7.2-beta
+=======
 cd /
 color D
 cls
 
 :MENU
 cls
-color 79
+color f3
 echo.
 echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.7.2 of pcHealth.
+echo You are now using version 1.7.2-beta of pcHealth.
+=======
 echo.
 echo %DATE%, %TIME%
 echo.
@@ -66,7 +68,7 @@ IF %A%==6 GOTO CLOSE
 
 :TOOLS
 cls 
-color 09
+color fc
 echo.
 echo        You are now in the Tools menu:
 echo.
@@ -124,7 +126,7 @@ IF %B%==23 GOTO CLOSE
 
 :PROGRAMS
 cls
-color 0B
+color fA
 echo.
 echo        You are now in the Programs menu:
 echo.
@@ -668,7 +670,7 @@ echo There you can find more information about pcHealthPlus; in short it is a ve
 echo.
 start "" https://github.com/REALSDEALS/pcHealthPlus-VS/blob/master/README.md
 echo.
-SET /P AP=To return to the main menu enter 1 or to close the script enter 2. Enter:
+SET /P AP=To return to the main menu enter 1 or to close the script enter 2. Enter: 
 IF %AP%==1 GOTO MENU
 IF %AP%==2 GOTO CLOSE
 
