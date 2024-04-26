@@ -74,9 +74,10 @@ I understand if people have their questions about that decision, but I wanted to
 3. DiskInfo64 - This program will check information about your HDD/SDD (serial etc.)
 4. DiskMark64 - This program will test your HDD/SDD on possible malfunctions.
 5. Prime95 - This program will stress test your CPU.
-6. Return to the previous menu.
-7. Open the other menu, it's called 'Tools'.
-8. Close the script.
+6. Windows PowerToys - Makes configuration in- and around Windows a tad easier.
+7. Return to the previous menu.
+8. Open the other menu, it's called 'Tools'.
+9. Close the script.
 
 ## KeyGrabber
 The key grabber script does what it says!

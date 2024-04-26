@@ -1,5 +1,8 @@
 # Changelog.md - pcHealth
 
+## 26-04-2024 - @REALSDEALS
+
+Under the tools section there has been added a new addition; the installation of Windows PowerToys.
 
 ## 11-12-2023 - @REALSDEALS
 

@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.7.2-beta
+title pcHealth - Check your PC's Health! - version 1.8.0-beta
 =======
 cd /
 color D
@@ -43,7 +43,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.7.2-beta of pcHealth.
+echo You are now using version 1.8.0-beta of pcHealth.
 =======
 echo.
 echo %DATE%, %TIME%
@@ -136,9 +136,10 @@ echo Enter number 2 to get ADW Cleaner.
 echo Enter number 3 to get DiskInfo64.
 echo Enter number 4 to get DiskMark64.
 echo Enter number 5 to get Prime95.
-echo Enter number 6 to open the tools menu.
-echo Enter number 7 to return to the previous menu.
-echo Enter number 8 to close the script.
+echo Enter number 6 to install Windows PowerToys.
+echo Enter number 7 to open the tools menu.
+echo Enter number 8 to return to the previous menu.
+echo Enter number 9 to close the script.
 echo ...........................................................
 echo.
 
@@ -148,9 +149,10 @@ IF %AB%==2 GOTO ADWCLEANER
 IF %AB%==3 GOTO DISKINFODOWN
 IF %AB%==4 GOTO DISKMARKDOWN
 IF %AB%==5 GOTO PRIMEDOWN
-IF %AB%==6 GOTO TOOLS
-IF %AB%==7 GOTO MENU
-IF %AB%==8 GOTO CLOSE
+IF %AB%==6 GOTO POWERTOYS
+IF %AB%==7 GOTO TOOLS
+IF %AB%==8 GOTO MENU
+IF %AB%==9 GOTO CLOSE
 
 :SYSUPDATE
 cls
@@ -639,6 +641,27 @@ SET /P AN=To return to the previous sub-menu enter 1, enter number 2 to return t
 IF %AN%==1 GOTO PROGRAMS
 IF %AN%==2 GOTO MENU
 IF %AN%==3 GOTO CLOSE
+
+:POWERTOYS
+cls
+color 0A
+echo. 
+echo Are you sure that you want to install Windows PowerToys?
+echo.
+SET /P AQ=Enter number 1 if you are sure and want to download Windows PowerToys, enter number 2 if you do not want to install Windows PowerToys; it will redirect you back to the tools menu. 
+IF %AQ%==1 GOTO POWERTOYSINSTALL
+IF %AQ%==2 GOTO TOOLS
+
+:POWERTOYSINSTALL
+cls
+color 0A
+echo.
+echo Your installation of Windows PowerToys will start; keep in mind that it could open a new CMD prompt.
+echo. 
+winget install Microsoft.PowerToys --source winget
+echo.
+echo After the installation, this prompt will close on a keypress. 
+pause
 
 :PRERELEASE
 cls
