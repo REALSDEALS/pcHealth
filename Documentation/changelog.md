@@ -1,5 +1,11 @@
 # Changelog.md - pcHealth
 
+## 30-04-2024 - @REALSDEALS
+
+Fixed a beginner mistake, running a PowerShell command in CMD. 
+    --> PowerToys command will now run the command as a PowerShell command; installation follows through and works as intended.
+        --> Sidenote... maybe include a 'winget' install tool too, since if breaks when the user doesn't have this installed.
+
 ## 26-04-2024 - @REALSDEALS
 
 Under the tools section there has been added a new addition; the installation of Windows PowerToys.

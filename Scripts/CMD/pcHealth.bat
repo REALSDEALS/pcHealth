@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.8.0-beta
+title pcHealth - Check your PC's Health! - version 1.8.1-beta
 =======
 cd /
 color D
@@ -43,7 +43,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.8.0-beta of pcHealth.
+echo You are now using version 1.8.1-beta of pcHealth.
 =======
 echo.
 echo %DATE%, %TIME%
@@ -656,12 +656,13 @@ IF %AQ%==2 GOTO TOOLS
 cls
 color 0A
 echo.
-echo Your installation of Windows PowerToys will start; keep in mind that it could open a new CMD prompt.
+echo Your installation of Windows PowerToys will start; keep in mind that it could open a new CMD prompt or PowerShell prompt.
 echo. 
-winget install Microsoft.PowerToys --source winget
+powershell -command "winget install Microsoft.PowerToys --source winget"
 echo.
 echo After the installation, this prompt will close on a keypress. 
 pause
+GOTO CLOSEACT
 
 :PRERELEASE
 cls
@@ -696,6 +697,17 @@ echo.
 SET /P AP=To return to the main menu enter 1 or to close the script enter 2. Enter: 
 IF %AP%==1 GOTO MENU
 IF %AP%==2 GOTO CLOSE
+
+:CLOSEACT
+cls
+color 0A
+echo.
+echo Your requested software has been installed, what would you like to do next?
+echo.
+SET /P Do you wish to return to the main menu? Enter number 1. If you wish to return to the previous sub menu; enter number 2. If you wish to close this script; enter number 3. Enter: 
+IF %AS%==1 GOTO MENU
+IF %AS%==2 GOTO TOOLS
+IF %AS%==3 GOTO CLOSE
 
 :CLOSE
 EXIT /B
