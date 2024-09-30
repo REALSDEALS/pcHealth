@@ -1,5 +1,9 @@
 # Changelog.md - pcHealth
 
+## 30-09-2024 - @REALSDEALS
+
+Rewrote some calling actions by replacing hard statements with environmental variables. It should improve the stability in the script or prevent hard crashes.
+
 ## 30-04-2024 - @REALSDEALS
 
 Fixed a beginner mistake, running a PowerShell command in CMD. 
