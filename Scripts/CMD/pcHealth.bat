@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.8.1-beta
+title pcHealth - Check your PC's Health! - version 1.8.2-beta
 =======
 cd /
 color D
@@ -43,7 +43,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.8.1-beta of pcHealth.
+echo You are now using version 1.8.2-beta of pcHealth.
 =======
 echo.
 echo %DATE%, %TIME%
@@ -246,7 +246,7 @@ IF %H%==5 GOTO CLOSE
 :SCSMOPENLOG
 cls
 color 0A
-start %windir%\explorer.exe "C:\Windows\Logs\CBS\CBS.log"
+START "" "%windir%\Logs\CBS\CBS.log"
 pause
 echo.
 SET /P I=Enter number 1 to start an attempt to repair the corrupt/missing files, if any are found... Enter number 2 to return to the previous sub-menu, enter number 3 to return to the main-menu or enter number 4 to exit the script. Enter: 
@@ -658,7 +658,7 @@ color 0A
 echo.
 echo Your installation of Windows PowerToys will start; keep in mind that it could open a new CMD prompt or PowerShell prompt.
 echo. 
-powershell -command "winget install Microsoft.PowerToys --source winget"
+winget install --id Microsoft.PowerToys
 echo.
 echo After the installation, this prompt will close on a keypress. 
 pause
