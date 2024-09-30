@@ -46,7 +46,8 @@ echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to 
 echo You are now using version 1.8.2-beta of pcHealth.
 =======
 echo.
-echo %DATE%, %TIME%
+ECHO Hello %USERNAME%!
+echo Today it is '%DATE%' and the time is '%TIME%'
 echo.
 echo ...........................................................
 echo Enter number 1 to open a menu regarding testing scripts.
