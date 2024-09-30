@@ -14,7 +14,7 @@ First of all I want to thank you, for downloading and using this script!
 It really means a lot to me!
 
 If you have any tips/tricks or remarks? 
-Feel free to contact me on discord: REALSDEALS#6353
+Feel free to contact me on discord: REALSDEALS
 
 Sidenote: since version 1.6 and onwards, the Powershell section has been removed from the script. To read more about this decision, please read the changelog.
 
@@ -86,7 +86,7 @@ It grabs the license key (windows) that's on your pc, and gives you an option to
 
 ### Questions
 If you still have questions, you can send me a message on Discord as mentioned above.
-My username is: REALSDEALS#6353
+My username is: REALSDEALS
 
 There is also a possibility to e-mail me, if that's what you desire (check my GitHub profile for that).
 
