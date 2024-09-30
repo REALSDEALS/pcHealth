@@ -3,6 +3,7 @@
 ## 30-09-2024 - @REALSDEALS
 
 Rewrote some calling actions by replacing hard statements with environmental variables. It should improve the stability in the script or prevent hard crashes.
+Discord tag has been updated in the README.md because Discord discontinued the use of #tags.
 
 ## 30-04-2024 - @REALSDEALS
 
