@@ -1,5 +1,12 @@
 # Changelog.md - pcHealth
 
+## 18-10-2024 - @REALSDEALS
+
+Audit of the code, everything seems to work in this audit and testing phase. 
+Since it has been a long time since a full version has been pushed a new version/update will be released. 
+
+You can see this update as a small QoL and maintenance update.
+
 ## 30-09-2024 - @REALSDEALS
 
 Rewrote some calling actions by replacing hard statements with environmental variables. It should improve the stability in the script or prevent hard crashes.
