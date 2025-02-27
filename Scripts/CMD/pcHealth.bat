@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.8.3
+title pcHealth - Check your PC's Health! - version 1.8.5
 =======
 cd /
 color D
@@ -43,10 +43,12 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.8.3 of pcHealth.
+echo You are now using version 1.8.5 of pcHealth.
 =======
 echo.
-ECHO Hello %USERNAME%!
+for /f "skip=2 tokens=1,2,*" %%a in ('reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI" /v LastLoggedOnDisplayName 2^>nul') do set FullName=%%c
+if "%FullName%"=="" set FullName=%USERNAME%
+echo Hello %FullName%!
 echo Today it is '%DATE%' and the time is '%TIME%'
 echo.
 echo ...........................................................
@@ -75,7 +77,7 @@ echo        You are now in the Tools menu:
 echo.
 echo ...........................................................
 echo Enter number 1 to gather generic information about the system.
-echo Enter number 2 to see which CPU and GPU are in the system.
+echo Enter number 2 to show CPU, GPU and RAM information.
 echo Enter number 3 to run a system scan for missing/corrupt files.
 echo Enter number 4 to try and repair missing/corrupt files.
 echo Enter number 5 to run a system scan and to start an attempt on repairing missing/corrupt files.
@@ -132,33 +134,44 @@ echo.
 echo        You are now in the Programs menu:
 echo.
 echo ...........................................................
-echo Enter number 1 to get hardware info.
-echo Enter number 2 to get ADW Cleaner.
-echo Enter number 3 to get DiskInfo64.
-echo Enter number 4 to get DiskMark64.
-echo Enter number 5 to get Prime95.
-echo Enter number 6 to install Windows PowerToys.
-echo Enter number 7 to open the tools menu.
-echo Enter number 8 to return to the previous menu.
-echo Enter number 9 to close the script.
+echo Enter number 1 to get HWiNFO 64.
+echo Enter number 2 to get HWMonitor.
+echo Enter number 3 to get Malwarebytes ADW Cleaner.
+echo Enter number 4 to get CrystalDiskInfo.
+echo Enter number 5 to get CrystalDiskMark.
+echo Enter number 6 to get Prime95.
+echo Enter number 7 to install Windows PowerToys.
+echo Enter number 8 to open the tools menu.
+echo Enter number 9 to return to the previous menu.
+echo Enter number 10 to close the script.
 echo ...........................................................
 echo.
 
 SET /P AB=Type one of the numbers above to run the desired function. Enter: 
 IF %AB%==1 GOTO HARDINFODOWN
-IF %AB%==2 GOTO ADWCLEANER
-IF %AB%==3 GOTO DISKINFODOWN
-IF %AB%==4 GOTO DISKMARKDOWN
-IF %AB%==5 GOTO PRIMEDOWN
-IF %AB%==6 GOTO POWERTOYS
-IF %AB%==7 GOTO TOOLS
-IF %AB%==8 GOTO MENU
-IF %AB%==9 GOTO CLOSE
+IF %AB%==2 GOTO HWMONITORDOWN
+IF %AB%==3 GOTO ADWCLEANER
+IF %AB%==4 GOTO DISKINFODOWN
+IF %AB%==5 GOTO DISKMARKDOWN
+IF %AB%==6 GOTO PRIMEDOWN
+IF %AB%==7 GOTO POWERTOYS
+IF %AB%==8 GOTO TOOLS
+IF %AB%==9 GOTO MENU
+IF %AB%==10 GOTO CLOSE
 
 :SYSUPDATE
 cls
 color 0A
-winget upgrade --all
+echo Detected the following updatable packages:
+winget upgrade
+echo.
+set /p update_choice="Do you want to continue updating? (y/n): "
+if /i "%update_choice%"=="y" (
+    echo Updating packages...
+    winget upgrade --all
+) else (
+    echo Update aborted.
+)
 pause
 echo.
 SET /P LL=Enter number 1 to return to the sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
@@ -191,17 +204,15 @@ IF %D%==4 GOTO CLOSE
 
 :CPUANDGPUINFO
 cls
-color 0A 
-echo. 
-echo Your CPU information:
+color 0A
+echo Gathering CPU, GPU and RAM information. Please be patient...
+timeout /t 4 >nul
+cls
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0..\PS1\Get-CPU_GPU_RAM.ps1"
+echo --------------------------------------------------------
 echo.
-wmic cpu get caption, deviceid, name, numberofcores, maxclockspeed, status
 echo.
-echo Your GPU information:
-echo.
-wmic path win32_VideoController get name
 pause
-echo.
 SET /P E=Enter number 1 to return to the sub-menu, enter number 2 to go back to the main menu or enter number 3 to close the script. Enter: 
 IF %E%==1 GOTO TOOLS
 IF %E%==2 GOTO MENU
@@ -270,17 +281,29 @@ IF %J%==1 GOTO TOOLS
 IF %J%==2 GOTO MENU
 IF %J%==3 GOTO CLOSE
 
+:: Generate a battery report
 :BATTERY
 cls
 color 0A
+echo Generating a software-based battery report...
+echo.
+echo Please note:
+echo This report is generated from OS data and may differ from the hardware-based battery report offered by some laptops.
+echo.
 powercfg /batteryreport
 pause
 echo.
-SET /P K=Enter number 1 to open the generated file, enter number 2 to return to the previous sub-menu, number 3 to return to the main-menu or enter number 4 to exit the script. Enter: 
-IF %K%==1 GOTO BATOPEN
-IF %K%==2 GOTO TOOLS
-IF %K%==3 GOTO MENU
-IF %K%==4 GOTO CLOSE
+echo Select an option:
+echo   1. Open the generated report
+echo   2. Return to the previous sub-menu
+echo   3. Return to the main menu
+echo   4. Exit the script
+echo.
+set /p K=Enter your choice (1-4): 
+if "%K%"=="1" goto BATOPEN
+if "%K%"=="2" goto TOOLS
+if "%K%"=="3" goto MENU
+if "%K%"=="4" goto CLOSE
 
 :UPDATE
 cls
@@ -300,9 +323,9 @@ dfrgui.exe
 pause
 echo. 
 SET /P LK=Enter number 1 to return to the previous sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
-IF %L%==1 GOTO TOOLS
-IF %L%==2 GOTO MENU
-IF %L%==3 GOTO CLOSE
+IF %LK%==1 GOTO TOOLS
+IF %LK%==2 GOTO MENU
+IF %LK%==3 GOTO CLOSE
 
 :CLMGR
 cls
@@ -311,9 +334,9 @@ cleanmgr.exe
 pause
 echo. 
 SET /P LKT=Enter number 1 to return to the previous sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
-IF %L%==1 GOTO TOOLS
-IF %L%==2 GOTO MENU
-IF %L%==3 GOTO CLOSE
+IF %LKT%==1 GOTO TOOLS
+IF %LKT%==2 GOTO MENU
+IF %LKT%==3 GOTO CLOSE
 
 :SHORTPING
 cls
@@ -391,7 +414,15 @@ IF %P%==3 GOTO CLOSE
 :NINITE
 cls
 color 0A
-start "" https://ninite.com/7zip-chrome-edge-vlc/ninite.exe 
+echo Downloading Ninite installer silently...
+set dest=%temp%\ninite.exe
+curl -o "%dest%" "https://ninite.com/7zip-chrome-edge-vlc/ninite.exe"
+if exist "%dest%" (
+    echo Download complete. Launching installer...
+    start "" "%dest%"
+) else (
+    echo Failed to download the installer.
+)
 pause
 echo.
 SET /P Q=Enter number 1 to return to the previous sub-menu, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
@@ -403,19 +434,16 @@ IF %Q%==3 GOTO CLOSE
 cls
 color 0A
 echo.
-echo "Your systems license key:"
-wmic path SoftwareLicensingService get OA3xOriginalProductKey
-pause
+echo Running VBS script to retrieve Windows license. Expect a new window to pop up.
+cscript //nologo "%~dp0..\VBS\KeyGrabber.vbs"
 color 0E
 echo.
-echo If it didn't showed a key, it is possible that this PC is using a 'illegal' key, or a key that was used for a previous installation of Windows 7/8 - then upgraded to 10/11.
 echo.
-echo You can also try to use a different script for the license key, you can find it in the 'Scripts' folder in this pcHealth folder!
-echo.
+cls
 SET /p R=If you want to return to the previous sub-menu, enter number 1. To return to the main-menu, enter number 2. To exit the script, enter the number 3. Enter: 
 IF %R%==1 GOTO TOOLS
 IF %R%==2 GOTO MENU
-IF %R%==2 GOTO CLOSE
+IF %R%==3 GOTO CLOSE
 
 :BIOSPW
 cls
@@ -554,6 +582,29 @@ IF %AF%==1 GOTO PROGRAMS
 IF %AF%==2 GOTO MENU
 IF %AF%==3 GOTO CLOSE
 
+:HWMONITORDOWN
+cls
+color 0A
+echo.
+echo Are you sure that you want to download the newest version of HWMonitor?
+echo.
+SET /P AE=If yes, enter the number 1, if not enter number 2 to return to the sub-menu. Enter: 
+IF %AE%==1 GOTO HARDMONITORDOWNLOADLINK 
+IF %AE%==2 GOTO PROGRAMS
+
+:HARDMONITORDOWNLOADLINK
+cls
+color 0A
+echo.
+echo Your download will start now; if not click on 'installer' on the download page!
+echo.
+winget install --id CPUID.HWMonitor
+echo.
+SET /P AF=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
+IF %AF%==1 GOTO PROGRAMS
+IF %AF%==2 GOTO MENU
+IF %AF%==3 GOTO CLOSE
+
 :ADWCLEANER
 cls
 color 0A
@@ -570,7 +621,10 @@ color 0A
 echo. 
 echo Your download will start now!
 echo.
-start "" https://downloads.malwarebytes.com/file/adwcleaner
+winget install --id Malwarebytes.AdwCleaner
+echo.
+echo -----------------------------------------------------
+echo To start the program, quit this program with CTRL+C and type 'adwcleaner' in a CMD or Powershell terminal. You might need a reboot for this to work.
 echo.
 SET /P AH=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
 IF %AH%==1 GOTO PROGRAMS
@@ -592,7 +646,7 @@ cls
 color 0A
 echo.
 echo Your download will start now!
-start "" https://sourceforge.net/projects/crystaldiskinfo/files/9.2.1/CrystalDiskInfo9_2_1.exe/download
+winget install --id CrystalDewWorld.CrystalDiskInfo
 echo.
 SET /P AJ=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
 IF %AJ%==1 GOTO PROGRAMS
@@ -603,7 +657,7 @@ IF %AJ%==3 GOTO CLOSE
 cls
 color 0A
 echo. 
-echo Are you sure that you want to download the latest version of Disk Mark?
+echo Are you sure that you want to download the latest version of CrystalDiskMark?
 echo. 
 SET /P AK=If yes enter the number 1 to start the download, enter the number 2 to return to the previous sub-menu. Enter: 
 IF %AK%==1 GOTO DISKMARKDOWNLOADLINK
@@ -614,7 +668,7 @@ cls
 color 0A
 echo.
 echo Your download will start now!
-start "" https://sourceforge.net/projects/crystaldiskmark/files/8.0.4c/CrystalDiskMark8_0_4c.exe/download
+winget install --id CrystalDewWorld.CrystalDiskMark
 echo.
 SET /P AL=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
 IF %AL%==1 GOTO PROGRAMS
@@ -636,7 +690,7 @@ cls
 color 0A
 echo.
 echo Your download will start now!
-start "" https://www.guru3d.com/getdownload/2c1b2414f56a6594ffef91236a87c0e976d52e051ab2343846bab016c2f20c7c4d6ce7dfe19a0bc843da8d448bbb670058b0c9ee9a26f5cf49bc39c97da070e6eb314629af3da2d25bb346390afa2dcf705c87ec7c3da347e18659a3b948c3070ffcc0d3e8b64372a1b9cb358969eb4e3c0f5dfa331505ae3d1cc694687ac9764e3f9a584af4b257b93021590ebe2718970193f9c9e422bd44cbf572
+start "" https://prime95.net/download/
 echo.
 SET /P AN=To return to the previous sub-menu enter 1, enter number 2 to return to the main-menu or enter number 3 to exit the script. Enter: 
 IF %AN%==1 GOTO PROGRAMS
