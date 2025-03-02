@@ -12,7 +12,7 @@
 - Changed how CPU, GPU, and RAM details are displayed.  
   Refer to [this article](https://techcommunity.microsoft.com/blog/windows-itpro-blog/wmi-command-line-wmic-utility-deprecation-next-steps/4039242) for more information. Microsoft is deprecating the WMIC command line tool, which is used to retrieve CPU, GPU, and RAM details. The new method uses PowerShell commands to retrieve the same information. This change ensures that the script remains functional in future Windows versions.
 - Changed the code logic in the KeyGrabber part, to ensure correct working code in newer Windows versions. The keygrabber will now read new registry values to retrieve information.
-- Bugfix for crashing issue -> [REALESDEALS/pcHealth#167](https://github.com/REALESDEALS/pcHealth/issues/167).
+- Bugfix for crashing issue, however still no logging feature yet. -> [REALSDEALS/pcHealth#167](https://github.com/REALSDEALS/pcHealth/issues/167).
 
 
 ## 18-10-2024 - @REALSDEALS
