@@ -94,10 +94,10 @@ There is also a possibility to e-mail me, if that's what you desire (check my Gi
 ## pcHealthPlus
 pcHealthPlus is my other repository, where I plan to gradually migrate the technology currently implemented here. My goal is to transition to PowerShell 7.5, as Microsoft is set to drop support for batch (.bat/.cmd) files in upcoming Windows releases.
 
-Link to pcHealthPlus: [REALESDEALS/pcHealthPlus](https://github.com/REALSDEALS/pcHealthPlus)
+Link to pcHealthPlus: [REALSDEALS/pcHealthPlus](https://github.com/REALSDEALS/pcHealthPlus)
 
 ## Win_Scan
 ~~Win_Scan is my other repository, but the functionality provided by Win_Scan has been implemented here...~~
 ~~The functionality is now fully integrated into this script. The old repository still exists, but it is deprecated.~~
 
-~~Link to Win_Scan: [REALESDEALS/Win_Scan](https://github.com/REALSDEALS/Win_Scan)~~
+~~Link to Win_Scan: [REALSDEALS/Win_Scan](https://github.com/REALSDEALS/Win_Scan)~~
