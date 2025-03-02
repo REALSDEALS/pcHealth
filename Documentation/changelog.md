@@ -1,5 +1,12 @@
 # Changelog.md - pcHealth
 
+## 02-03-2025 – @Stensel8
+
+### Changelog
+- Rename CrystalDiskmark.
+- Added a new integration: HP Image Assistant (HPIA) for HP devices. [View more](https://ftp.ext.hp.com/pub/caps-softpaq/cmit/imagepal/ref/platformList.html).
+- Thinking of automating the HP Image Assistant (HPIA) download and installation process. Currently, it only opens the HPIA tool.
+
 ## 27-02-2025 – @Stensel8
 
 ### Changelog

@@ -89,16 +89,17 @@ echo Enter number 10 to start a short ping test.
 echo Enter number 11 to start a continues ping test.
 echo Enter number 12 to start a trace route to Google.
 echo Enter number 13 to update system programs.
-echo Enter number 14 to re-start the audio drivers of your system.
-echo Enter number 15 to re-open the generated battery report file.
-echo Enter number 16 to re-open the CBS.log (AKA DISM.log)
-echo Enter number 17 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
-echo Enter number 18 to see your systems Windows License key.
-echo Enter number 19 BIOS Password Recovery.
-echo Enter number 20 to shutdown, reboot or log off from your PC/laptop.
-echo Enter number 21 to open the programs menu.
-echo Enter number 22 to return to the previous menu.
-echo Enter number 23 to close this batch file.
+echo Enter number 14 to update system drivers. (Currently HP only)
+echo Enter number 15 to re-start the audio drivers of your system.
+echo Enter number 16 to re-open the generated battery report file.
+echo Enter number 17 to re-open the CBS.log (AKA DISM.log)
+echo Enter number 18 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
+echo Enter number 19 to see your systems Windows License key.
+echo Enter number 20 BIOS Password Recovery.
+echo Enter number 21 to shutdown, reboot or log off from your PC/laptop.
+echo Enter number 22 to open the programs menu.
+echo Enter number 23 to return to the previous menu.
+echo Enter number 24 to close this batch file.
 echo ...........................................................
 echo.
 
@@ -116,16 +117,17 @@ IF %B%==10 GOTO SHORTPING
 IF %B%==11 GOTO CONTINUESPING
 IF %B%==12 GOTO TRACEGOOGLE
 IF %B%==13 GOTO SYSUPDATE
-IF %B%==14 GOTO AUDIORE 
-IF %B%==15 GOTO BATOPEN
-IF %B%==16 GOTO OPENCBSLOG
-IF %B%==17 GOTO NINITE
-IF %B%==18 GOTO LICENSE
-IF %B%==19 GOTO BIOSPW
-IF %B%==20 GOTO RESHUT
-IF %B%==21 GOTO PROGRAMS
-IF %B%==22 GOTO MENU
-IF %B%==23 GOTO CLOSE
+IF %B%==14 GOTO HPUPDATE
+IF %B%==15 GOTO AUDIORE
+IF %B%==16 GOTO BATOPEN
+IF %B%==17 GOTO OPENCBSLOG
+IF %B%==18 GOTO NINITE
+IF %B%==19 GOTO LICENSE
+IF %B%==20 GOTO BIOSPW
+IF %B%==21 GOTO RESHUT
+IF %B%==22 GOTO PROGRAMS
+IF %B%==23 GOTO MENU
+IF %B%==24 GOTO CLOSE
 
 :PROGRAMS
 cls
@@ -178,6 +180,40 @@ SET /P LL=Enter number 1 to return to the sub-menu, enter number 2 to return to 
 IF %LL%==1 GOTO TOOLS
 IF %LL%==2 GOTO MENU
 IF %LL%==3 GOTO CLOSE
+
+:HPUPDATE
+cls
+color 0A
+winget install --id HP.ImageAssistant
+echo.
+echo -----------------------------------------------------
+echo Please navigate to: C:\SWSetup
+echo and search for "HPImageAssistant.exe". Running this tool will scan your HP system for outdated drivers and firmware.
+pause
+echo.
+echo ====================================================
+echo                HP IMAGE ASSISTANT MENU
+echo ====================================================
+echo.
+echo  1. Return to the sub-menu
+echo  2. Return to the main menu
+echo  3. Close the script
+echo  4. Open the HP Image Assistant folder (default install location)
+echo.
+SET /P LR="Enter your choice (1-4): "
+IF "%LR%"=="1" GOTO TOOLS
+IF "%LR%"=="2" GOTO MENU
+IF "%LR%"=="3" GOTO CLOSE
+IF "%LR%"=="4" (
+    echo Opening the HP Image Assistant folder...
+    start "" "C:\SWSetup"
+    pause
+    GOTO MENU
+) else (
+    echo Invalid choice. Please try again.
+    pause
+    GOTO HPUPDATE
+)
 
 :SYSINFO
 cls
@@ -725,7 +761,6 @@ color 0A
 echo.
 echo Are you sure that you want to try out a pre-release? 
 echo.
-echo
 SET /P AO=If yes you could enter number 1 to be redirected to our version page on GitHub, we would like to recieve feedback on your experience with a pre-release build! Because it could help us out, improving our script! You can enter number 2 to return to the main menu or you could enter number 3 to close the script. Enter: 
 IF %AO%==1 GOTO GETEARLYRLS
 IF %AO%==2 GOTO MENU

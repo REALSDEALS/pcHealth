@@ -51,6 +51,7 @@ Otherwise I can keep no promise to that statement.
 11. Continues ping test. (Does my internet stop at certain times?)
 12. Starts the function 'TRACERT' and traces how many hops your system has to make before establishing an connection with the host. (Google)
 13. Fetches updates for system programs, updates them too if needed.
+14. Fetches updates for HP software and hardware, by running the HPIA tool. This tool will only work on HPE devices, such as ProBooks, EliteBooks, ZBooks, etc. The source URL is hpia.hpcloud.hp.com. View full list of hardware supported by HPIA: https://ftp.ext.hp.com/pub/caps-softpaq/cmit/imagepal/ref/platformList.html
 14. Re-enables the drivers, it restarts the audio drivers. (Having issues with sound?)
 15. Re-open the battery report. (Can't find my generated report anymore? Try opening it this way)
 16. Re-open the CBS.log (DISM log, report from option 4.) 
@@ -72,8 +73,8 @@ While I understand that some of you may have questions about this decision, my g
 1. Hardware Info - This program will check which hardware is in your PC.
 2. HWMonitor - This program will check the temperature of your hardware.
 3. ADW Cleaner - This program will scan for malicious software (adware, malware, spyware).
-4. DiskInfo64 - This program will check information about your HDD/SDD (serial etc.)
-5. CrystalDiskMark 8 - This program will test your HDD/SDD on possible malfunctions.
+4. CrystalDiskInfo - This program will check information about your HDD/SDD (serial etc.)
+5. CrystalDiskMark - This program will test your HDD/SDD on possible malfunctions.
 6. Prime95 - This program will stress test your CPU. Useful for overclocking and performance tests.
 7. Windows PowerToys - Makes configuration in- and around Windows a tad easier. Adds some new features to your Windows.
 8. Open the other menu, it's called 'Tools'.
