@@ -170,7 +170,7 @@ echo.
 set /p update_choice="Do you want to continue updating? (y/n): "
 if /i "%update_choice%"=="y" (
     echo Updating packages...
-    winget upgrade --all
+    winget upgrade --all --accept-source-agreements --accept-package-agreements --silent --force
 ) else (
     echo Update aborted.
 )
