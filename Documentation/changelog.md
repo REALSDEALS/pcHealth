@@ -1,5 +1,10 @@
 # Changelog.md - pcHealth
 
+## 03-03-2025 – @Stensel8
+
+### Changelog
+- Enhance winget updater/upgrader: automatically accept source and package agreements to avoid extra prompts.
+
 ## 02-03-2025 – @Stensel8
 
 ### Changelog
