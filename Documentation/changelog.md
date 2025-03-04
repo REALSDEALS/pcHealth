@@ -1,5 +1,12 @@
 # Changelog.md - pcHealth
 
+## 04-03-2025 - @REALSDEALS
+
+Beta release - v1.8.4-beta
+- A beta release to implement and to test the new featureset and the rework of code that @Stensel8 has been working on.
+
+This beta will be the test window to for an upcoming full release with the new featureset and the rework of the code.
+
 ## 02-03-2025 – @Stensel8
 
 ### Changelog
@@ -37,8 +44,8 @@ Discord tag has been updated in the README.md because Discord discontinued the u
 ## 30-04-2024 - @REALSDEALS
 
 Fixed a beginner mistake, running a PowerShell command in CMD. 
-    --> PowerToys command will now run the command as a PowerShell command; installation follows through and works as intended.
-        --> Sidenote... maybe include a 'winget' install tool too, since if breaks when the user doesn't have this installed.
+  --> PowerToys command will now run the command as a PowerShell command; installation follows through and works as intended.
+    --> Sidenote... maybe include a 'winget' install tool too, since if breaks when the user doesn't have this installed.
 
 ## 26-04-2024 - @REALSDEALS
 
