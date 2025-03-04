@@ -1,5 +1,10 @@
 # Changelog.md - pcHealth
 
+## 04-03-2025 – @Stensel8
+
+### Changelog
+- Enhanced performance when printing system information. 
+
 ## 03-03-2025 – @Stensel8
 
 ### Changelog
