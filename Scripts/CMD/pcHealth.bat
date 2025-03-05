@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.8.3
+title pcHealth - Check your PC's Health! - version 1.8.4-beta
 =======
 cd /
 color D
@@ -43,7 +43,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.8.3 of pcHealth.
+echo You are now using version 1.8.4-beta of pcHealth.
 =======
 echo.
 for /f "skip=2 tokens=1,2,*" %%a in ('reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI" /v LastLoggedOnDisplayName 2^>nul') do set FullName=%%c
@@ -594,7 +594,7 @@ SET /P AP=To return to the sub-menu enter 1, to return to the main menu enter 2 
 IF %AP%==1 GOTO PROGRAMS
 IF %AP%==2 GOTO MENU
 IF %AP%==3 GOTO CLOSE
- 
+
 :HARDINFODOWN
 cls
 color 0A
