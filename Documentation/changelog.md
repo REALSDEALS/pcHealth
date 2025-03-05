@@ -1,5 +1,15 @@
 # Changelog.md - pcHealth
 
+## 04-03-2025 – @Stensel8
+
+### Changelog
+- Enhanced performance when printing system information. 
+
+## 03-03-2025 – @Stensel8
+
+### Changelog
+- Enhance winget updater/upgrader: automatically accept source and package agreements to avoid extra prompts.
+
 ## 04-03-2025 - @REALSDEALS
 
 Beta release - v1.8.4-beta
