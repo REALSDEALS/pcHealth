@@ -6,7 +6,7 @@ For now only the version names will be displayed, in the future there might be e
 # Current Version(s)
 
 Full Release - v1.8.3 (Stable)  
-Beta Release - v1.8.4-beta
+Beta Release - v1.8.5-beta
 =======
 Alpha Release - v0.3.0-alpha (PowerShell) ((DISCONTINUED))
 
@@ -37,6 +37,7 @@ Here you can see a overview of the older version.
 
 ### Beta Release(s)
 
+- Beta Release - v1.8.5-beta
 - Beta Release - v1.8.4-beta
 - Beta Release - v1.8.2-beta
 - Beta Release - v1.8.1-beta
@@ -82,7 +83,6 @@ Here you can see a overview of the older version.
 - Alpha Release - v0.1.1-alpha
 - Alpha Release - v0.1.0-alpha
 - Alpha Release - v0.0.1-alpha
-
 
 ### Alpha Release(s) - pcHealth.ps1 - DISCONTINUED
 
