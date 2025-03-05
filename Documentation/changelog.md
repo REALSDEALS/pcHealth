@@ -1,18 +1,29 @@
 # Changelog.md - pcHealth
 
+## 05-03-2025 - @REALSDEALS
+
+Beta release - v1.8.5-beta
+
+- A new beta release is inbound due the latest changes to the code by @Stensel8.
+
+Similar to v1.8.4-beta, this version will undergo a short testing window before a full release is imminent.
+
 ## 04-03-2025 – @Stensel8
 
 ### Changelog
-- Enhanced performance when printing system information. 
+
+- Enhanced performance when printing system information.
 
 ## 03-03-2025 – @Stensel8
 
 ### Changelog
+
 - Enhance winget updater/upgrader: automatically accept source and package agreements to avoid extra prompts.
 
 ## 04-03-2025 - @REALSDEALS
 
 Beta release - v1.8.4-beta
+
 - A beta release to implement and to test the new featureset and the rework of code that @Stensel8 has been working on.
 
 This beta will be the test window to for an upcoming full release with the new featureset and the rework of the code.
@@ -20,6 +31,7 @@ This beta will be the test window to for an upcoming full release with the new f
 ## 02-03-2025 – @Stensel8
 
 ### Changelog
+
 - Rename CrystalDiskmark.
 - Added a new integration: HP Image Assistant (HPIA) for HP devices. [View more](https://ftp.ext.hp.com/pub/caps-softpaq/cmit/imagepal/ref/platformList.html).
 - Thinking of automating the HP Image Assistant (HPIA) download and installation process. Currently, it only opens the HPIA tool.
@@ -27,6 +39,7 @@ This beta will be the test window to for an upcoming full release with the new f
 ## 27-02-2025 – @Stensel8
 
 ### Changelog
+
 - Fixed broken downloader links.
 - Changed the username variable logic so the script can read the full username.
 - Improved the program updater; it now uses a more verbose logic. It will tell you what it is doing and if it is successful or not.
@@ -38,11 +51,10 @@ This beta will be the test window to for an upcoming full release with the new f
 - Changed the code logic in the KeyGrabber part, to ensure correct working code in newer Windows versions. The keygrabber will now read new registry values to retrieve information.
 - Bugfix for crashing issue, however still no logging feature yet. -> [REALSDEALS/pcHealth#167](https://github.com/REALSDEALS/pcHealth/issues/167).
 
-
 ## 18-10-2024 - @REALSDEALS
 
-Audit of the code, everything seems to work in this audit and testing phase. 
-Since it has been a long time since a full version has been pushed a new version/update will be released. 
+Audit of the code, everything seems to work in this audit and testing phase.
+Since it has been a long time since a full version has been pushed a new version/update will be released.
 
 You can see this update as a small QoL and maintenance update.
 
@@ -53,9 +65,9 @@ Discord tag has been updated in the README.md because Discord discontinued the u
 
 ## 30-04-2024 - @REALSDEALS
 
-Fixed a beginner mistake, running a PowerShell command in CMD. 
-  --> PowerToys command will now run the command as a PowerShell command; installation follows through and works as intended.
-    --> Sidenote... maybe include a 'winget' install tool too, since if breaks when the user doesn't have this installed.
+Fixed a beginner mistake, running a PowerShell command in CMD.
+--> PowerToys command will now run the command as a PowerShell command; installation follows through and works as intended.
+--> Sidenote... maybe include a 'winget' install tool too, since if breaks when the user doesn't have this installed.
 
 ## 26-04-2024 - @REALSDEALS
 
@@ -78,7 +90,7 @@ The option opens a new tab in your default browser and redirects you to the main
 
 ## 02-11-2023 - @REALSDEALS
 
-In this release the Powershell capability has been removed from the script. 
+In this release the Powershell capability has been removed from the script.
 This is due to the fact that .bat won't be supported in upcoming releases of Windows. Or the rumors are there that it won't be supported anymore.
 
 Because of the fact that .bat might not survive the next Windows release (W12.) I will be archiving this repository and will be working on a new project regarding the functionality of pcHealth but in Powershell. This repository will be named pcHealthPlus.
@@ -95,6 +107,7 @@ It is now possible to use the 5th and 6th function.
 ## 26-01-2023 - @BigoStream
 
 Centered the title from the menu that you are currently in.
+
 - This update is a tweak for/on the previous update.
 
 ## 24-01-2023 - @BigoStream
@@ -107,14 +120,15 @@ Got rid of the buggs from the new feature... Those nasty little things...
 
 ## 21-12-2022 - @BigoStream
 
-Added the functionality to let user navigate to the repository to (mainly cause) fetch their own download and/or version. 
+Added the functionality to let user navigate to the repository to (mainly cause) fetch their own download and/or version.
 They will be redirected to the main page of pcHealth.
 
 Added a feature to the main screen, users can choose to check for early releases.
 
-## 30-11-2022 - @BigoStream 
+## 30-11-2022 - @BigoStream
 
 Added new functions to the script:
+
 - Disk Optimilisation through the script.
 - Disk Cleaning through the script.
 - Trace route (tracert) through the script.
@@ -127,7 +141,7 @@ Changed some colors.
 
 ## 16-11-2022 - @BigoStream - Full Version Release 1.5.8
 
-Changed some minor faults in the script. 
+Changed some minor faults in the script.
 Some 'return' to menu functions were moving the user to the wrong 'sub-'menu.
 
 ## 04-10-2022 - @BigoStream
@@ -142,9 +156,10 @@ Script has gotten some small adjustments and some of the colours have been chang
 
 Function has been tweaked, can be implemented in the main code now.
 
-#### Credits again: 
+#### Credits again:
+
 - To learn more about bios-pw I would suggest taking a look at the main repository from @bacher09
-- https://github.com/bacher09/pwgen-for-bios 
+- https://github.com/bacher09/pwgen-for-bios
 
 ### 05-08-2022
 
@@ -155,9 +170,9 @@ BIOS-PW has been intergrated, it will redirect the user to the website of BIOS-P
 It has been given the 16th function number in the Tools menu.
 
 - To learn more about bios-pw I would suggest taking a look at the main repository from @bacher09
-- https://github.com/bacher09/pwgen-for-bios 
+- https://github.com/bacher09/pwgen-for-bios
 
-### 04-08-2022 
+### 04-08-2022
 
 Added templates for people to fill in, regarding to bugs/issues or requesting features.
 GitHub was being very intrusive about it, and has been prompting it to me for weeks now.
@@ -174,7 +189,7 @@ Besides that it is now possible to fetch updates from system programs.
 ### 04-08-2022
 
 Looked at the PR from @BigoStream, wasn't working in the first case.
-Seemed to be an issue with some of the callbacks the script made... 
+Seemed to be an issue with some of the callbacks the script made...
 
 Should be fixed now, this can be tested in beta version 1.5.3 at function '10' in TOOLS Menu.
 
@@ -195,9 +210,9 @@ I made a wrong direction in the code for the programs menu, I redirected the 're
 
 So it should be up and running now!
 
-### 29-07-2022 
+### 29-07-2022
 
-You are now able to return to the previous menu. 
+You are now able to return to the previous menu.
 You will be prompted with an option; returning to the previous (sub)-menu or returning to the (main)-menu.
 
 ## 26-07-2022 - Full Version Release 1.5.0
@@ -206,11 +221,11 @@ Version 1.5.0 will be available!
 
 We have removed a lot of issues which where present in the latest official release (1.4.0).
 
-Thanks for using the 'software'! 
+Thanks for using the 'software'!
 
 pcHealth will probably evolve in a different kind of program/software. With a GUI and a local database for people in the workfield that find it handy ;)
 
-At last, I want to thank everyone who has been using, or has used pcHealth! 
+At last, I want to thank everyone who has been using, or has used pcHealth!
 I got a lot of feedback and was able to improve the script because of that, many thanks again.
 
 Special credits go to the following people:
@@ -219,14 +234,14 @@ CREDITS: Jaccosf, Stensel and other testers!
 
 ### 26-07-2022
 
-Added a feature to restart the audio-drivers on the host machine. 
+Added a feature to restart the audio-drivers on the host machine.
 This will be in the test menu = '1' and at function = '10'.
 
 Since it runs through a .PS extension it isn't able to return the user to the main menu... This is one of the many limitations of .batch... :(
 
 For this feature I have to give credit to Stensel, he recommanded and made a huge contribution to this specific feature. Thanks!
 
-### 20-07-2022 
+### 20-07-2022
 
 Reviewed the script by myself, saw some minor inconviences... fixed that.
 The changes that I made to the script regarding downloading of progams, is a succes!
@@ -249,7 +264,7 @@ Added a new script which allows you to grab the windows license key and gives yo
 
 This script is an extension for if the pcHealth.bat (option 13) doesn't comeback with a license key.
 
-+ Removed some typo's and made a change in the displaying color regarding to Option 13.
+- Removed some typo's and made a change in the displaying color regarding to Option 13.
 
 ### 04-03-2022
 
@@ -273,7 +288,7 @@ CREDITS: @Jaccosf
 Updated the script to display 2 menu's instead of a bunch of un-organized options.
 This will keep it easier to read and more foolproof/noobfriendly.
 
-### 02-02-2022 
+### 02-02-2022
 
 Changed the download link from the HWinfo.
 So when you run this line it will redirect you to the latest HWinfo installer.
@@ -284,7 +299,7 @@ Updated the Project board on GitHub.
 This commit is due to these additions, see it as a reminder for me...
 Nothing special.
 
-I added a new menu inside the code. 
+I added a new menu inside the code.
 Function number 15 has been added, this function opens a small menu with a small handfull of usefull test programs to run on your system.
 
 This will be updated and upgraded in the future.
@@ -297,7 +312,7 @@ Updated some text issues that were being displayed in the script.
 After a small break we continue working on the script.
 Thanks to a colleague of me, I have added the license key function to the script.
 
-He provided the codeline and asked if I could implement it. 
+He provided the codeline and asked if I could implement it.
 So credits were credits due.
 
 This function is in the new beta release.
@@ -308,11 +323,11 @@ later this week I will push a official release.
 Today we have reworked the visual representation of the script.
 The way it displays text to the user and guides the user through the script was a bit harse, so we made it somewhat easier to read.
 
- - This includes the menu and function lines.
+- This includes the menu and function lines.
 
 This could get another rework in the future, but for now this will do.
 
- - We could, in the future rework it again, to give the user the option(s) and visually 'gather' the input on the next line.
+- We could, in the future rework it again, to give the user the option(s) and visually 'gather' the input on the next line.
 
 PowerShell script has been updated to output some standard features.
 Not every function works yet, but most of them do now.
@@ -348,10 +363,10 @@ The script changes color.
 
 GREEN in standby/menu, RED when code is active/script is running.
 
-It's now possible to log off, restart and/or shutdown your PC/Laptop via the Script. 
+It's now possible to log off, restart and/or shutdown your PC/Laptop via the Script.
 New Full Release will be pushed.
 
-## 10-12-2021 - Full Version Release 1.2.0 
+## 10-12-2021 - Full Version Release 1.2.0
 
 Added a function to display and read the system information from the command line.
 
