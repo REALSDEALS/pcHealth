@@ -88,7 +88,7 @@ echo Enter number 9 to start Disk cleaner to clean your drive(s). (Windows Funct
 echo Enter number 10 to start a short ping test.
 echo Enter number 11 to start a continues ping test.
 echo Enter number 12 to start a trace route to Google.
-echo Enter number 13 to reset the network stack (may improve DNS resolve times)
+echo Enter number 13 to reset the network stack (may improve DNS resolution times)
 echo Enter number 14 to update system programs.
 echo Enter number 15 to update system drivers. (Currently HP only)
 echo Enter number 16 to re-start the audio drivers of your system.
