@@ -88,18 +88,19 @@ echo Enter number 9 to start Disk cleaner to clean your drive(s). (Windows Funct
 echo Enter number 10 to start a short ping test.
 echo Enter number 11 to start a continues ping test.
 echo Enter number 12 to start a trace route to Google.
-echo Enter number 13 to update system programs.
-echo Enter number 14 to update system drivers. (Currently HP only)
-echo Enter number 15 to re-start the audio drivers of your system.
-echo Enter number 16 to re-open the generated battery report file.
-echo Enter number 17 to re-open the CBS.log (AKA DISM.log)
-echo Enter number 18 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
-echo Enter number 19 to see your systems Windows License key.
-echo Enter number 20 BIOS Password Recovery.
-echo Enter number 21 to shutdown, reboot or log off from your PC/laptop.
-echo Enter number 22 to open the programs menu.
-echo Enter number 23 to return to the previous menu.
-echo Enter number 24 to close this batch file.
+echo Enter number 13 to reset the network stack (may improve DNS resolution times)
+echo Enter number 14 to update system programs.
+echo Enter number 15 to update system drivers. (Currently HP only)
+echo Enter number 16 to re-start the audio drivers of your system.
+echo Enter number 17 to re-open the generated battery report file.
+echo Enter number 18 to re-open the CBS.log (AKA DISM.log)
+echo Enter number 19 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
+echo Enter number 20 to see your systems Windows License key.
+echo Enter number 21 BIOS Password Recovery.
+echo Enter number 22 to shutdown, reboot or log off from your PC/laptop.
+echo Enter number 23 to open the programs menu.
+echo Enter number 24 to return to the previous menu.
+echo Enter number 25 to close this batch file.
 echo ...........................................................
 echo.
 
@@ -116,18 +117,19 @@ IF %B%==9 GOTO CLMGR
 IF %B%==10 GOTO SHORTPING
 IF %B%==11 GOTO CONTINUESPING
 IF %B%==12 GOTO TRACEGOOGLE
-IF %B%==13 GOTO SYSUPDATE
-IF %B%==14 GOTO HPUPDATE
-IF %B%==15 GOTO AUDIORE
-IF %B%==16 GOTO BATOPEN
-IF %B%==17 GOTO OPENCBSLOG
-IF %B%==18 GOTO NINITE
-IF %B%==19 GOTO LICENSE
-IF %B%==20 GOTO BIOSPW
-IF %B%==21 GOTO RESHUT
-IF %B%==22 GOTO PROGRAMS
-IF %B%==23 GOTO MENU
-IF %B%==24 GOTO CLOSE
+IF %B%==13 GOTO RESETNETWORK
+IF %B%==14 GOTO SYSUPDATE
+IF %B%==15 GOTO HPUPDATE
+IF %B%==16 GOTO AUDIORE
+IF %B%==17 GOTO BATOPEN
+IF %B%==18 GOTO OPENCBSLOG
+IF %B%==19 GOTO NINITE
+IF %B%==20 GOTO LICENSE
+IF %B%==21 GOTO BIOSPW
+IF %B%==22 GOTO RESHUT
+IF %B%==23 GOTO PROGRAMS
+IF %B%==24 GOTO MENU
+IF %B%==25 GOTO CLOSE
 
 :PROGRAMS
 cls
@@ -410,6 +412,25 @@ SET /P NM=Enter number 1 to return to the previous sub-menu menu, enter number 2
 IF %NM%==1 GOTO TOOLS
 IF %NM%==2 GOTO MENU
 IF %NM%==3 GOTO CLOSE
+
+:RESETNETWORK
+cls
+color 0A
+echo.
+echo Resetting and flushing the DNS / network stack...
+echo.
+ipconfig /flushdns
+ipconfig /registerdns
+ipconfig /release
+ipconfig /renew
+NETSH winsock reset catalog
+NETSH int ipv4 reset reset_ipv4.log
+NETSH int ipv6 reset reset_ipv6.log
+echo.
+echo Your network stack has been reset, hope it solved your Network / DNS problems!
+echo.
+pause
+GOTO TOOLS
 
 :AUDIORE
 cls
