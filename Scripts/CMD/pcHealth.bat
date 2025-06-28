@@ -96,7 +96,7 @@ echo Enter number 17 to re-open the generated battery report file.
 echo Enter number 18 to re-open the CBS.log (AKA DISM.log)
 echo Enter number 19 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
 echo Enter number 20 to see your systems Windows License key.
-echo Enter number 22 BIOS Password Recovery.
+echo Enter number 21 BIOS Password Recovery.
 echo Enter number 22 to shutdown, reboot or log off from your PC/laptop.
 echo Enter number 23 to open the programs menu.
 echo Enter number 24 to return to the previous menu.
