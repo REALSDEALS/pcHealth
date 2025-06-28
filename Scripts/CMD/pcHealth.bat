@@ -417,7 +417,7 @@ IF %NM%==3 GOTO CLOSE
 cls
 color 0A
 echo.
-echo Resetting and flushing the DNS / Networkstack...
+echo Resetting and flushing the DNS / network stack...
 echo.
 ipconfig /flushdns
 ipconfig /registerdns
