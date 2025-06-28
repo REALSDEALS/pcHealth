@@ -424,8 +424,8 @@ ipconfig /registerdns
 ipconfig /release
 ipconfig /renew
 NETSH winsock reset catalog
-NETSH int ipv4 reset reset.log
-NETSH int ipv6 reset reset.log
+NETSH int ipv4 reset reset_ipv4.log
+NETSH int ipv6 reset reset_ipv6.log
 echo.
 echo Your Networkstack has been reset, hope it solved your Network / DNS problems!
 echo.
