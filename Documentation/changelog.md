@@ -1,5 +1,16 @@
 # Changelog.md - pcHealth
 
+## 11-07-2025 - @REALSDEALS
+
+Audited the contribution of @Stensel8 and everything seems to work as intended.
+
+## 22-06-2025 - @Stensel
+
+Added a new feature to the script: reset network settings.
+This feature will reset the network settings on the host machine, which can help resolve various network-related issues.
+
+Tweaked multiple typos in the code, documentation and how functions were written or being displayed in the terminal.
+
 ## 05-03-2025 - @REALSDEALS
 
 Beta release - v1.8.5-beta
