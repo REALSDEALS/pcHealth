@@ -16,7 +16,7 @@ Here you can see a overview of the older version.
 
 ### Full Release(s)
 
-- [ ] **TODO:** Full Release - V??? - **New version @REALSDEALS?**
+- Full Release - v1.9.0
 - Full Release - v1.8.3
 - Full Release - v1.7.2
 - Full Release - v1.7.0
