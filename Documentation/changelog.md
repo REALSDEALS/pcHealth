@@ -1,5 +1,11 @@
 # Changelog.md - pcHealth
 
+## 10-03-2025 - @REALSDEALS
+
+Full release, version: 1.9.0.
+
+Changed documentation and version numbers within the script.
+
 ## 05-03-2025 - @REALSDEALS
 
 Beta release - v1.8.5-beta
