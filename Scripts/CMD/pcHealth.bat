@@ -29,7 +29,7 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------    
 :: MainCode
 @echo off
-title pcHealth - Check your PC's Health! - version 1.9.0-beta
+title pcHealth - Check your PC's Health! - version 1.9.1-beta
 =======
 cd /
 color D
@@ -43,7 +43,7 @@ echo Thanks for downloading and using pcHealth!
 echo Please be sure that you are running this Batch file in Administrator mode.
 echo.
 echo Made by REALSDEALS - Licensed under GNU-3 (You are free to use, but not to change or to remove this line.)
-echo You are now using version 1.9.0-beta of pcHealth.
+echo You are now using version 1.9.1-beta of pcHealth.
 =======
 echo.
 for /f "skip=2 tokens=1,2,*" %%a in ('reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI" /v LastLoggedOnDisplayName 2^>nul') do set FullName=%%c
@@ -97,10 +97,11 @@ echo Enter number 18 to re-open the CBS.log (AKA DISM.log)
 echo Enter number 19 to get your Ninite! Includes Edge, Chrome, VLC and 7Zip.
 echo Enter number 20 to see your systems Windows License key.
 echo Enter number 21 BIOS Password Recovery.
-echo Enter number 22 to shutdown, reboot or log off from your PC/laptop.
-echo Enter number 23 to open the programs menu.
-echo Enter number 24 to return to the previous menu.
-echo Enter number 25 to close this batch file.
+echo Enter number 22 to try and repair the boot record of your system. (Use with caution and only if you know what you are doing! ((From a Blue Screen + CMD,) might render your system unbootable!))
+echo Enter number 23 to shutdown, reboot or log off from your PC/laptop.
+echo Enter number 24 to open the programs menu.
+echo Enter number 25 to return to the previous menu.
+echo Enter number 26 to close this batch file.
 echo ...........................................................
 echo.
 
@@ -126,10 +127,11 @@ IF %B%==18 GOTO OPENCBSLOG
 IF %B%==19 GOTO NINITE
 IF %B%==20 GOTO LICENSE
 IF %B%==21 GOTO BIOSPW
-IF %B%==22 GOTO RESHUT
-IF %B%==23 GOTO PROGRAMS
-IF %B%==24 GOTO MENU
-IF %B%==25 GOTO CLOSE
+IF %B%==22 GOTO BOOTRESTORE
+IF %B%==23 GOTO RESHUT
+IF %B%==24 GOTO PROGRAMS
+IF %B%==25 GOTO MENU
+IF %B%==26 GOTO CLOSE
 
 :PROGRAMS
 cls
@@ -519,6 +521,44 @@ IF %SK%==2 start "" https://github.com/bacher09/pwgen-for-bios && GOTO BIOSPW
 IF %SK%==3 GOTO TOOLS
 IF %SK%==4 GOTO MENU
 IF %SK%==5 GOTO CLOSE 
+
+:BOOTRESTORE
+cls
+color 0A
+echo.
+echo This function will try and repair the boot record of your system.
+echo.
+echo Please be aware that this function should only be used if you know what you are doing!
+echo.
+echo Using this function from a Blue Screen + CMD might render your system unbootable!
+echo.
+SET /P SL=If you want to continue and if you are sure what you are doing, enter number 1. To return to the previous sub-menu, enter number 2. To return to the main-menu, enter number 3 or to exit the script, enter number 4. Enter: 
+IF %SL%==1 GOTO BOOTRESTORECONFIRM
+IF %SL%==2 GOTO TOOLS
+IF %SL%==3 GOTO MENU
+IF %SL%==4 GOTO CLOSE
+
+:BOOTRESTORECONFIRM
+cls
+color 0C
+echo.
+echo Are you really sure that you want to continue? This might render your system unbootable!
+echo.
+SET /P SM=If you are sure, enter number 1. To return to the previous sub-menu, enter number 2. To return to the main-menu, enter number 3 or to exit the script, enter number 4. Enter: 
+IF %SM%==1 GOTO BOOTRESTORESTART
+IF %SM%==2 GOTO TOOLS
+IF %SM%==3 GOTO MENU
+IF %SM%==4 GOTO CLOSE
+
+:BOOTRESTORESTART
+cls
+color 0C
+echo.
+echo Starting the boot record repair...
+echo.
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0..\PS1\Repair_BootRecord.ps1"
+echo.
+pause
 
 :RESHUT
 cls
