@@ -1,0 +1,192 @@
+name: PR Automation
+
+# Consolidates all pull request automation in one workflow:
+#
+#  assign          → Assigns @Stensel8 as reviewer/assignee (on: opened, ready_for_review)
+#  label           → Applies labels based on branch name and changed files (on: opened, synchronize, reopened)
+#  auto-checklist  → Ticks the matching type in the PR body from the PR title (on: opened, ready_for_review)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review, edited]
+
+permissions: read-all
+
+concurrency:
+  group: pr-automation-${{ github.event.pull_request.number }}-${{ github.event.action }}
+  cancel-in-progress: true
+
+jobs:
+
+  # ----------------------------------------------------------
+  # ASSIGN
+  # Assigns @Stensel8 when a PR is opened or marked ready.
+  # ----------------------------------------------------------
+  assign:
+    name: Assign reviewer
+    runs-on: ubuntu-latest
+    if: github.event.action == 'opened' || github.event.action == 'ready_for_review'
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Assign @Stensel8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const assignees = ['Stensel8'];
+            const prNumber  = context.payload.pull_request.number;
+
+            await github.rest.issues.addAssignees({
+              owner:        context.repo.owner,
+              repo:         context.repo.repo,
+              issue_number: prNumber,
+              assignees,
+            });
+
+            core.info(`Assigned ${assignees.join(', ')} to PR #${prNumber}`);
+
+  # ----------------------------------------------------------
+  # LABEL
+  # Labels the PR based on branch name and changed files.
+  # Labels are synchronised: removed when the condition no longer applies.
+  # Config: .github/labeler.yml
+  # ----------------------------------------------------------
+  label:
+    name: Label by branch and files
+    runs-on: ubuntu-latest
+    if: >
+      github.event.action == 'opened'      ||
+      github.event.action == 'synchronize' ||
+      github.event.action == 'reopened'
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/labeler@f27b608878404679385c85cfa523b85ccb86e213 # v6.1.0
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/labeler.yml
+          sync-labels: true
+
+  # ----------------------------------------------------------
+  # AUTO-CHECKLIST
+  # Reads the PR title, ticks the matching type checkbox in the
+  # PR body, removes the remaining unchecked type options, and
+  # auto-ticks the conventional-commits checklist item.
+  #
+  # Runs on 'opened' (fresh template) and 'ready_for_review'
+  # (catches draft PRs whose title was set after opening).
+  # ----------------------------------------------------------
+  auto-checklist:
+    name: Auto-tick type checklist
+    runs-on: ubuntu-latest
+    if: >
+
+      (github.event.action == 'opened' || github.event.action == 'ready_for_review') &&
+
+      github.actor != 'renovate[bot]' &&
+
+      github.actor != 'dependabot[bot]'
+
+    permissions:
+
+      pull-requests: write
+
+      issues: write
+    steps:
+      - name: Wait 10 s for author to tick manually
+        run: sleep 10
+
+      - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const VALID_TYPES = [
+              'feat','fix','docs','chore','refactor',
+              'style','perf','test','revert','ci','deps','build',
+            ];
+
+            // Maps PR-title commit type → GitHub label name
+            const TYPE_TO_LABEL = {
+              feat:     'type/feature',
+              fix:      'type/fix',
+              docs:     'type/docs',
+              chore:    'type/chore',
+              refactor: 'type/refactor',
+              style:    'type/style',
+              perf:     'type/perf',
+              test:     'type/test',
+              ci:       'ci',
+              deps:     'type/chore',
+              build:    'type/chore',
+              revert:   'type/revert',
+            };
+
+            const { data: pr } = await github.rest.pulls.get({
+              owner:       context.repo.owner,
+              repo:        context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+
+            let body = pr.body || '';
+
+            // ── Detect commit type from PR title ──────────────────────
+            const titleMatch = pr.title.match(/^(\w+)/);
+            const commitType = titleMatch && VALID_TYPES.includes(titleMatch[1])
+              ? titleMatch[1]
+              : null;
+
+            // Full conventional-commits format: type(scope)?!?: description
+            const titleValid = commitType !== null
+              && /^\w+(\(.+\))?!?: \S/.test(pr.title);
+
+            // Detect breaking change: PR title only — body scan causes false positives from changelog text
+            const isBreaking = /^\w+(\(.+\))?!:/.test(pr.title);
+
+            // ── Tick the matching type checkbox ───────────────────────
+            if (commitType) {
+              body = body.replace(
+                new RegExp(`^(- )\\[ \\]( \`${commitType}\` -)`, 'im'),
+                '$1[x]$2',
+              );
+            }
+
+            // ── Tick or untick the PR-title checklist item ────────────
+            body = body.replace(
+              /^(- )\[[ ]\]( .*PR title follows.*)/im,
+              `$1[${titleValid ? 'x' : ' '}]$2`,
+            );
+
+            // ── Remove unchecked type options (only when type matched) ─
+            if (commitType) {
+              body = body.replace(/^- \[ \] `\w+` -[^\n]*\n?/gm, '');
+              body = body.replace(/\n{3,}/g, '\n\n').trimEnd() + '\n';
+            }
+
+            await github.rest.pulls.update({
+              owner:       context.repo.owner,
+              repo:        context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              body,
+            });
+
+            // ── Apply GitHub label from PR title ──────────────────────
+            const labelsToAdd = [];
+            if (commitType && TYPE_TO_LABEL[commitType]) {
+              labelsToAdd.push(TYPE_TO_LABEL[commitType]);
+            }
+            if (isBreaking) {
+              labelsToAdd.push('breaking-change');
+            }
+            if (labelsToAdd.length > 0) {
+              await github.rest.issues.addLabels({
+                owner:        context.repo.owner,
+                repo:         context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                labels:       labelsToAdd,
+              });
+            }
+
+            core.info(commitType
+              ? `Ticked \`${commitType}\`, applied label \`${TYPE_TO_LABEL[commitType]}\`${isBreaking ? ' + \`breaking-change\`' : ''}.`
+              : 'No valid conventional-commit type found in title — template left intact.',
+            );

@@ -1,0 +1,128 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "description": "Renovate manages NuGet packages and docker:// action images. Regular GitHub Actions (uses: owner/repo@sha) are handled by Dependabot. Both cover NuGet — Renovate for regular bumps, Dependabot for security advisories.",
+  "timezone": "Europe/Amsterdam",
+  "forkProcessing": "enabled",
+  "pinDigests": true,
+  "assigneesFromCodeOwners": true,
+  "reviewersFromCodeOwners": true,
+  "enabledManagers": [
+    "nuget",
+    "github-actions"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "commitMessagePrefix": "deps:",
+  "packageRules": [
+    {
+      "matchManagers": [
+        "dockerfile",
+        "docker-compose"
+      ],
+      "groupName": "Docker images",
+      "addLabels": [
+        "docker"
+      ]
+    },
+    {
+      "matchManagers": [
+        "github-actions"
+      ],
+      "groupName": "GitHub Actions",
+      "addLabels": [
+        "github-actions"
+      ]
+    },
+    {
+      "description": "NuGet labels.",
+      "matchManagers": [
+        "nuget"
+      ],
+      "addLabels": [
+        "dotnet"
+      ]
+    },
+    {
+      "description": "CI labels for GitHub Actions / Docker image updates.",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "addLabels": [
+        "ci"
+      ]
+    },
+    {
+      "description": "Disable Renovate for owner/repo@sha actions - Dependabot handles those.",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchDatasources": [
+        "github-tags",
+        "github-releases",
+        "git-tags"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Group all Docker-based action images into one PR.",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchDatasources": [
+        "docker"
+      ],
+      "groupName": "Docker action images",
+      "addLabels": [
+        "ci"
+      ]
+    },
+    {
+      "description": "Group all Windows App SDK packages into a single PR.",
+      "groupName": "Windows App SDK",
+      "addLabels": [
+        "dotnet",
+        "winui3"
+      ],
+      "matchPackageNames": [
+        "/^Microsoft\\.WindowsAppSDK/",
+        "/^Microsoft\\.Windows\\.SDK/"
+      ]
+    },
+    {
+      "description": "Group .NET BCL packages (System.*) into a single PR.",
+      "groupName": ".NET BCL",
+      "addLabels": [
+        "dotnet"
+      ],
+      "matchPackageNames": [
+        "/^System\\./"
+      ]
+    },
+    {
+      "description": "Group Microsoft infrastructure packages into a single PR.",
+      "groupName": "Microsoft infra",
+      "addLabels": [
+        "dotnet"
+      ],
+      "matchPackageNames": [
+        "/^Microsoft\\.Management\\./"
+      ]
+    },
+    {
+      "matchManagers": [
+        "nuget"
+      ],
+      "groupName": "NuGet packages",
+      "addLabels": [
+        "dotnet"
+      ]
+    }
+  ],
+  "automerge": true,
+  "automergeType": "pr",
+  "semanticCommits": "enabled"
+}

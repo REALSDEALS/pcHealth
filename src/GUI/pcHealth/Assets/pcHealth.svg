@@ -1,0 +1,18 @@
+<svg width="512" height="512" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <mask id="logo-mask">
+      <rect width="200" height="200" fill="white" />
+      <g stroke="black" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="85" y="85" width="30" height="30" stroke-width="8"/>
+        <path d="M60 60 V85 M60 60 H85" />
+        <path d="M140 60 V85 M140 60 H115" />
+        <path d="M60 140 V115 M60 140 H85" />
+        <path d="M140 140 V115 M140 140 H115" />
+        <path d="M100 60 V75 M100 125 V140" stroke-width="6"/>
+      </g>
+    </mask>
+  </defs>
+
+  <rect x="40" y="40" width="120" height="120" rx="20" fill="#000C4D" mask="url(#logo-mask)"/>
+  
+</svg>

@@ -1,0 +1,284 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+  workflow_dispatch:
+
+# Default minimal permissions — each job overrides only what it actually needs.
+# This follows the least-privilege principle.
+permissions: read-all
+
+# Cancel in-progress runs for the same branch/PR when a new push arrives.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# ============================================================
+# Overview of checks:
+#
+#  dotnet-build    → dotnet build (GUI/ WinUI 3 app)
+#  dotnet-format   → dotnet format --verify-no-changes (code style)
+#  pr-title        → conventional commits (PR title format)
+#  commit-lint     → conventional commits (commit message format)
+#  markdown-lint   → markdownlint (README, SECURITY, .github docs)
+#  link-check      → lychee (broken links in markdown)
+#  secrets-scan    → TruffleHog (API keys, passwords, tokens)
+#
+# Security scanning (PSScriptAnalyzer, Trivy, DevSkim, Semgrep,
+# actionlint) lives in security.yml so CI failures never taint
+# SARIF uploads.
+# ============================================================
+
+jobs:
+
+  # ----------------------------------------------------------
+  # DOTNET BUILD
+  # Verifies the WinUI 3 app compiles cleanly on every push.
+  # Runs on Windows because WinUI 3 targets windows-only TFMs.
+  # ----------------------------------------------------------
+  dotnet-build:
+    name: .NET build (WinUI 3)
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7 # v5.2.0
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore "src/GUI/pcHealth/pcHealth.csproj"
+
+      - name: Build
+        run: dotnet build "src/GUI/pcHealth/pcHealth.csproj" -c Release --no-restore
+
+  # ----------------------------------------------------------
+  # DOTNET FORMAT
+  # Verifies C# code style matches .editorconfig rules.
+  # Uses --verify-no-changes so the check is read-only (no edits).
+  # Runs on Windows because the TFM is windows-only.
+  # ----------------------------------------------------------
+  dotnet-format:
+    name: .NET format check
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7 # v5.2.0
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore "src/GUI/pcHealth/pcHealth.csproj"
+
+      - name: Check formatting
+        run: dotnet format "src/GUI/pcHealth/pcHealth.csproj" --verify-no-changes --verbosity diagnostic
+
+  # ----------------------------------------------------------
+  # PR TITLE CHECK
+  # Enforces conventional commit format in pull request titles.
+  # ----------------------------------------------------------
+  pr-title:
+    name: PR title (conventional commits)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    permissions:
+      pull-requests: read
+    steps:
+      - uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50 # v6.1.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            feat
+            fix
+            docs
+            chore
+            refactor
+            style
+            perf
+            test
+            revert
+            ci
+            deps
+            build
+
+  # ----------------------------------------------------------
+  # COMMIT LINT
+  # Validates commit messages follow conventional commits on push.
+  # ----------------------------------------------------------
+  commit-lint:
+    name: Commit messages (conventional commits)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+
+      - name: Check conventional commits
+        uses: webiny/action-conventional-commits@7f91b1595ca1951cdb671ddc9f07a49081ec5b69 # v1.4.2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          allowed-commit-types: "feat,fix,docs,chore,refactor,style,perf,test,revert,ci,deps,build"
+
+  # ----------------------------------------------------------
+  # MARKDOWN LINT
+  # Checks README, SECURITY and .github markdown files.
+  # Settings: .markdownlint.jsonc
+  # ----------------------------------------------------------
+  markdown-lint:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - uses: DavidAnson/markdownlint-cli2-action@ded1f9488f68a970bc66ea5619e13e9b52e601cd # v23.2.0
+        with:
+          globs: "README.md SECURITY.md .github/**/*.md"
+
+  # ----------------------------------------------------------
+  # BROKEN LINK CHECK
+  # Checks whether links in markdown files are still reachable.
+  # Ignored patterns: .lycheeignore
+  # ----------------------------------------------------------
+  link-check:
+    name: Broken link check (markdown)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2.8.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: >-
+            --include-fragments
+            --max-concurrency 4
+            README.md SECURITY.md .github/**/*.md
+          format: markdown
+          output: lychee/out.md
+          fail: true
+          jobSummary: true
+  # ----------------------------------------------------------
+  # SECRET SCAN
+  # Searches for API keys, passwords and tokens in the code.
+  # Only reports verified secrets to reduce false positives.
+  # ----------------------------------------------------------
+  secrets-scan:
+    name: Secret scan (TruffleHog)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+
+      # Pull request: scan exactly the PR diff (base → head SHA).
+      - name: Scan for secrets (pull request)
+        if: github.event_name == 'pull_request'
+        uses: trufflesecurity/trufflehog@37b77001d0174ebec2fcca2bd83ff83a6d45a3ab # v3.95.3
+        with:
+          path: ./
+          base: ${{ github.event.pull_request.base.sha }}
+          head: ${{ github.event.pull_request.head.sha }}
+          extra_args: --only-verified
+
+      # Push: scan only newly added commits.
+      # Skip when it is a new branch (before = all-zeros) since those
+      # commits were already scanned in their PR.
+      - name: Scan for secrets (push)
+        if: >
+          github.event_name == 'push' &&
+          github.event.before != '0000000000000000000000000000000000000000'
+        uses: trufflesecurity/trufflehog@37b77001d0174ebec2fcca2bd83ff83a6d45a3ab # v3.95.3
+        with:
+          path: ./
+          base: ${{ github.event.before }}
+          head: ${{ github.sha }}
+          extra_args: --only-verified
+
+  # ----------------------------------------------------------
+  # UPDATE PR CHECKLIST
+  # Ticks or un-ticks the three checklist items in the PR body
+  # based on the actual outcomes of the other CI jobs.
+  # Re-runs on every push so the state always reflects the
+  # latest commit (a broken push un-ticks "CI is green", a fixed
+  # one re-ticks it automatically).
+  # ----------------------------------------------------------
+  update-checklist:
+    name: Update PR checklist
+    runs-on: ubuntu-latest
+    if: always() && github.event_name == 'pull_request'
+    needs: [dotnet-build, dotnet-format, pr-title, markdown-lint, link-check, secrets-scan]
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          RESULT_BUILD:     ${{ needs.dotnet-build.result }}
+          RESULT_FORMAT:    ${{ needs.dotnet-format.result }}
+          RESULT_PR_TITLE:  ${{ needs.pr-title.result }}
+          RESULT_MD_LINT:   ${{ needs.markdown-lint.result }}
+          RESULT_LINKS:     ${{ needs.link-check.result }}
+          RESULT_SECRETS:   ${{ needs.secrets-scan.result }}
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner:       context.repo.owner,
+              repo:        context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+
+            let body = pr.body || '';
+
+            // Tick or un-tick a checklist line that contains keyword.
+            // Matches both [ ] and [x] so the state is always up to date.
+            const setCheck = (keyword, passed) => {
+              body = body.replace(
+                new RegExp(`- \\[[ xX]\\] (.*${keyword}.*)`, 'i'),
+                `- [${passed ? 'x' : ' '}] $1`,
+              );
+            };
+
+            const ok = r => r === 'success';
+
+            // "CI is green" = build + format + markdown + links all pass
+            const ciGreen = ok(process.env.RESULT_BUILD)
+              && ok(process.env.RESULT_FORMAT)
+              && ok(process.env.RESULT_MD_LINT)
+              && ok(process.env.RESULT_LINKS);
+
+            setCheck('CI is green',      ciGreen);
+            setCheck('No passwords',     ok(process.env.RESULT_SECRETS));
+            setCheck('PR title follows', ok(process.env.RESULT_PR_TITLE));
+
+            await github.rest.pulls.update({
+              owner:       context.repo.owner,
+              repo:        context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              body,
+            });
+
+            core.info([
+              `CI is green:   ${ciGreen}`,
+              `No passwords:  ${ok(process.env.RESULT_SECRETS)}`,
+              `PR title:      ${ok(process.env.RESULT_PR_TITLE)}`,
+            ].join('\n'));

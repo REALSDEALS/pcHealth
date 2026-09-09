@@ -1,0 +1,206 @@
+name: Security scanning
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+  workflow_dispatch:
+
+# Default minimal permissions — each job overrides only what it actually needs.
+permissions: read-all
+
+# Cancel in-progress runs for the same branch/PR when a new push arrives.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# ============================================================
+# Overview of checks:
+#
+#  powershell-lint  → PSScriptAnalyzer (src/CLI/ scripts)
+#  trivy-scan       → Trivy (filesystem vulnerability scan)
+#  devskim          → DevSkim (insecure code patterns, C# / PS)
+#  semgrep          → Semgrep (OWASP Top 10, C# rules, secrets)
+#  shellcheck       → ShellCheck (Bash script linting)
+#  actionlint       → actionlint (validates GitHub Actions workflow YAML)
+#
+# Kept in a separate workflow so CI failures (lint, build,
+# commit messages) do not taint SARIF uploads in the
+# GitHub Advanced Security → Code scanning tab.
+# ============================================================
+
+jobs:
+
+  # ----------------------------------------------------------
+  # POWERSHELL LINT
+  # Runs PSScriptAnalyzer on all CLI scripts.
+  # Settings: .github/PSScriptAnalyzerSettings.psd1
+  # ----------------------------------------------------------
+  powershell-lint:
+    name: PowerShell lint (PSScriptAnalyzer)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write  # required to upload SARIF to the Security tab
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Run PSScriptAnalyzer (SARIF output)
+        uses: microsoft/psscriptanalyzer-action@6b2948b1944407914a58661c49941824d149734f # v1.1
+        with:
+          path: src/CLI
+          recurse: true
+          settings: .github/PSScriptAnalyzerSettings.psd1
+          output: psscriptanalyzer-results.sarif
+
+      - name: Upload PSScriptAnalyzer results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@9e0d7b8d25671d64c341c19c0152d693099fb5ba # v4.35.5
+        with:
+          sarif_file: psscriptanalyzer-results.sarif
+          category: psscriptanalyzer
+
+  # ----------------------------------------------------------
+  # TRIVY SECURITY SCAN
+  # Scans the repository filesystem for HIGH and CRITICAL
+  # vulnerabilities in dependencies and configuration.
+  # Results are uploaded as SARIF so they appear in the
+  # GitHub Advanced Security → Code scanning tab.
+  # ----------------------------------------------------------
+  trivy-scan:
+    name: Security scan (Trivy)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write  # required to upload SARIF to the Security tab
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Run Trivy filesystem scan
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          severity: 'HIGH,CRITICAL'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          exit-code: '1'
+
+      - name: Upload Trivy results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@9e0d7b8d25671d64c341c19c0152d693099fb5ba # v4.35.5
+        if: always()  # upload even when exit-code 1 causes the step above to fail
+        with:
+          sarif_file: 'trivy-results.sarif'
+          category: 'trivy'
+
+  # ----------------------------------------------------------
+  # DEVSKIM SECURITY LINT
+  # Microsoft's security linter — catches insecure patterns in
+  # C# and PowerShell: deprecated crypto, injection risks,
+  # unsafe APIs. Complements CodeQL's deeper semantic analysis.
+  # Results are uploaded as SARIF to the Security tab.
+  # ----------------------------------------------------------
+  devskim:
+    name: Security lint (DevSkim)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write  # required to upload SARIF to the Security tab
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Run DevSkim
+        uses: microsoft/DevSkim-Action@4b5047945a44163b94642a1cecc0d93a3f428cc6 # v1.0.16
+        with:
+          directory-to-scan: src
+
+      - name: Upload DevSkim results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@9e0d7b8d25671d64c341c19c0152d693099fb5ba # v4.35.5
+        if: always()
+        with:
+          sarif_file: devskim-results.sarif
+          category: devskim
+
+  # ----------------------------------------------------------
+  # SEMGREP
+  # Open-source static analysis with community rule packs:
+  #   auto     → language-aware rule selection (C#, PS, YAML)
+  #   p/owasp-top-ten → OWASP Top 10 coverage
+  #   p/secrets       → hardcoded secrets (complements TruffleHog)
+  # Results go to GitHub Advanced Security → Code scanning.
+  # Never blocks CI — always exits 0.
+  # ----------------------------------------------------------
+  semgrep:
+    name: Semgrep (OWASP / secrets / C#)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      - name: Run Semgrep
+        # Exit code ignored (|| true) — findings go to Security tab, not CI failure.
+        run: |
+          semgrep \
+            --config auto \
+            --config p/owasp-top-ten \
+            --config p/secrets \
+            --config p/csharp \
+            --sarif \
+            --output semgrep.sarif \
+            src/ || true
+
+      - name: Upload Semgrep results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@9e0d7b8d25671d64c341c19c0152d693099fb5ba # v4.35.5
+        if: always()
+        with:
+          sarif_file: semgrep.sarif
+          category: semgrep
+
+  # ----------------------------------------------------------
+  # SHELLCHECK
+  # Standard bash linter — catches quoting bugs, injection
+  # risks (eval, curl|sh), and unsafe constructs in .sh files.
+  # Fails CI so script errors are caught before merge.
+  # ----------------------------------------------------------
+  shellcheck:
+    name: Shell script lint (ShellCheck)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Run ShellCheck
+        run: |
+          mapfile -t scripts < <(find src -name '*.sh')
+          if [[ ${#scripts[@]} -eq 0 ]]; then
+            echo "No shell scripts found — skipping."
+          else
+            shellcheck --severity=warning "${scripts[@]}"
+          fi
+
+  # ----------------------------------------------------------
+  # ACTIONLINT
+  # Validates all GitHub Actions workflow YAML files for:
+  #   - type errors (wrong step output names, bad context refs)
+  #   - shellcheck integration (shell script steps)
+  #   - expression syntax errors
+  # Fails CI so broken workflows are caught before merge.
+  # ----------------------------------------------------------
+  actionlint:
+    name: GitHub Actions lint (actionlint)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Run actionlint
+        uses: docker://rhysd/actionlint:1.7.12@sha256:b1934ee5f1c509618f2508e6eb47ee0d3520686341fec936f3b79331f9315667
+        with:
+          args: -color

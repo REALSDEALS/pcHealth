@@ -1,0 +1,21 @@
+{
+  // markdownlint configuration for pcHealth
+  // Docs: https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+
+  "default": true,
+
+  // MD013: Line length — disabled, technical READMEs commonly have long table rows
+  "MD013": false,
+
+  // MD033: Inline HTML — allowed for badges and shields in README
+  "MD033": false,
+
+  // MD041: First line must be a top-level heading — disabled (some files start with metadata)
+  "MD041": false,
+
+  // MD024: Multiple headings with the same content — allowed (e.g. repeated "Notes" sections)
+  "MD024": false,
+
+  // MD036: Emphasis used as heading — disabled
+  "MD036": false
+}

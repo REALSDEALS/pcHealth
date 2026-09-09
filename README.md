@@ -1,104 +1,209 @@
 # pcHealth
 
-Check the health of your Windows installation and much more!
+Check the health of your Windows or Linux installation, drivers, updates, battery health and much more!
 
-![GitHub](https://img.shields.io/github/license/REALSDEALS/pcHealth?label=License) ![GitHub Top Language](https://img.shields.io/github/languages/top/REALSDEALS/pcHealth?color=green&label=Batchfile) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/REALSDEALS/pcHealth?label=Release) ![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/REALSDEALS/pcHealth?include_prereleases&label=Release) ![GitHub Repo Size](https://img.shields.io/github/repo-size/REALSDEALS/pcHealth?label=Repo%20Size)
+![License](https://img.shields.io/github/license/REALSDEALS/pcHealth?label=License)
+![Latest Release](https://img.shields.io/github/v/release/REALSDEALS/pcHealth?label=Release)
+![Pre-release](https://img.shields.io/github/v/release/REALSDEALS/pcHealth?include_prereleases&label=Pre-release)
+![Repo Size](https://img.shields.io/github/repo-size/REALSDEALS/pcHealth?label=Repo%20Size)
 
-## What is the main purpose of pcHealth?
+---
 
-The main purpose of pcHealth is to assist 'users' that are working in the IT business to run some simple things to check the system on defaults. Besides that you can download some simple programs (that are well known) to assist you in a deeper investigation of the system. This script is purely to enlighten the work in the workfield, exspecially for repetetive things like this.
+## Overview
 
-## How to use?
+pcHealth is a cross-platform toolkit for IT technicians and power users. It runs on **Windows and Linux** using a single PowerShell 7 codebase. The goal is to offer the same functionality everywhere: tools are shown or hidden based on the detected OS, and platform-specific actions (like updating packages) automatically use the right method for the current system.
 
-First of all I want to thank you, for downloading and using this script!
-It really means a lot to me!
+---
 
-If you have any tips/tricks or remarks? 
-Feel free to contact me on discord: **REALSDEALS**.
+## Supported Platforms
 
-**Sidenote**: since version 1.6 and onwards, the Powershell section has been removed from the script. To read more about this decision, please read the changelog.
+| Platform | CLI | GUI | Minimum                       |
+|----------|-----|-----|-------------------------------|
+| Windows  | ✅  | ✅  | Build 26200 (Windows 11 25H2) |
+| Linux    | ✅  | ❌  | Kernel 7.0                    |
 
-### More information regarding on how to install and use it:
+pcHealth targets current systems only and exits immediately below the minimum. Everything in that range boots UEFI with GPT, which is why the repair tools are UEFI-only and no MBR/CSM paths remain.
 
-- Download this repository.
-- Extract it to the desktop to be sure that it will run with full permissions.
-- Open the `scripts` folder and open the CMD folder in there.
-- Open the file in the CMD folder and read the rules/commands carefully.
-- Enter in the number of the desired command that you want to run. (Number + ENTER)
-- Patiently wait for the script to finish. Some menu-options may take some time to finish.
-- You can chose, depending on the command, what you want to do next. (Open logs ect.)
+On image-based systems (Fedora Silverblue, Bazzite, Kinoite, openSUSE MicroOS) the tools that manage packages or boot files are hidden rather than reimplemented: `/usr` is read-only and the bootloader belongs to the deployment, so `bootc` and `rpm-ostree` own that work. The other 14 Linux tools -- all the diagnostics -- run normally.
 
-### For users that are not that known about what everything may or may not do...
+- Windows release info: https://learn.microsoft.com/en-us/windows/release-health/windows11-release-information
+- Linux kernel releases: https://www.kernel.org/
 
-## Tools Menu:
-The entries that you may enter in this menu will execute some standard line of code.
-So keep in mind that the .exe (this script) needs to be in administrator mode, it will prompt you when you open the program.
+See [SECURITY.md](SECURITY.md) for version and end-of-life details.
 
-You have my promise, that I won't do anything malicious to your pc.
-But I can only keep that promise if you are sure to have downloaded pcHealth.bat from my repo: https://github.com/REALSDEALS/pcHealth 
-Otherwise I can keep no promise to that statement.
+---
 
-1. Gather generic information about the system.
-2. Show CPU, GPU and RAM information.
-3. Run a scan for corrupt and/or missing files. (Windows ISO/DISM related)
-4. When option 3. can't repair the corrupt/missing files, you can try this option. (DISM)
-5. Option 3. and 4. combined. (Puts both commands behind eachother)
-6. Generate a battery report. (To see how your laptop battery is doing)
-7. Shortcut to Windows Update.
-8. Open a menu regarding disk optimization, this is a standard Windows function.
-9. Opens and starts a disk clean program, this is a standard Windows function.
-10. Short ping test. (Do I have internet?)
-11. Continues ping test. (Does my internet stop at certain times?)
-12. Starts the function 'TRACERT' and traces how many hops your system has to make before establishing an connection with the host. (Google)
-13. Fetches updates for system programs, updates them too if needed.
-14. Fetches updates for HP software and hardware, by running the HPIA tool. This tool will only work on HPE devices, such as ProBooks, EliteBooks, ZBooks, etc. The source URL is hpia.hpcloud.hp.com. View full list of hardware supported by HPIA: https://ftp.ext.hp.com/pub/caps-softpaq/cmit/imagepal/ref/platformList.html
-14. Re-enables the drivers, it restarts the audio drivers. (Having issues with sound?)
-15. Re-open the battery report. (Can't find my generated report anymore? Try opening it this way)
-16. Re-open the CBS.log (DISM log, report from option 4.) 
-17. Get your Ninite! (Standard program downloader/updater; Chrome, Edge, VLC and 7Zip)
-18. Check your Windows License Key.
-19. BIOS password recovery.
-20. Shutdown, reboot and/or logout from the system.
-21. Open the other menu, it's called 'Programs'.
-22. Returning to the previous menu, main-menu.
-23. Close the script.
+## Getting Started
 
+**Requirements:** PowerShell 7+, run as Administrator (Windows) or root/sudo (Linux). Minimum: Windows build 26200 (11 25H2) or Linux kernel 7.0.
 
-## Programs menu:
-The entries that you may put in here will redirect you to the download page of the program.
-This is a combination of winget packages and direct download links, since not all programs are available in winget.
+### Windows
 
-While I understand that some of you may have questions about this decision, my goal was to simplify the process for you. You’re welcome to review the source code at any time to see exactly how it works. Additionally, if you prefer to download your software manually, that option is always available.
+1. Download or clone this repository.
+2. Run `Start.ps1` from an elevated PowerShell 7 terminal:
 
-1. Hardware Info - This program will check which hardware is in your PC.
-2. HWMonitor - This program will check the temperature of your hardware.
-3. ADW Cleaner - This program will scan for malicious software (adware, malware, spyware).
-4. CrystalDiskInfo - This program will check information about your HDD/SDD (serial etc.)
-5. CrystalDiskMark - This program will test your HDD/SDD on possible malfunctions.
-6. Prime95 - This program will stress test your CPU. Useful for overclocking and performance tests.
-7. Windows PowerToys - Makes configuration in- and around Windows a tad easier. Adds some new features to your Windows.
-8. Open the other menu, it's called 'Tools'.
-9. Return to the previous menu. 
-10. Close the script.
+```powershell
+.\src\CLI\Start.ps1
+```
 
-## KeyGrabber
-The key grabber script does what it says!
+### Linux
 
-It grabs the license key (windows) that's on your pc, and gives you an option to save it to your desktop.
+**Requirements:** PowerShell 7 must be installed first (the launcher is a `.ps1` file — there is no bash wrapper). Install it via your package manager, e.g. `sudo pacman -S powershell` on Arch/CachyOS or see [aka.ms/powershell](https://aka.ms/powershell) for other distros.
 
-## Questions
-If you still have questions, you can send me a message on Discord as mentioned above.
-My username is: **REALSDEALS**.
+1. Download or clone this repository.
+2. Run `Start.ps1` elevated:
 
-There is also a possibility to e-mail me, if that's what you desire (check my GitHub profile for that).
+```bash
+sudo pwsh src/CLI/Start.ps1
+```
 
-## pcHealthPlus
-pcHealthPlus is my other repository, where I plan to gradually migrate the technology currently implemented here. My goal is to transition to PowerShell 7.5, as Microsoft is set to drop support for batch (.bat/.cmd) files in upcoming Windows releases.
+### GUI
 
-Link to pcHealthPlus: [REALSDEALS/pcHealthPlus](https://github.com/REALSDEALS/pcHealthPlus)
+On Windows, pcHealth includes a native desktop application built with **WinUI 3** (.NET 10). It provides the same functionality as the CLI in a graphical interface. Minimum: build 26200 (Windows 11 25H2).
+![Health tab](Health-tab.avif)
+![Tools tab](Tools-tab.avif)
+![Programs tab](Programs-tab.avif)
 
-## Win_Scan
-~~Win_Scan is my other repository, but the functionality provided by Win_Scan has been implemented here...~~
-~~The functionality is now fully integrated into this script. The old repository still exists, but it is deprecated.~~
+A Linux GUI is not yet available - WinUI 3 is Windows-only. A cross-platform alternative is in the works.
 
-~~Link to Win_Scan: [REALSDEALS/Win_Scan](https://github.com/REALSDEALS/Win_Scan)~~
+**Build dependencies:**
+
+| Tool | Install |
+|------|---------|
+| .NET 10 SDK | `winget install Microsoft.DotNet.SDK.10` |
+| Visual Studio 2026 | `winget install Microsoft.VisualStudio.Community` |
+| Windows App SDK | Included via NuGet on build |
+
+```powershell
+dotnet build "src/GUI/pcHealth/pcHealth.csproj" -c Release
+```
+
+Or open `src/GUI/pcHealth/pcHealth.csproj` in Visual Studio 2026.
+
+---
+
+## Menu Reference
+
+All menus and option numbers are identical across platforms. Windows-only tools are hidden on Linux and vice versa, so numbers remain sequential with no gaps.
+
+<details>
+<summary><strong>Main Menu</strong></summary>
+
+| Key | Option                 |
+|-----|------------------------|
+| 1   | Tools Menu             |
+| 2   | Programs Menu          |
+| 3   | Go to repository       |
+| 4   | Check for pre-releases |
+| 5   | Exit                   |
+
+</details>
+
+<details>
+<summary><strong>Tools Menu</strong></summary>
+
+Option numbers are assigned sequentially at runtime per platform - Windows-only tools are not shown on Linux and vice versa.
+
+| Function                      | Platforms | Notes                                              |
+|-------------------------------|-----------|----------------------------------------------------|
+| System Information            | All       | OS, kernel, firmware, TPM, RAM                     |
+| Hardware Information          | All       | CPU, GPU, Storage (SMART), RAM, Chipset, sensors   |
+| Scan + Repair                 | Windows   | SFC + DISM combined                                |
+| Battery Report                | Windows   | Laptop only                                        |
+| Windows Update                | Windows   | Opens Windows Update settings                      |
+| Disk Optimization             | Windows   | Opens dfrgui.exe                                   |
+| Disk Cleanup                  | Windows   | Opens cleanmgr.exe                                 |
+| Short Ping Test               | All       | 4-packet ping to 8.8.8.8                           |
+| Continuous Ping Test          | All       | Continuous ping, Ctrl+C to stop                    |
+| Traceroute to Google          | All       | tracert / traceroute                               |
+| Reset Network Stack           | Windows   | DNS flush, Winsock reset, IPv4/IPv6 reset          |
+| Update all packages           | Windows   | winget                                             |
+| Update all packages           | Linux     | apt / dnf / pacman / zypper                        |
+| Topgrade                      | Linux     | Full system upgrade: packages, flatpak, VS Code extensions, helm, uv, and more |
+| Battery Report                | Linux     | Laptop only - health, cycles, draw from sysfs      |
+| Scan + Repair                 | Linux     | Package integrity vs. package database             |
+| Disk Optimization             | Linux     | fstrim on SSDs; Linux needs no defragmenting       |
+| Firmware Update               | Linux     | fwupd / LVFS - BIOS, dock, SSD firmware            |
+| Boot Repair                   | Linux     | systemd-boot / GRUB / Limine, UEFI - **care**      |
+| Disk Cleanup                  | Linux     | Package cache, journal logs, unused Flatpak runtimes, thumbnail cache |
+| Restart Audio                 | Linux     | Restarts PipeWire or PulseAudio user services      |
+| Reset Network Stack           | Linux     | Restarts NetworkManager, flushes DNS cache         |
+| Update HP Drivers             | Windows   | HP Image Assistant (HP devices only)               |
+| Restart Audio Drivers         | Windows   | Restarts audio services                            |
+| Open Battery Report           | Windows   | Opens previously generated report                  |
+| Open CBS Log                  | Windows   | Opens C:\Windows\Logs\CBS\CBS.log                  |
+| Get Ninite                    | Windows   | Downloads Edge, Chrome, VLC, 7-Zip                 |
+| Windows License Key           | Windows   | OA3 + DigitalProductId registry decode             |
+| BIOS Password Recovery        | All       | Links to bios-pw.org - credits: @bacher09          |
+| Boot Repair                   | Windows   | CHKDSK + SFC + BCDBOOT, UEFI - **use with care**   |
+| Shutdown / Reboot / Log Off   | All       |                                                    |
+| Repair Winget                 | Windows   | via winget-install by @asheroto                    |
+| View System Logs              | Linux     | journalctl errors/warnings, failed units           |
+
+</details>
+
+<details>
+<summary><strong>Programs Menu - Windows</strong></summary>
+
+| Key | Program                  | Install method |
+|-----|--------------------------|----------------|
+| 1   | HWiNFO64                 | winget         |
+| 2   | HWMonitor                | winget         |
+| 3   | Malwarebytes AdwCleaner  | winget         |
+| 4   | CrystalDiskInfo          | winget         |
+| 5   | CrystalDiskMark          | winget         |
+| 6   | Prime95                  | winget         |
+| 7   | Windows PowerToys        | winget         |
+
+</details>
+
+<details>
+<summary><strong>Programs Menu - Linux</strong></summary>
+
+Installed packages are marked `[installed]` in the menu.
+
+| Key | Program       | Install method              |
+|-----|---------------|-----------------------------|
+| 1   | htop          | apt / dnf / pacman / zypper |
+| 2   | iotop         | apt / dnf / pacman / zypper |
+| 3   | smartmontools | apt / dnf / pacman / zypper |
+| 4   | stress-ng     | apt / dnf / pacman / zypper |
+| 5   | nmap          | apt / dnf / pacman / zypper |
+
+</details>
+
+---
+
+## Contributing
+
+Contributions are welcome. Follow the existing naming conventions: `Verb-Noun.ps1` for tools, consistent `Write-PcOption` / `Set-PcTheme` calls for UI.
+
+- New tool scripts go in `src/CLI/tools/` and must be registered in `src/CLI/menus/Tools.ps1` with appropriate `Platforms` tags.
+- Linux-only tools go in `src/CLI/tools/linux/`.
+- Open an issue before starting larger changes to avoid duplicate work.
+
+See [SECURITY.md](SECURITY.md) for responsible disclosure of vulnerabilities.
+
+---
+
+## Contact
+
+Questions or feedback? Reach out on Discord: **REALSDEALS**
+
+Or open an [issue](https://github.com/REALSDEALS/pcHealth/issues) on GitHub.
+
+---
+
+*Licensed under [GNU GPL v3](LICENSE). You are free to use this project, but you may not remove the attribution or re-license it.*
+
+---
+
+## Inspired by
+
+This repository consolidates and replaces several earlier pcHealth-related projects. `pcHealth` is the original project and is now the canonical repository: related repositories have been migrated back into this repo and are considered deprecated. Functionality from the listed projects has been merged here where appropriate.
+
+- [pcHealth](https://github.com/REALSDEALS/pcHealth) - original project (batch-based)
+- [pcHealthPlus](https://github.com/REALSDEALS/pcHealthPlus) - PowerShell-based toolkit (deprecated; migrated)
+- [pcHealthPlus-VS](https://github.com/REALSDEALS/pcHealthPlus-VS) - Visual Studio variant (deprecated; migrated)
+- [pcHealth-GUI](https://github.com/iRepairzone-NL/pcHealth_GUI) - Python GUI variant (deprecated; migrated)
+- [Win_Scan](https://github.com/REALSDEALS/Win_Scan) - standalone Windows scanning utility (deprecated; migrated)

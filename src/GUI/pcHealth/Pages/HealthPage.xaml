@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="pcHealth.Pages.HealthPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Padding="28,20,28,8" Spacing="4">
+            <TextBlock Text="System Health"
+                       Style="{StaticResource TitleTextBlockStyle}"/>
+            <TextBlock Text="Hardware age, disk health, storage usage, Windows version, and boot performance."
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+        </StackPanel>
+
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="ContentPanel" Padding="28,8,28,28" Spacing="8">
+
+                <StackPanel x:Name="LoadingPanel" Orientation="Horizontal" Spacing="12">
+                    <ProgressRing IsActive="True" Width="24" Height="24" VerticalAlignment="Center"/>
+                    <TextBlock Text="Checking system health…" VerticalAlignment="Center"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                </StackPanel>
+
+                <InfoBar x:Name="ErrorBar" IsOpen="False" Severity="Error"
+                         Title="Could not load health data"/>
+
+                <!-- Processor -->
+                <Expander x:Name="CpuExpander" IsExpanded="False" Visibility="Collapsed"
+                          HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                            <Ellipse x:Name="CpuStatusDot" Width="10" Height="10" VerticalAlignment="Center"/>
+                            <FontIcon Glyph="&#xE950;" FontSize="16" VerticalAlignment="Center"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock Text="Processor" Style="{StaticResource BodyStrongTextBlockStyle}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Expander.Header>
+                    <StackPanel x:Name="CpuRows" Spacing="5" Padding="0,8,0,4"/>
+                </Expander>
+
+                <!-- Graphics -->
+                <Expander x:Name="GpuExpander" IsExpanded="False" Visibility="Collapsed"
+                          HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                            <Ellipse x:Name="GpuStatusDot" Width="10" Height="10" VerticalAlignment="Center"/>
+                            <FontIcon Glyph="&#xE7F4;" FontSize="16" VerticalAlignment="Center"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock Text="Graphics" Style="{StaticResource BodyStrongTextBlockStyle}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Expander.Header>
+                    <StackPanel x:Name="GpuRows" Spacing="5" Padding="0,8,0,4"/>
+                </Expander>
+
+                <!-- Memory (RAM) -->
+                <Expander x:Name="RamExpander" IsExpanded="False" Visibility="Collapsed"
+                          HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                            <Ellipse x:Name="RamStatusDot" Width="10" Height="10" VerticalAlignment="Center"/>
+                            <FontIcon Glyph="&#xEBD2;" FontSize="16" VerticalAlignment="Center"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock Text="Memory (RAM)" Style="{StaticResource BodyStrongTextBlockStyle}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Expander.Header>
+                    <StackPanel x:Name="RamRows" Spacing="5" Padding="0,8,0,4"/>
+                </Expander>
+
+                <!-- Disk Health (SMART) -->
+                <Expander x:Name="SmartExpander" IsExpanded="False" Visibility="Collapsed"
+                          HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                            <Ellipse x:Name="SmartStatusDot" Width="10" Height="10" VerticalAlignment="Center"/>
+                            <FontIcon Glyph="&#xEDA2;" FontSize="16" VerticalAlignment="Center"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock Text="Disk Health (SMART)" Style="{StaticResource BodyStrongTextBlockStyle}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Expander.Header>
+                    <StackPanel x:Name="SmartRows" Spacing="5" Padding="0,8,0,4"/>
+                </Expander>
+
+                <!-- Disk Space -->
+                <Expander x:Name="DiskExpander" IsExpanded="False" Visibility="Collapsed"
+                          HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                            <Ellipse x:Name="DiskStatusDot" Width="10" Height="10" VerticalAlignment="Center"/>
+                            <FontIcon Glyph="&#xE74D;" FontSize="16" VerticalAlignment="Center"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock Text="Disk Space" Style="{StaticResource BodyStrongTextBlockStyle}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Expander.Header>
+                    <StackPanel x:Name="DiskSpaceRows" Spacing="2" Padding="0,8,0,4"/>
+                </Expander>
+
+                <!-- Windows Version -->
+                <Expander x:Name="WinVerExpander" IsExpanded="False" Visibility="Collapsed"
+                          HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                            <Ellipse x:Name="WinVerStatusDot" Width="10" Height="10" VerticalAlignment="Center"/>
+                            <FontIcon Glyph="&#xE770;" FontSize="16" VerticalAlignment="Center"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock Text="Windows Version" Style="{StaticResource BodyStrongTextBlockStyle}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Expander.Header>
+                    <StackPanel x:Name="WinVerRows" Spacing="5" Padding="0,8,0,4"/>
+                </Expander>
+
+                <!-- Boot Performance -->
+                <Expander x:Name="BootExpander" IsExpanded="False" Visibility="Collapsed"
+                          HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                            <Ellipse x:Name="BootStatusDot" Width="10" Height="10" VerticalAlignment="Center"/>
+                            <FontIcon Glyph="&#xE823;" FontSize="16" VerticalAlignment="Center"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock Text="Boot Performance" Style="{StaticResource BodyStrongTextBlockStyle}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Expander.Header>
+                    <StackPanel x:Name="BootRows" Spacing="5" Padding="0,8,0,4"/>
+                </Expander>
+
+                <!-- Battery (hidden on systems without a battery) -->
+                <Expander x:Name="BatteryExpander" IsExpanded="False" Visibility="Collapsed"
+                          HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                            <Ellipse x:Name="BatteryStatusDot" Width="10" Height="10" VerticalAlignment="Center"/>
+                            <FontIcon Glyph="&#xE83F;" FontSize="16" VerticalAlignment="Center"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock Text="Battery" Style="{StaticResource BodyStrongTextBlockStyle}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Expander.Header>
+                    <StackPanel x:Name="BatteryRows" Spacing="5" Padding="0,8,0,4"/>
+                </Expander>
+
+                <!-- Security -->
+                <Expander x:Name="SecurityExpander" IsExpanded="False" Visibility="Collapsed"
+                          HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                            <Ellipse x:Name="SecurityStatusDot" Width="10" Height="10" VerticalAlignment="Center"/>
+                            <FontIcon Glyph="&#xE72E;" FontSize="16" VerticalAlignment="Center"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock Text="Security" Style="{StaticResource BodyStrongTextBlockStyle}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Expander.Header>
+                    <StackPanel x:Name="SecurityRows" Spacing="5" Padding="0,8,0,4"/>
+                </Expander>
+
+                <!-- Legacy Features -->
+                <Expander x:Name="LegacyExpander" IsExpanded="False" Visibility="Collapsed"
+                          HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                            <Ellipse x:Name="LegacyStatusDot" Width="10" Height="10" VerticalAlignment="Center"/>
+                            <FontIcon Glyph="&#xE8D9;" FontSize="16" VerticalAlignment="Center"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock Text="Legacy Features" Style="{StaticResource BodyStrongTextBlockStyle}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Expander.Header>
+                    <StackPanel x:Name="LegacyRows" Spacing="5" Padding="0,8,0,4"/>
+                </Expander>
+
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</Page>

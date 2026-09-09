@@ -1,10 +1,75 @@
 # Changelog.md - pcHealth
 
+## 02-05-2026 - @Stensel8
+
+Linux — Topgrade integration replaces distro-specific package update script.
+
+- Added `linux/Invoke-Topgrade.ps1`: launches topgrade in a new terminal window with the user's graphical session environment correctly forwarded (`DBUS_SESSION_BUS_ADDRESS`, `WAYLAND_DISPLAY`, `DISPLAY`) so GNOME Shell extensions, gcloud, and other session-aware steps work correctly even when pcHealth is invoked via sudo.
+- Removed `linux/Invoke-PackageUpdate.ps1`: superseded by topgrade. All Linux package updates now go through topgrade.
+- Updated `Tools.ps1`: replaced "Update all packages" Linux entry with "Topgrade (full system upgrade)".
+- Updated `README.md` and `changelog.md` to reflect the new Linux update flow.
+- Configured `~/.config/topgrade.toml`: `pre_sudo = true`, `cleanup = true`, `disable = ["firmware", "config_update"]` per Chris Titus best practices. Firmware and pacnew handling are intentionally disabled — firmware is managed via system update or fwupd directly; pacnew files are resolved manually with `pacdiff`.
+
+## 18-04-2026 - @Stensel8
+
+GUI — Settings and About pages, deprecated-pattern scanner, version baking.
+
+- Added **Settings page** (gear icon in nav) with app theme picker and two behavior toggles: auto reinstall packages (force-reinstalls via `winget --force` without confirmation) and check for updates on startup.
+- Added **About page** (info icon in nav) showing app version and links to the upstream repository.
+- Version is now read from the repo-root `VERSION` file at build time and baked into the assembly — single source of truth.
+- **Auto update check**: on startup the app calls the GitHub releases API (`REALSDEALS/pcHealth`) and shows a popup when a newer version is available.
+- Settings are persisted to `%LocalAppData%\pcHealth\settings.json` (replaces `ApplicationData.Current` which is unavailable in unpackaged WinUI 3 apps).
+- Added **deprecated-pattern CI workflow** (`deprecated-patterns.yml`): Semgrep scans C#/PS/Bash for ~27 discouraged patterns (legacy WMI, `Invoke-Expression`, `.Wait()` deadlock, deprecated UWP APIs, etc.) and uploads SARIF to the GitHub Advanced Security tab. ShellCheck runs separately for full Bash analysis. Neither job blocks CI.
+
+## 17-04-2026 (2) - @Stensel8
+
+Dropped Windows 10 support. Minimum requirement is now Windows 11 25H2 (build 26200+), aligning with the Linux kernel 7.0 minimum.
+
+- `start.ps1` and `CLI/Start.ps1`: build check raised from 19045 to 26200.
+- `CLI/menus/Tools.ps1`: removed `Windows10` from all platform filter arrays.
+- `SECURITY.md`, `README.md`: updated supported platforms and requirements.
+
+## 17-04-2026 - @Stensel8
+
+Consolidated repository into two top-level folders: `CLI/` and `GUI/`.
+
+- Removed all platform-specific launcher folders (`Windows 10/CLI/`, `Windows 11/CLI/`, `Linux/CLI/`) — `CLI/Start.ps1` is now the single entry point for all platforms.
+- Removed `Shared/CLI/` (renamed to `CLI/`) and `Scripts/` (legacy CMD/VBS).
+- Renamed `Windows 11/GUI/` to `GUI/`.
+- Merged all bugfixes from `main` into the new structure.
+- Improved Linux package update script: now reads `/etc/os-release` to detect the distro and runs the correct update command (e.g. `cachy-update` for CachyOS, `garuda-update` for Garuda, `pamac` for Manjaro, AUR helpers for Arch-based distros).
+- Updated `GUI/pcHealth/Services/CliRunner.cs` to resolve `CLI/tools/` instead of the old `Shared/CLI/tools/`.
+- Updated README to reflect the new structure and document cross-platform behaviour.
+
+## 15-04-2026 - @Stensel8
+
+- Completed the migration to WinUI 3 using .NET 10.
+- Added "Repair Winget" option to the Tools menu. Runs the winget-install module by @asheroto in the background and reports back to the user. See https://github.com/asheroto/winget-install.
+
+## 06-04-2026 - @Stensel8
+
+Restructured the repository: merged pcHealthPlus-VS and Win_Scan into pcHealth.
+Added new folder layout (`Windows 10/CLI`, `Windows 10/GUI`, `Windows 11/CLI`, `Windows 11/GUI`).
+Windows 10 contains legacy tooling (CMD/batch, VBS, WinForms, WPF), Windows 11 contains modern PowerShell scripts.
+Added `Scan-Windows.ps1` for Windows 11 as a modern SFC + DISM replacement for Win_Scan.
+Removed all references to pcHealthPlus, pcHealthPlus-VS and Win_Scan across scripts, documentation, C# source, assembly info and form titles.
+Renamed C# project, solution and namespace from `pcHealthPlus-VS` / `pcHealthPlus_VS` to `pcHealth`.
+Fixed merge conflict markers and a broken `SET /P` statement in pcHealth.bat.
+Fixed all PowerShell script paths in pcHealth.bat to reflect the new folder structure.
+Enforced LF line endings across the repository via `.gitattributes`.
+
+## 01-01-2026 - @Stensel8
+
+- Improved Admin elevation to no longer rely on VBS. Fixes elevation issues on systems/builds where VBS has been removed.
+- Improved KeyGrabber to use PowerShell instead of VBS for extracting the Windows license key.
+- Added a simple GUI for the KeyGrabber functionality.
+- Synced the codebase with [pcHealthPlus](https://github.com/REALSDEALS/pcHealthPlus).
+
 ## 11-07-2025 - @REALSDEALS
 
 Audited the contribution of @Stensel8 and everything seems to work as intended.
 
-## 22-06-2025 - @Stensel
+## 22-06-2025 - @Stensel8
 
 Added a new feature to the script: reset network settings.
 This feature will reset the network settings on the host machine, which can help resolve various network-related issues.

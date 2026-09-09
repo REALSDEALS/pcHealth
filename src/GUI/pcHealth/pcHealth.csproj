@@ -1,0 +1,68 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Single source of truth: version is read from the repo-root VERSION file at build time. -->
+    <Version>$([System.IO.File]::ReadAllText('$(MSBuildThisFileDirectory)..\..\..\VERSION').Trim())</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <!-- Matches the supported floor: Windows 11 25H2 (build 26200). -->
+    <TargetPlatformMinVersion>10.0.26100.0</TargetPlatformMinVersion>
+    <RootNamespace>pcHealth</RootNamespace>
+    <AssemblyName>pcHealth</AssemblyName>
+    <ApplicationIcon>Assets\pcHealth.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <!-- Unpackaged deployment — no MSIX required -->
+    <WindowsPackageType>None</WindowsPackageType>
+    <!-- Bundle the Windows App SDK runtime so users don't need it pre-installed. -->
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <!-- RID follows VS platform selection; CLI default is win-x64. -->
+    <RuntimeIdentifier Condition="'$(Platform)' == 'ARM64'">win-arm64</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="'$(Platform)' != 'ARM64'">win-x64</RuntimeIdentifier>
+    <Platforms>x64;arm64</Platforms>
+    <!-- Allows non-Windows runners (e.g. Linux CI) to restore dependencies. -->
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- App assets: logo (SVG for in-app display, ICO for taskbar/title bar). -->
+    <Content Include="Assets\pcHealth.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\pcHealth.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\pcHealth.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <!-- Hardware database for Health page age/chipset lookups (source: repo root assets/). -->
+    <Content Include="..\..\..\assets\hardware-db.json" Link="assets\hardware-db.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NLog"                                        Version="6.*" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection"    Version="10.*" />
+    <PackageReference Include="CommunityToolkit.Mvvm"                       Version="8.*" />
+    <PackageReference Include="Microsoft.WindowsAppSDK"    Version="2.4.0" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.2705"
+                      IncludeAssets="build" />
+    <!-- CIM/MI library for OS info and OA3 key extraction (replaces legacy System.Management/DCOM) -->
+    <PackageReference Include="Microsoft.Management.Infrastructure" Version="3.0.0" />
+    <!-- Windows event log reader (System.Diagnostics.Eventing.Reader) for boot time diagnostics -->
+    <PackageReference Include="System.Diagnostics.EventLog" Version="10.0.12" />
+  </ItemGroup>
+
+</Project>

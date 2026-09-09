@@ -1,0 +1,9 @@
+# CODEOWNERS - required reviewers per file path
+#
+# GitHub automatically requests a review when a pull request touches these files.
+# Docs: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default: all files require review from code owners
+* @REALSDEALS
+* @Stensel8
+

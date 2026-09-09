@@ -1,0 +1,104 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+# Minimal default permissions — jobs override only what they need.
+permissions: read-all
+
+jobs:
+
+  # ------------------------------------------------------------
+  # BUILD
+  # Compiles the WinUI 3 app and packages GUI + CLI into ZIPs,
+  # then uploads the artifacts to the GitHub Release.
+  # ------------------------------------------------------------
+  build:
+    name: Build & upload release artifacts
+    runs-on: windows-latest
+    permissions:
+      contents: write   # required to upload assets to the release
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Read version
+        id: version
+        shell: pwsh
+        run: |
+          $v = (Get-Content VERSION -Raw).Trim()
+          "version=$v" >> $env:GITHUB_OUTPUT
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7 # v5.2.0
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build release (x64)
+        shell: pwsh
+        run: pwsh -File development/tools/Build-Release.ps1 -Architecture x64
+
+      - name: Build release (arm64)
+        shell: pwsh
+        run: pwsh -File development/tools/Build-Release.ps1 -Architecture arm64 -Output dist-arm64
+
+      - name: Upload release assets
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $v   = "${{ steps.version.outputs.version }}"
+          $tag = "${{ github.ref_name }}"
+          gh release upload $tag `
+            "dist/pcHealth-${v}-win-x64.zip" `
+            "dist-arm64/pcHealth-${v}-win-arm64.zip" `
+            "dist/pcHealth-CLI-${v}.zip" `
+            "dist/SHA256SUMS.txt" `
+            --clobber
+
+  # ------------------------------------------------------------
+  # WINGET PUBLISH
+  # Submits a manifest update PR to microsoft/winget-pkgs using
+  # wingetcreate. Requires a PAT stored as WINGET_TOKEN with
+  # public_repo scope on a GitHub account that has signed the
+  # microsoft/winget-pkgs CLA.
+  #
+  # First-time setup: the package must already exist in
+  # winget-pkgs (submitted once manually with `wingetcreate new`
+  # or via a handcrafted PR). This job only handles updates.
+  # ------------------------------------------------------------
+  winget-publish:
+    name: Publish to Winget
+    needs: build
+    runs-on: windows-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Download wingetcreate
+        shell: pwsh
+        run: |
+          $url = "https://github.com/microsoft/winget-create/releases/latest/download/wingetcreate.exe"
+          Invoke-WebRequest -Uri $url -OutFile wingetcreate.exe -UseBasicParsing
+
+      - name: Submit manifest update to winget-pkgs
+        shell: pwsh
+        env:
+          WINGET_TOKEN: ${{ secrets.WINGET_TOKEN }}
+        run: |
+          $version = "${{ needs.build.outputs.version }}"
+          $tag     = "${{ github.ref_name }}"
+          $repo    = "${{ github.repository }}"
+          $base    = "https://github.com/${repo}/releases/download/${tag}"
+
+          $x64Url   = "${base}/pcHealth-${version}-win-x64.zip"
+          $arm64Url = "${base}/pcHealth-${version}-win-arm64.zip"
+
+          .\wingetcreate.exe update REALSDEALS.pcHealth `
+            --version  $version `
+            --urls     $x64Url $arm64Url `
+            --token    $env:WINGET_TOKEN `
+            --submit
