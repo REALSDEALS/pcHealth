@@ -62,7 +62,7 @@
     <!-- CIM/MI library for OS info and OA3 key extraction (replaces legacy System.Management/DCOM) -->
     <PackageReference Include="Microsoft.Management.Infrastructure" Version="3.0.0" />
     <!-- Windows event log reader (System.Diagnostics.Eventing.Reader) for boot time diagnostics -->
-    <PackageReference Include="System.Diagnostics.EventLog" Version="10.0.11" />
+    <PackageReference Include="System.Diagnostics.EventLog" Version="10.0.12" />
   </ItemGroup>
 
 </Project>
