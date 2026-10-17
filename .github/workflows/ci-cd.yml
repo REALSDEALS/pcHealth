@@ -117,7 +117,7 @@ jobs:
       # Guards the split: the shared catalogue and the Python registry must
       # list the same tools, or the menu shows an entry that cannot run.
       - name: Catalogue matches registry
-        run: python3 -c "from pchealth import catalog; from pchealth.tools import REGISTRY; missing = [t.id for t in catalog.load() if t.id not in REGISTRY]; assert not missing, f'no implementation for {missing}'; print(f'{len(REGISTRY)} tools wired')"
+        run: python3 -c "from pchealth import catalog; from pchealth.tools import REGISTRY; missing = [t.id for t in catalog.load() if t.id not in REGISTRY]; assert not missing, f'missing implementations: {missing}'"
 
   # ----------------------------------------------------------
   # INSTALLER AUTHORING
@@ -212,6 +212,9 @@ jobs:
   # ----------------------------------------------------------
   # COMMIT LINT
   # Validates commit messages follow conventional commits on push.
+  # Merge commits are intentionally skipped because GitHub creates
+  # messages like "Merge pull request #123" that are not conventional
+  # commit subjects but are valid GitHub merge records.
   # ----------------------------------------------------------
   commit-lint:
     name: Commit messages (conventional commits)
@@ -225,10 +228,33 @@ jobs:
           fetch-depth: 0
 
       - name: Check conventional commits
-        uses: webiny/action-conventional-commits@7f91b1595ca1951cdb671ddc9f07a49081ec5b69 # v1.4.2
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          allowed-commit-types: "feat,fix,docs,chore,refactor,style,perf,test,revert,ci,deps,build"
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          BASE='${{ github.event.before }}'
+          HEAD='${{ github.sha }}'
+
+          if [ "$BASE" = '0000000000000000000000000000000000000000' ]; then
+            COMMITS=$(git rev-list --reverse --no-merges HEAD)
+          else
+            COMMITS=$(git rev-list --reverse --no-merges "$BASE".."$HEAD")
+          fi
+
+          if [ -z "$COMMITS" ]; then
+            echo "No non-merge commits to lint."
+            exit 0
+          fi
+
+          while IFS= read -r commit; do
+            subject=$(git log -1 --format=%s "$commit")
+            if ! printf '%s\n' "$subject" | grep -Eq '^(feat|fix|docs|chore|refactor|style|perf|test|revert|ci|deps|build)(\([^)]+\))?!?: .+'; then
+              echo "Invalid conventional commit: $subject" >&2
+              exit 1
+            fi
+          done <<< "$COMMITS"
+
+          echo "All non-merge commits follow the conventional-commits format."
 
   # ----------------------------------------------------------
   # MARKDOWN LINT
