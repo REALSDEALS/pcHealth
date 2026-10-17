@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="pcHealth.Pages.BatteryReportPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Padding="28,20,28,8" Spacing="4">
+            <TextBlock Text="Battery Report"
+                       Style="{StaticResource TitleTextBlockStyle}"/>
+            <TextBlock Text="Live battery status and health data. Generate a full HTML report via powercfg."
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Padding="28,8,28,8" Spacing="12">
+
+                <StackPanel x:Name="LoadingPanel" Orientation="Horizontal" Spacing="12">
+                    <ProgressRing IsActive="True" Width="24" Height="24" VerticalAlignment="Center"/>
+                    <TextBlock Text="Reading battery data…" VerticalAlignment="Center"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                </StackPanel>
+
+                <InfoBar x:Name="NoBatteryBar" IsOpen="False" Severity="Informational"
+                         Title="No battery detected"
+                         Message="This system has no battery. Battery Report is only available on laptops."/>
+
+                <InfoBar x:Name="ErrorBar" IsOpen="False" Severity="Error"
+                         Title="Could not read battery data"/>
+
+                <!-- Live status card -->
+                <Border x:Name="StatusCard" Visibility="Collapsed"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1" CornerRadius="8" Padding="20,16">
+                    <StackPanel Spacing="10">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE83F;" FontSize="16" VerticalAlignment="Center"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock Text="Battery Status"
+                                       Style="{StaticResource BodyStrongTextBlockStyle}"/>
+                        </StackPanel>
+                        <StackPanel x:Name="StatusRows" Spacing="5"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Report card -->
+                <Border x:Name="ReportCard" Visibility="Collapsed"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1" CornerRadius="8" Padding="20,16">
+                    <StackPanel Spacing="10">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE8A5;" FontSize="16" VerticalAlignment="Center"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock Text="Full Battery Report (powercfg)"
+                                       Style="{StaticResource BodyStrongTextBlockStyle}"/>
+                        </StackPanel>
+                        <TextBlock TextWrapping="Wrap"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Text="Generates a detailed HTML report including battery capacity history, usage patterns, and drain data. The report opens in your default browser."/>
+                        <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,4,0,0">
+                            <Button Content="Generate &amp; Open Report"
+                                    Style="{StaticResource AccentButtonStyle}"
+                                    Command="{x:Bind ViewModel.GenerateReportCommand}"/>
+                            <ProgressRing IsActive="{x:Bind ViewModel.IsGenerating, Mode=OneWay}"
+                                          Width="20" Height="20" VerticalAlignment="Center"/>
+                            <TextBlock Text="{x:Bind ViewModel.GenerateStatus, Mode=OneWay}"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource CaptionTextBlockStyle}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal"
+                    HorizontalAlignment="Right" Padding="28,12,28,20" Spacing="8">
+            <Button Content="Back" Click="BackBtn_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

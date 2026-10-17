@@ -1,0 +1,57 @@
+name: Stale
+
+# Automatically marks inactive issues and pull requests as stale
+# and closes them if there is no response.
+#
+# Issues:  stale after 30 days of inactivity, closed after 14 more days
+# PRs:     stale after 30 days of inactivity, closed after 14 more days
+#
+# Items with the label 'pinned' or 'security' are never marked stale.
+
+on:
+  schedule:
+    # Daily at 02:00 UTC
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    name: Mark and close stale issues and PRs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@b5d41d4e1d5dceea10e7104786b73624c18a190f # v10.2.0
+        with:
+          # ── Issues ──────────────────────────────────────────────────────
+          days-before-issue-stale: 30
+          days-before-issue-close: 14
+          stale-issue-label: "stale"
+          stale-issue-message: >
+            This issue has not been updated in 30 days and has been marked as **stale**.
+            If there is no activity within 14 days it will be closed automatically.
+            Reply or remove the `stale` label to keep it open.
+          close-issue-message: >
+            This issue has been automatically closed due to inactivity.
+            Feel free to reopen it if it is still relevant.
+
+          # ── Pull Requests ────────────────────────────────────────────────
+          days-before-pr-stale: 30
+          days-before-pr-close: 14
+          stale-pr-label: "stale"
+          stale-pr-message: >
+            This pull request has not been updated in 30 days and has been marked as **stale**.
+            If there is no activity within 14 days it will be closed automatically.
+            Reply or remove the `stale` label to keep it open.
+          close-pr-message: >
+            This pull request has been automatically closed due to inactivity.
+            Feel free to reopen it if the work is still relevant.
+
+          # ── Exemptions ───────────────────────────────────────────────────
+          exempt-issue-labels: "pinned,security,breaking-change"
+          exempt-pr-labels: "pinned,security,breaking-change"
+
+          # Process at most 30 items per run to stay within rate limits
+          operations-per-run: 30

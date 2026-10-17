@@ -1,0 +1,12 @@
+# Lychee ignore list — URLs that should not be checked
+# Shields.io badges are often rate-limited or return 429
+https://img.shields.io/*
+# GitHub release/badge endpoints can 404 for new repos
+https://github.com/*/releases/*
+# Discord invite links require authentication
+https://discord.gg/*
+# Localhost and internal references
+http://localhost
+https://localhost
+# Private/archived repos — link is intentional, repo is private
+https://github.com/iRepairzone-NL/pcHealth_GUI

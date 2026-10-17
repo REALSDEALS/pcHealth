@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  pcHealth MSI installer (WiX v7).
+
+  Wraps the self-contained publish output, so the target machine needs neither
+  the .NET Desktop Runtime nor the Windows App SDK runtime installed first.
+
+  Built by development/tools/Build-Release.ps1, which passes the version, the
+  architecture and the publish directory in:
+
+    wix build installer/pcHealth.wxs -arch x64 -d Version=2.0.0 -d PublishDir=...
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+  <Package Name="pcHealth"
+           Manufacturer="REALSDEALS"
+           Version="$(Version)"
+           UpgradeCode="6f3b1c5a-9d24-4b7e-9c31-2a8e5d0f7b41"
+           Scope="perMachine"
+           Compressed="yes">
+
+    <!-- The UpgradeCode above must never change: it is what lets a new version
+         replace an old one instead of installing alongside it. -->
+    <MajorUpgrade DowngradeErrorMessage="A newer version of pcHealth is already installed. Uninstall it first if you really want to go back." />
+
+    <MediaTemplate EmbedCab="yes" />
+
+    <!-- pcHealth reads SMART data, the registry and the CBS log, and repairs
+         boot files. It is a per-machine tool, so it installs for everyone. -->
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="INSTALLFOLDER" Name="pcHealth" />
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="AppShortcutFolder" Name="pcHealth" />
+    </StandardDirectory>
+
+    <Feature Id="Main" Title="pcHealth" Level="1">
+      <ComponentGroupRef Id="AppFiles" />
+      <ComponentRef Id="AppShortcut" />
+    </Feature>
+
+    <!-- No WixUI dialog set on purpose: it needs the UI extension and an RTF
+         licence file, and the installer has nothing to ask. Windows shows its
+         own progress UI, and `msiexec /qn` still works for unattended installs. -->
+
+  </Package>
+
+  <Fragment>
+    <!-- Harvests the whole publish tree. A self-contained WinUI 3 app is the
+         exe plus the runtime and Windows App SDK binaries beside it, so the
+         file list is long and must not be maintained by hand. -->
+    <ComponentGroup Id="AppFiles" Directory="INSTALLFOLDER">
+      <Files Include="$(PublishDir)\**" />
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <Component Id="AppShortcut" Directory="AppShortcutFolder" Guid="c1d4e8f2-3a76-4b19-8e52-7d0c9a4f6b38">
+      <Shortcut Id="StartMenuShortcut"
+                Name="pcHealth"
+                Description="Check the health of your Windows installation"
+                Target="[INSTALLFOLDER]pcHealth.exe"
+                WorkingDirectory="INSTALLFOLDER" />
+      <RemoveFolder Id="RemoveAppShortcutFolder" Directory="AppShortcutFolder" On="uninstall" />
+      <!-- A shortcut needs a registry value to act as its KeyPath, because the
+           shortcut target lives in a different component. -->
+      <RegistryValue Root="HKLM"
+                     Key="Software\REALSDEALS\pcHealth"
+                     Name="Installed"
+                     Type="integer"
+                     Value="1"
+                     KeyPath="yes" />
+    </Component>
+  </Fragment>
+
+</Wix>

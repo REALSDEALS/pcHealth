@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="pcHealth.Pages.AudioRestartPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Padding="28,20,28,8" Spacing="4">
+            <TextBlock Text="Restart Audio Drivers"
+                       Style="{StaticResource TitleTextBlockStyle}"/>
+            <TextBlock Text="Stops and restarts the AudioEndpointBuilder and Audiosrv Windows services."
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Padding="28,8,28,8" Spacing="12">
+
+                <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1" CornerRadius="8" Padding="20,16">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="Services"
+                                   Style="{StaticResource BodyStrongTextBlockStyle}"/>
+                        <StackPanel Spacing="6">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon x:Name="AebIcon" Glyph="&#xE9CE;" FontSize="14"
+                                          VerticalAlignment="Center"
+                                          Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                <TextBlock Text="AudioEndpointBuilder" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="AebStatus" Text="—"
+                                           Style="{StaticResource CaptionTextBlockStyle}"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon x:Name="AudioIcon" Glyph="&#xE9CE;" FontSize="14"
+                                          VerticalAlignment="Center"
+                                          Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                <TextBlock Text="Audiosrv" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="AudioStatus" Text="—"
+                                           Style="{StaticResource CaptionTextBlockStyle}"
+                                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,4,0,0">
+                            <Button Content="Restart Audio Services"
+                                    Style="{StaticResource AccentButtonStyle}"
+                                    Command="{x:Bind ViewModel.RestartCommand}"/>
+                            <ProgressRing IsActive="{x:Bind ViewModel.IsRunning, Mode=OneWay}"
+                                          Width="22" Height="22" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <InfoBar x:Name="ResultBar" IsOpen="False" IsClosable="True"/>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal"
+                    HorizontalAlignment="Right" Padding="28,12,28,20" Spacing="8">
+            <Button Content="Back" Click="BackBtn_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

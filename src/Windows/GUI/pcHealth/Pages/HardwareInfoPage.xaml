@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="pcHealth.Pages.HardwareInfoPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Padding="28,20,28,8" Spacing="4">
+            <TextBlock Text="Hardware Information"
+                       Style="{StaticResource TitleTextBlockStyle}"/>
+            <TextBlock Text="CPU, GPU, RAM modules, storage, and chipset."
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="ContentPanel" Padding="28,8,28,8" Spacing="12">
+
+                <StackPanel x:Name="LoadingPanel" Orientation="Horizontal" Spacing="12">
+                    <ProgressRing IsActive="True" Width="24" Height="24" VerticalAlignment="Center"/>
+                    <TextBlock Text="Loading hardware information…" VerticalAlignment="Center"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                </StackPanel>
+
+                <InfoBar x:Name="ErrorBar" IsOpen="False" Severity="Error"
+                         Title="Could not load hardware information"/>
+
+                <!-- CPU card -->
+                <Border x:Name="CpuCard" Visibility="Collapsed"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1" CornerRadius="8" Padding="20,16">
+                    <StackPanel Spacing="10">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE950;" FontSize="16" VerticalAlignment="Center"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock Text="CPU" Style="{StaticResource BodyStrongTextBlockStyle}"/>
+                        </StackPanel>
+                        <StackPanel x:Name="CpuRows" Spacing="5"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- GPU card -->
+                <Border x:Name="GpuCard" Visibility="Collapsed"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1" CornerRadius="8" Padding="20,16">
+                    <StackPanel Spacing="10">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE7F7;" FontSize="16" VerticalAlignment="Center"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock Text="GPU" Style="{StaticResource BodyStrongTextBlockStyle}"/>
+                        </StackPanel>
+                        <StackPanel x:Name="GpuRows" Spacing="5"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- RAM card -->
+                <Border x:Name="RamCard" Visibility="Collapsed"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1" CornerRadius="8" Padding="20,16">
+                    <StackPanel Spacing="10">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE7EF;" FontSize="16" VerticalAlignment="Center"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock Text="Memory (RAM)" Style="{StaticResource BodyStrongTextBlockStyle}"/>
+                        </StackPanel>
+                        <StackPanel x:Name="RamRows" Spacing="5"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Storage card -->
+                <Border x:Name="StorageCard" Visibility="Collapsed"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1" CornerRadius="8" Padding="20,16">
+                    <StackPanel Spacing="10">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xEDA2;" FontSize="16" VerticalAlignment="Center"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock Text="Storage" Style="{StaticResource BodyStrongTextBlockStyle}"/>
+                        </StackPanel>
+                        <StackPanel x:Name="StorageRows" Spacing="5"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Chipset card -->
+                <Border x:Name="ChipsetCard" Visibility="Collapsed"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1" CornerRadius="8" Padding="20,16">
+                    <StackPanel Spacing="10">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE8EF;" FontSize="16" VerticalAlignment="Center"
+                                      Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"/>
+                            <TextBlock Text="Chipset" Style="{StaticResource BodyStrongTextBlockStyle}"/>
+                        </StackPanel>
+                        <StackPanel x:Name="ChipsetRows" Spacing="5"/>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal"
+                    HorizontalAlignment="Right" Padding="28,12,28,20" Spacing="8">
+            <Button x:Name="CopyBtn" Content="Copy" IsEnabled="False" Click="CopyBtn_Click"/>
+            <Button Content="Back" Click="BackBtn_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

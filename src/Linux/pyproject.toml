@@ -1,0 +1,58 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pchealth"
+description = "pcHealth for Linux -- terminal and GTK4 health toolkit"
+readme = "README.md"
+license = { text = "GPL-3.0-or-later" }
+requires-python = ">=3.11"
+dynamic = ["version"]
+dependencies = []
+
+# PyGObject is packaged by every target distro. Installing it from PyPI needs a
+# compiler and the GObject headers, so the GUI extra exists for virtualenvs --
+# on a normal system the distro package is the right answer.
+[project.optional-dependencies]
+gui = ["PyGObject>=3.46"]
+
+[project.scripts]
+pchealth = "pchealth.__main__:main"
+pchealth-gui = "pchealth.gui.app:main"
+
+# Version comes from the repo-root VERSION file, the same one the WinUI project
+# bakes into its assembly, so a built wheel cannot disagree with the rest of
+# the repository.
+[tool.hatch.version]
+path = "../../VERSION"
+pattern = "(?P<version>[^\\s]+)"
+
+# The catalogue lives at the repo root so both stacks read the same file. An
+# installed copy has no repo around it, so it travels inside the package and
+# catalog.py prefers that copy when it is there.
+[tool.hatch.build.targets.wheel.force-include]
+"../../assets/tools.json" = "pchealth/tools.json"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+[[tool.mypy.overrides]]
+module = ["gi.*"]
+ignore_missing_imports = true
+
+# PyGObject ships no type stubs, so every GTK symbol is Any. Under strict mode
+# that turns each widget subclass and each GLib.SOURCE_REMOVE into an error
+# about Any rather than a real type problem, so the two rules that only fire
+# because of the missing stubs are relaxed for the GUI layer alone.
+[[tool.mypy.overrides]]
+module = ["pchealth.gui.*"]
+disallow_subclassing_any = false
+warn_return_any = false
