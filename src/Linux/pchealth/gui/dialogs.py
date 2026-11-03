@@ -52,7 +52,10 @@ def _ask(
                 else Adw.ResponseAppearance.SUGGESTED
             )
             dialog.set_response_appearance(response_id, appearance)
-        dialog.set_default_response(responses[-1][0] if responses else _CANCEL)
+        # Enter must never pick a destructive answer: in confirm() the last
+        # response is always "Continue", so two Enters could reboot the machine.
+        destructive = any(d for _, _, d in responses)
+        dialog.set_default_response(_CANCEL if destructive or not responses else responses[-1][0])
         dialog.set_close_response(_CANCEL)
 
         def on_response(_dialog: Any, response: str) -> None:

@@ -3,7 +3,7 @@
   "extends": [
     "config:recommended"
   ],
-  "description": "Renovate manages NuGet packages and docker:// action images. Regular GitHub Actions (uses: owner/repo@sha) are handled by Dependabot. Both cover NuGet — Renovate for regular bumps, Dependabot for security advisories.",
+  "description": "Renovate opens dependency PRs for NuGet packages and GitHub Actions. Nothing is merged automatically: every update waits for review, because the app runs with administrator rights.",
   "timezone": "Europe/Amsterdam",
   "forkProcessing": "enabled",
   "pinDigests": true,
@@ -54,18 +54,6 @@
       "addLabels": [
         "ci"
       ]
-    },
-    {
-      "description": "Disable Renovate for owner/repo@sha actions - Dependabot handles those.",
-      "matchManagers": [
-        "github-actions"
-      ],
-      "matchDatasources": [
-        "github-tags",
-        "github-releases",
-        "git-tags"
-      ],
-      "enabled": false
     },
     {
       "description": "Group all Docker-based action images into one PR.",
@@ -122,7 +110,6 @@
       ]
     }
   ],
-  "automerge": true,
-  "automergeType": "pr",
+  "automerge": false,
   "semanticCommits": "enabled"
 }

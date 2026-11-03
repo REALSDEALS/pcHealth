@@ -352,9 +352,9 @@ def _security() -> Section:
         )
     )
 
-    for command, argv, good in (
-        ("firewall-cmd", ["firewall-cmd", "--state"], "running"),
-        ("ufw", ["ufw", "status"], "active"),
+    for command, argv, active_line, inactive_line in (
+        ("firewall-cmd", ["firewall-cmd", "--state"], "running", "not running"),
+        ("ufw", ["ufw", "status"], "status: active", "status: inactive"),
     ):
         if not system.has(command):
             continue
@@ -362,10 +362,14 @@ def _security() -> Section:
         # to tell you the firewall state is not worth the interruption. Where
         # the query needs root, say so rather than prompting.
         result = system.run(argv)
-        output = (result.stdout + result.stderr).lower()
-        if good in output:
+        # Compare whole lines: "running" is a substring of "not running" and
+        # "active" of "inactive", so a substring test reports a stopped
+        # firewall as active.
+        output = result.stdout + "\n" + result.stderr
+        lines = {line.strip().lower() for line in output.splitlines()}
+        if active_line in lines:
             checks.append(Check("Firewall", f"{command}: active", Status.GOOD))
-        elif result.ok:
+        elif inactive_line in lines:
             checks.append(Check("Firewall", f"{command}: inactive", Status.WARNING))
         else:
             checks.append(Check("Firewall", command, Status.UNKNOWN, "State needs root to query."))

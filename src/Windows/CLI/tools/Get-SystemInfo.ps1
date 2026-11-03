@@ -13,19 +13,7 @@ $ubr       = $ntCv.UBR
 $fullBuild = if ($ubr) { "$($os.BuildNumber).$ubr" } else { $os.BuildNumber }
 
 $fw        = Get-CimInstance -ClassName Win32_BIOS -ErrorAction SilentlyContinue
-# $env:firmware_type is only set in WinPE/MDT; in a normal session it is always empty.
-# Read PEFirmwareType from the registry instead: 1 = BIOS, 2 = UEFI.
-# Use -Name so only this one value is retrieved; accessing a missing property on the
-# whole key would return $null in PowerShell, but -Name throws a clean error instead.
-$fwTypeRaw = try {
-    (Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control' `
-        -Name PEFirmwareType -ErrorAction Stop).PEFirmwareType
-} catch {
-    # PEFirmwareType is absent on some OEM or pre-UEFI systems; log and fall through.
-    Write-Debug "PEFirmwareType registry property not found: $_"
-    $null
-}
-$fwType    = switch ($fwTypeRaw) { 2 { 'UEFI' } 1 { 'Legacy BIOS' } default { 'Unknown' } }
+$fwType    = switch (Get-PcFirmwareType) { 'UEFI' { 'UEFI' } 'BIOS' { 'Legacy BIOS' } default { 'Unknown' } }
 $fwVersion = if ($fw.SMBIOSBIOSVersion) { $fw.SMBIOSBIOSVersion } else { 'Unknown' }
 $fwDate    = if ($fw.ReleaseDate) { $fw.ReleaseDate.ToString('yyyy-MM-dd') } else { 'Unknown' }
 

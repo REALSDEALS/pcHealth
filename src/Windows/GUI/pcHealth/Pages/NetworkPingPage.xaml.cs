@@ -39,7 +39,7 @@ public sealed partial class NetworkPingPage : Page
             var row = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 12 };
             row.Children.Add(new FontIcon
             {
-                Glyph = r.Success ? "" : "",
+                Glyph = r.Success ? "\uE73E" : "\uE711",
                 FontSize = 14,
                 VerticalAlignment = VerticalAlignment.Center,
                 Foreground = r.Success
@@ -58,6 +58,14 @@ public sealed partial class NetworkPingPage : Page
         foreach (var (label, value) in ViewModel.Summary)
             UiHelper.AddLabelValueRow(SummaryRows, label, value);
         SummaryCard.Visibility = Visibility.Visible;
+    }
+
+    // Back is not the only way out: the sidebar navigates away too, and
+    // the work kept running on a page nobody could see any more.
+    protected override void OnNavigatedFrom(NavigationEventArgs e)
+    {
+        ViewModel.RunCancelCommand.Execute(null);
+        base.OnNavigatedFrom(e);
     }
 
     private void BackBtn_Click(object sender, RoutedEventArgs e)

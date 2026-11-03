@@ -14,9 +14,9 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Padding="28,20,28,8" Spacing="4">
-            <TextBlock Text="Repair Boot Record"
+            <TextBlock Text="Boot Repair"
                        Style="{StaticResource TitleTextBlockStyle}"/>
-            <TextBlock Text="Attempts to repair the boot record using bootrec commands."
+            <TextBlock Text="Scans the Windows drive, runs SFC and rewrites the EFI boot files with bcdboot. UEFI systems only."
                        Style="{StaticResource BodyTextBlockStyle}"
                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
         </StackPanel>
@@ -24,10 +24,10 @@
         <InfoBar Grid.Row="1" Margin="28,0,28,8"
                  IsOpen="True" Severity="Error" IsClosable="False"
                  Title="This operation modifies boot-critical files."
-                 Message="Incorrect use can render the system unbootable. Only proceed if you understand what you are doing. Best run from WinRE."/>
+                 Message="Incorrect use can render the system unbootable. Only proceed if you understand what you are doing. BitLocker is suspended for one restart before the boot files are rewritten."/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" Padding="28,0,28,12" Spacing="10">
-            <Button Content="Repair Boot Record" Click="RunBtn_Click"/>
+            <Button Content="Run Boot Repair" Click="RunBtn_Click"/>
             <ProgressRing IsActive="{x:Bind ViewModel.IsRunning, Mode=OneWay}" Width="22" Height="22" VerticalAlignment="Center"/>
             <TextBlock Text="{x:Bind ViewModel.Status, Mode=OneWay}"
                        VerticalAlignment="Center"

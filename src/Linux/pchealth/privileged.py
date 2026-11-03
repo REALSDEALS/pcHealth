@@ -57,9 +57,15 @@ def main() -> int:
             # argv is a validated list of strings and no shell is involved.
             process = subprocess.Popen(
                 argv,
+                # The helper's own stdin carried the batch and is used up;
+                # say so explicitly rather than hand children a spent pipe.
+                stdin=subprocess.DEVNULL,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 text=True,
+                # A non-UTF-8 byte would otherwise raise here and abort the
+                # rest of the batch, killing the running child with SIGPIPE.
+                errors="replace",
                 bufsize=1,
             )
         except OSError as exc:

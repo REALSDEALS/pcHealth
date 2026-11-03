@@ -25,12 +25,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          # The build runs code from NuGet packages; it has no need for the
+          # write token that checkout would otherwise leave in .git/config.
+          persist-credentials: false
 
+      # The file names come from VERSION, the release from the tag. If they
+      # disagree, 2.0.0 files would be attached to a v2.1.0 release.
       - name: Read version
         id: version
         shell: pwsh
+        env:
+          TAG: ${{ github.ref_name }}
         run: |
           $v = (Get-Content VERSION -Raw).Trim()
+          if ($env:TAG -ne "v$v" -and $env:TAG -ne $v) {
+            Write-Error "Tag '$env:TAG' does not match VERSION '$v'. Update VERSION or re-tag."
+            exit 1
+          }
           "version=$v" >> $env:GITHUB_OUTPUT
 
       - name: Setup .NET 10
@@ -57,58 +69,22 @@ jobs:
         shell: pwsh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+          VERSION: ${{ steps.version.outputs.version }}
         run: |
-          $v   = "${{ steps.version.outputs.version }}"
-          $tag = "${{ github.ref_name }}"
-          gh release upload $tag `
+          $v = $env:VERSION
+          # Each architecture's build writes its own SHA256SUMS.txt. Publish
+          # one file that covers every uploaded asset; the arm64 run's CLI ZIP
+          # is a second build of the same scripts and is not uploaded.
+          $sums = @(Get-Content dist/SHA256SUMS.txt) +
+                  @(Get-Content dist-arm64/SHA256SUMS.txt | Where-Object { $_ -notmatch 'pcHealth-CLI-' })
+          New-Item -ItemType Directory -Force release | Out-Null
+          $sums | Set-Content release/SHA256SUMS.txt
+          gh release upload $env:TAG `
             "dist/pcHealth-${v}-win-x64.msi" `
             "dist-arm64/pcHealth-${v}-win-arm64.msi" `
             "dist/pcHealth-${v}-win-x64.zip" `
             "dist-arm64/pcHealth-${v}-win-arm64.zip" `
             "dist/pcHealth-CLI-${v}.zip" `
-            "dist/SHA256SUMS.txt" `
+            "release/SHA256SUMS.txt" `
             --clobber
-
-  # ------------------------------------------------------------
-  # WINGET PUBLISH
-  # Submits a manifest update PR to microsoft/winget-pkgs using
-  # wingetcreate. Requires a PAT stored as WINGET_TOKEN with
-  # public_repo scope on a GitHub account that has signed the
-  # microsoft/winget-pkgs CLA.
-  #
-  # First-time setup: the package must already exist in
-  # winget-pkgs (submitted once manually with `wingetcreate new`
-  # or via a handcrafted PR). This job only handles updates.
-  # ------------------------------------------------------------
-  winget-publish:
-    name: Publish to Winget
-    needs: build
-    runs-on: windows-latest
-    permissions:
-      contents: read
-
-    steps:
-      - name: Download wingetcreate
-        shell: pwsh
-        run: |
-          $url = "https://github.com/microsoft/winget-create/releases/latest/download/wingetcreate.exe"
-          Invoke-WebRequest -Uri $url -OutFile wingetcreate.exe -UseBasicParsing
-
-      - name: Submit manifest update to winget-pkgs
-        shell: pwsh
-        env:
-          WINGET_TOKEN: ${{ secrets.WINGET_TOKEN }}
-        run: |
-          $version = "${{ needs.build.outputs.version }}"
-          $tag     = "${{ github.ref_name }}"
-          $repo    = "${{ github.repository }}"
-          $base    = "https://github.com/${repo}/releases/download/${tag}"
-
-          $x64Url   = "${base}/pcHealth-${version}-win-x64.zip"
-          $arm64Url = "${base}/pcHealth-${version}-win-arm64.zip"
-
-          .\wingetcreate.exe update REALSDEALS.pcHealth `
-            --version  $version `
-            --urls     $x64Url $arm64Url `
-            --token    $env:WINGET_TOKEN `
-            --submit

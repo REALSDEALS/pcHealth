@@ -82,10 +82,16 @@ public sealed partial class LicenseKeyPage : Page
 
         // Brief visual feedback before reverting the label.
         CopyBtn.Content = "Copied!";
-        _copyResetTimer ??= DispatcherQueue.CreateTimer();
+        if (_copyResetTimer is null)
+        {
+            // Wired once: adding the Tick handler on every click stacked up
+            // one more handler per click.
+            _copyResetTimer = DispatcherQueue.CreateTimer();
+            _copyResetTimer.Interval = TimeSpan.FromSeconds(1.5);
+            _copyResetTimer.IsRepeating = false;
+            _copyResetTimer.Tick += (_, _) => CopyBtn.Content = "Copy Key";
+        }
         _copyResetTimer.Stop();
-        _copyResetTimer.Interval = TimeSpan.FromSeconds(1.5);
-        _copyResetTimer.Tick += (_, _) => { CopyBtn.Content = "Copy Key"; _copyResetTimer.Stop(); };
         _copyResetTimer.Start();
     }
 

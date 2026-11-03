@@ -16,7 +16,7 @@
         <StackPanel Grid.Row="0" Padding="28,20,28,8" Spacing="4">
             <TextBlock Text="Reset Network Stack"
                        Style="{StaticResource TitleTextBlockStyle}"/>
-            <TextBlock Text="Flushes DNS, re-registers DNS, renews DHCP, resets Winsock and IPv4/IPv6. A reboot may be required."
+            <TextBlock Text="Flushes the DNS cache and resets Winsock and the IPv4/IPv6 stack. A reboot is required afterwards."
                        Style="{StaticResource BodyTextBlockStyle}"
                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                        TextWrapping="Wrap"/>
@@ -29,7 +29,7 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" Padding="28,0,28,12" Spacing="10">
             <Button Content="Reset Network Stack"
                     Style="{StaticResource AccentButtonStyle}"
-                    Command="{x:Bind ViewModel.RunCommand}"/>
+                    Click="RunBtn_Click"/>
             <ProgressRing IsActive="{x:Bind ViewModel.IsRunning, Mode=OneWay}" Width="22" Height="22" VerticalAlignment="Center"/>
             <TextBlock Text="{x:Bind ViewModel.Status, Mode=OneWay}"
                        VerticalAlignment="Center"

@@ -14,6 +14,36 @@ function Open-PcUrl {
     }
 }
 
+# LTSC and stripped images ship without App Installer. Calling a missing winget
+# under $ErrorActionPreference = 'Stop' throws, so tools check first.
+function Test-PcWinget {
+    if (Get-Command winget -CommandType Application -ErrorAction SilentlyContinue) {
+        return $true
+    }
+    Write-Host "`n[!!] winget is not available on this system." -ForegroundColor Red
+    Write-Host "     Use Tools > Repair Winget to install it.`n" -ForegroundColor Yellow
+    return $false
+}
+
+# Returns 'UEFI', 'BIOS' or 'Unknown'. The PEFirmwareType registry value only
+# exists inside Windows PE, so on an installed system the documented
+# GetFirmwareType API is the reliable source.
+function Get-PcFirmwareType {
+    if (-not ('PcHealth.Firmware' -as [type])) {
+        Add-Type -Namespace PcHealth -Name Firmware -MemberDefinition @'
+[DllImport("kernel32.dll", SetLastError = true)]
+public static extern bool GetFirmwareType(out uint firmwareType);
+'@
+    }
+    $type = 0
+    if (-not [PcHealth.Firmware]::GetFirmwareType([ref]$type)) { return 'Unknown' }
+    switch ($type) {
+        1       { 'BIOS' }
+        2       { 'UEFI' }
+        default { 'Unknown' }
+    }
+}
+
 # Write to both the console and a persistent log file under C:\pcHealth\Logs\.
 function Write-PcLog {
     param(
@@ -46,6 +76,9 @@ function Clear-PcHost {
     # cursor, which avoids partial-render artifacts when colour state leaks
     # out of a tool.
     [Console]::ResetColor()
+    # Callers set the theme first; ResetColor just undid it, so put it back
+    # before clearing, which also gives the cleared screen the theme colours.
+    Set-PcTheme $Global:PcTheme
     [Console]::Clear()
 }
 

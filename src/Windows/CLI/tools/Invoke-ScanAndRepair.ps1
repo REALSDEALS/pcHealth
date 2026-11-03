@@ -19,24 +19,29 @@ function Get-DismStatus {
     if ($Output -match 'No component store corruption was detected')    { return 'Clean -- no corruption detected' }
     if ($Output -match 'restore operation completed successfully')       { return 'Restored successfully' }
     if ($Output -match 'component store is repairable')                 { return 'Corruption found -- repairable' }
-    return 'Completed -- check DISM log'
+    # The sentences above are English only. On a Windows in another language
+    # nothing matches, so say the result is unknown rather than call it fine.
+    return 'Unknown -- read the DISM output above'
 }
 
 function Invoke-Dism {
     param([string]$Operation)
-    $tmp = [System.IO.Path]::GetTempFileName()
-    & "$env:SystemRoot\System32\Dism.exe" /Online /Cleanup-Image $Operation > $tmp 2>&1
+    $dism = Join-Path $env:SystemRoot 'System32\Dism.exe'
+    $raw  = [System.Collections.Generic.List[string]]::new()
+    # Stream each line as it arrives: RestoreHealth can take half an hour and
+    # buffering the output made it look hung.
+    & $dism /Online /Cleanup-Image $Operation 2>&1 | ForEach-Object {
+        $line = "$_"
+        $raw.Add($line)
+        if ($line -and
+            $line -notmatch '^\s*\['            -and
+            $line -notmatch '^Deployment Image' -and
+            $line -notmatch '^Version:'         -and
+            $line -notmatch '^Image Version:') {
+            Write-Host $line
+        }
+    }
     $exitCode = $LASTEXITCODE
-    $raw = Get-Content $tmp -ErrorAction SilentlyContinue
-    Remove-Item $tmp -Force -ErrorAction SilentlyContinue
-
-    $raw | Where-Object {
-        $_ -and
-        $_ -notmatch '^\s*\['           -and
-        $_ -notmatch '^Deployment Image' -and
-        $_ -notmatch '^Version:'         -and
-        $_ -notmatch '^Image Version:'
-    } | Out-Host
 
     return [PSCustomObject]@{ ExitCode = $exitCode; Text = ($raw -join ' ') }
 }

@@ -24,17 +24,20 @@ public sealed record LicenseResult(
 /// </summary>
 public static class KeyExtractor
 {
-    // KMS client setup keys shipped with Windows. They look like valid keys but
-    // cannot activate a personal copy of Windows.
+    // Keys Microsoft publishes for installing or KMS-activating an edition.
+    // They look like real keys but cannot activate a personal copy of Windows.
     private static readonly Dictionary<string, string> GenericKeys = new()
     {
-        ["VK7JG-NPHTM-C97JM-9MPGT-3V66T"] = "Windows 11 Pro",
-        ["YTMG3-N6DKC-DKB77-7M9GH-8HVX7"] = "Windows 11 Pro N",
-        ["YNMGQ-8RYV3-4PGQ3-C8XTP-7CFBY"] = "Windows 11 Home",
-        ["TX9XD-98N7V-6WMQ6-BX7FG-H8Q99"] = "Windows 11 Home N",
-        ["NPPR9-FWDCX-D2C8J-H872K-2YT43"] = "Windows 11 Enterprise",
-        ["NRG8B-VKK3Q-CXVCJ-9G2XF-6Q84J"] = "Windows 11 Pro for Workstations",
-        ["W269N-WFGWX-YVC9B-4J6C9-T83GX"] = "Windows 10/11 Pro",
+        ["VK7JG-NPHTM-C97JM-9MPGT-3V66T"] = "Windows 10/11 Pro (generic install key)",
+        ["YTMG3-N6DKC-DKB77-7M9GH-8HVX7"] = "Windows 10/11 Home (generic install key)",
+        ["YNMGQ-8RYV3-4PGQ3-C8XTP-7CFBY"] = "Windows 10/11 Education (generic install key)",
+        ["TX9XD-98N7V-6WMQ6-BX7FG-H8Q99"] = "Windows 10/11 Home (KMS client key)",
+        ["NPPR9-FWDCX-D2C8J-H872K-2YT43"] = "Windows 10/11 Enterprise (KMS client key)",
+        ["NRG8B-VKK3Q-CXVCJ-9G2XF-6Q84J"] = "Windows 10/11 Pro for Workstations (KMS client key)",
+        ["W269N-WFGWX-YVC9B-4J6C9-T83GX"] = "Windows 10/11 Pro (KMS client key)",
+        // What DigitalProductId decodes to when no key is stored: a digital
+        // license, or a key removed with slmgr /cpky.
+        ["BBBBB-BBBBB-BBBBB-BBBBB-BBBBB"] = "No key stored (digital license)",
     };
 
     /// <summary>Runs both extraction methods and returns a combined result.</summary>
@@ -44,9 +47,13 @@ public static class KeyExtractor
         var oa3Key = GetKeyFromOA3();
         var regKey = GetKeyFromDigitalProductId();
 
-        // Prefer the registry key (currently active) over the OA3 key (original OEM).
-        string? bestKey = regKey ?? oa3Key;
-        string bestSource = regKey != null ? "Registry (DigitalProductId)"
+        // Prefer the registry key (currently active) over the OA3 key (original
+        // OEM), unless the registry only holds a generic placeholder and the
+        // firmware has a real key.
+        bool regIsGeneric = regKey != null && GenericKeys.ContainsKey(regKey);
+        bool useRegistry = regKey != null && !(regIsGeneric && oa3Key != null);
+        string? bestKey = useRegistry ? regKey : oa3Key;
+        string bestSource = useRegistry ? "Registry (DigitalProductId)"
                                : oa3Key != null ? "UEFI/BIOS (OA3)"
                                : "None";
         bool isGeneric = bestKey != null && GenericKeys.ContainsKey(bestKey);

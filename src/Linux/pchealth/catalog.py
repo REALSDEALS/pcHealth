@@ -1,8 +1,8 @@
 """The shared tool catalogue.
 
-Reads assets/tools.json from the repo root -- the same file the PowerShell
-menus read -- so the tool list cannot drift between the two stacks. An
-installed copy ships its own catalogue next to the package.
+Reads assets/tools.json from the repo root. The Windows menus keep their own
+copy of the list in step with this file by hand. An installed copy ships its
+own catalogue next to the package.
 """
 
 from __future__ import annotations

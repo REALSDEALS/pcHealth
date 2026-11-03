@@ -24,7 +24,6 @@ concurrency:
 #  python-lint     → ruff + mypy (Linux app, src/Linux)
 #  installer-build → wix build (MSI authoring compiles)
 #  pr-title        → conventional commits (PR title format)
-#  commit-lint     → conventional commits (commit message format)
 #  markdown-lint   → markdownlint (README, SECURITY, .github docs)
 #  link-check      → lychee (broken links in markdown)
 #  secrets-scan    → TruffleHog (API keys, passwords, tokens)
@@ -117,7 +116,10 @@ jobs:
       # Guards the split: the shared catalogue and the Python registry must
       # list the same tools, or the menu shows an entry that cannot run.
       - name: Catalogue matches registry
-        run: python3 -c "from pchealth import catalog; from pchealth.tools import REGISTRY; missing = [t.id for t in catalog.load() if t.id not in REGISTRY]; assert not missing, f'missing implementations: {missing}'"
+        # Block scalar: in a plain one-line value the ": " inside the message
+        # makes the whole file invalid YAML, and GitHub then runs no CI at all.
+        run: |
+          python3 -c "from pchealth import catalog; from pchealth.tools import REGISTRY; missing = [t.id for t in catalog.load() if t.id not in REGISTRY]; assert not missing, f'missing implementations: {missing}'"
 
   # ----------------------------------------------------------
   # INSTALLER AUTHORING
@@ -210,53 +212,6 @@ jobs:
             build
 
   # ----------------------------------------------------------
-  # COMMIT LINT
-  # Validates commit messages follow conventional commits on push.
-  # Merge commits are intentionally skipped because GitHub creates
-  # messages like "Merge pull request #123" that are not conventional
-  # commit subjects but are valid GitHub merge records.
-  # ----------------------------------------------------------
-  commit-lint:
-    name: Commit messages (conventional commits)
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          fetch-depth: 0
-
-      - name: Check conventional commits
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          BASE='${{ github.event.before }}'
-          HEAD='${{ github.sha }}'
-
-          if [ "$BASE" = '0000000000000000000000000000000000000000' ]; then
-            COMMITS=$(git rev-list --reverse --no-merges HEAD)
-          else
-            COMMITS=$(git rev-list --reverse --no-merges "$BASE".."$HEAD")
-          fi
-
-          if [ -z "$COMMITS" ]; then
-            echo "No non-merge commits to lint."
-            exit 0
-          fi
-
-          while IFS= read -r commit; do
-            subject=$(git log -1 --format=%s "$commit")
-            if ! printf '%s\n' "$subject" | grep -Eq '^(feat|fix|docs|chore|refactor|style|perf|test|revert|ci|deps|build)(\([^)]+\))?!?: .+'; then
-              echo "Invalid conventional commit: $subject" >&2
-              exit 1
-            fi
-          done <<< "$COMMITS"
-
-          echo "All non-merge commits follow the conventional-commits format."
-
-  # ----------------------------------------------------------
   # MARKDOWN LINT
   # Checks README, SECURITY and .github markdown files.
   # Settings: .markdownlint.jsonc
@@ -337,71 +292,3 @@ jobs:
           base: ${{ github.event.before }}
           head: ${{ github.sha }}
           extra_args: --only-verified
-
-  # ----------------------------------------------------------
-  # UPDATE PR CHECKLIST
-  # Ticks or un-ticks the three checklist items in the PR body
-  # based on the actual outcomes of the other CI jobs.
-  # Re-runs on every push so the state always reflects the
-  # latest commit (a broken push un-ticks "CI is green", a fixed
-  # one re-ticks it automatically).
-  # ----------------------------------------------------------
-  update-checklist:
-    name: Update PR checklist
-    runs-on: ubuntu-latest
-    if: always() && github.event_name == 'pull_request'
-    needs: [dotnet-build, dotnet-format, pr-title, markdown-lint, link-check, secrets-scan]
-    permissions:
-      pull-requests: write
-    steps:
-      - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
-        env:
-          RESULT_BUILD:     ${{ needs.dotnet-build.result }}
-          RESULT_FORMAT:    ${{ needs.dotnet-format.result }}
-          RESULT_PR_TITLE:  ${{ needs.pr-title.result }}
-          RESULT_MD_LINT:   ${{ needs.markdown-lint.result }}
-          RESULT_LINKS:     ${{ needs.link-check.result }}
-          RESULT_SECRETS:   ${{ needs.secrets-scan.result }}
-        with:
-          script: |
-            const { data: pr } = await github.rest.pulls.get({
-              owner:       context.repo.owner,
-              repo:        context.repo.repo,
-              pull_number: context.payload.pull_request.number,
-            });
-
-            let body = pr.body || '';
-
-            // Tick or un-tick a checklist line that contains keyword.
-            // Matches both [ ] and [x] so the state is always up to date.
-            const setCheck = (keyword, passed) => {
-              body = body.replace(
-                new RegExp(`- \\[[ xX]\\] (.*${keyword}.*)`, 'i'),
-                `- [${passed ? 'x' : ' '}] $1`,
-              );
-            };
-
-            const ok = r => r === 'success';
-
-            // "CI is green" = build + format + markdown + links all pass
-            const ciGreen = ok(process.env.RESULT_BUILD)
-              && ok(process.env.RESULT_FORMAT)
-              && ok(process.env.RESULT_MD_LINT)
-              && ok(process.env.RESULT_LINKS);
-
-            setCheck('CI is green',      ciGreen);
-            setCheck('No passwords',     ok(process.env.RESULT_SECRETS));
-            setCheck('PR title follows', ok(process.env.RESULT_PR_TITLE));
-
-            await github.rest.pulls.update({
-              owner:       context.repo.owner,
-              repo:        context.repo.repo,
-              pull_number: context.payload.pull_request.number,
-              body,
-            });
-
-            core.info([
-              `CI is green:   ${ciGreen}`,
-              `No passwords:  ${ok(process.env.RESULT_SECRETS)}`,
-              `PR title:      ${ok(process.env.RESULT_PR_TITLE)}`,
-            ].join('\n'));

@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NLog;
 using pcHealth.Services;
+using System.Text;
 
 namespace pcHealth.ViewModels;
 
@@ -31,23 +32,33 @@ public partial class ScanRepairViewModel : ObservableObject
 
         try
         {
+            // Exit codes are kept per step: "Done." used to show even when
+            // every step had failed.
+            var codes = new List<(string Step, int Code)>();
+
             Append("=== Step 1/5: SFC (initial scan) ===");
-            await _runner.RunAsync(sfc, "/scannow", Append, ct);
+            codes.Add(("SFC", await _runner.RunAsync(sfc, "/scannow", Append, ct, outputEncoding: Encoding.Unicode)));
 
             Append("\n=== Step 2/5: DISM CheckHealth ===");
-            await _runner.RunAsync(dism, "/Online /Cleanup-Image /CheckHealth", Append, ct);
+            codes.Add(("CheckHealth", await _runner.RunAsync(dism, "/Online /Cleanup-Image /CheckHealth", Append, ct)));
 
             Append("\n=== Step 3/5: DISM ScanHealth ===");
-            await _runner.RunAsync(dism, "/Online /Cleanup-Image /ScanHealth", Append, ct);
+            codes.Add(("ScanHealth", await _runner.RunAsync(dism, "/Online /Cleanup-Image /ScanHealth", Append, ct)));
 
             Append("\n=== Step 4/5: DISM RestoreHealth ===");
-            await _runner.RunAsync(dism, "/Online /Cleanup-Image /RestoreHealth", Append, ct);
+            codes.Add(("RestoreHealth", await _runner.RunAsync(dism, "/Online /Cleanup-Image /RestoreHealth", Append, ct)));
 
             Append("\n=== Step 5/5: SFC (final pass) ===");
-            await _runner.RunAsync(sfc, "/scannow", Append, ct);
+            codes.Add(("SFC final", await _runner.RunAsync(sfc, "/scannow", Append, ct, outputEncoding: Encoding.Unicode)));
 
-            Append($"\n=== Complete. Full log: {Environment.GetEnvironmentVariable("SystemRoot")}\\Logs\\CBS\\CBS.log ===");
-            Status = "Done.";
+            var cbsLog = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "Logs", "CBS", "CBS.log");
+            Append($"\n=== Complete. Full log: {cbsLog} ===");
+            Append("Exit codes: " + string.Join(", ", codes.Select(c => $"{c.Step} {c.Code}")));
+
+            var failed = codes.Where(c => c.Code != 0).Select(c => c.Step).ToList();
+            Status = failed.Count == 0
+                ? "Done. Every step reported success."
+                : $"Done, but these steps reported a problem: {string.Join(", ", failed)}. See Details.";
         }
         catch (OperationCanceledException)
         {

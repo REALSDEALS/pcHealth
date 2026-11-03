@@ -24,8 +24,9 @@ public sealed partial class BootRepairPage : Page
 
         var confirm = new ContentDialog
         {
-            Title = "Repair Boot Record",
-            Content = "This will run bootrec /fixmbr, /fixboot, /scanos and /rebuildbcd.\n\n" +
+            Title = "Boot Repair",
+            Content = "This runs chkdsk /scan and sfc /scannow, suspends BitLocker for one restart, " +
+                      "and rewrites the EFI boot files with bcdboot.\n\n" +
                       "This modifies boot-critical files. Incorrect use can make the system unbootable.",
             PrimaryButtonText = "Proceed",
             CloseButtonText = "Cancel",
@@ -35,6 +36,14 @@ public sealed partial class BootRepairPage : Page
         if (await confirm.ShowAsync() != ContentDialogResult.Primary) return;
 
         await ViewModel.RunCommand.ExecuteAsync(null);
+    }
+
+    // Back is not the only way out: the sidebar navigates away too, and
+    // the work kept running on a page nobody could see any more.
+    protected override void OnNavigatedFrom(NavigationEventArgs e)
+    {
+        ViewModel.RunCancelCommand.Execute(null);
+        base.OnNavigatedFrom(e);
     }
 
     private void BackBtn_Click(object sender, RoutedEventArgs e)

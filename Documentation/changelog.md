@@ -1,5 +1,68 @@
 # Changelog.md - pcHealth
 
+## 03-11-2026 - @REALSDEALS
+
+Review of the 2.0 code (PR #182) with bug fixes.
+
+Windows, both CLI and GUI:
+
+- Boot Repair: UEFI was detected with a registry value that only exists in
+  WinPE, so the CLI refused every normal UEFI PC. The GUI ran `bootrec`, which
+  only exists in WinRE. Both now use the same steps (`chkdsk /scan`, `sfc`,
+  `bcdboot`) and suspend BitLocker for one restart first.
+- System Information showed the firmware type as Unknown; fixed.
+- Battery Report never worked: `powercfg` has no `/quiet` switch. The GUI
+  button also stayed disabled.
+- License key: the placeholder `BBBBB-...` key was shown as the real key on
+  machines with a digital license. The firmware (OA3) key is now preferred
+  when the registry only has a placeholder. Three edition labels corrected.
+- Network Reset asks for confirmation and reports failed steps.
+- Ninite is only started when its download has a valid signature from Ninite.
+
+Windows CLI:
+
+- "Update all packages" and "Update HP Drivers" failed on a missing helper
+  (`Test-PcWinget`); added.
+- Continuous ping stops with Q, Esc or Ctrl+C and returns to the menu instead
+  of closing pcHealth.
+- Restart and shutdown no longer force-close apps.
+- Scan + Repair streams DISM output and no longer reports an unrecognised
+  (non-English) DISM result as clean.
+- Menu colour themes work again; the release ZIP shows its version.
+
+Windows GUI:
+
+- Tool icons were missing; restored.
+- `sfc` output was unreadable (UTF-16 decoded as UTF-8); console output is
+  now decoded per tool.
+- Stop (continuous ping), Open in Notepad (CBS log) and Open Report buttons
+  stayed disabled; fixed.
+- Leaving a page through the sidebar stops its running work.
+- Sidebar clicks while a tool page is open now navigate; the theme setting is
+  applied at startup; Scan + Repair reports failed steps.
+
+Linux:
+
+- The firewall check reported a stopped firewall as active.
+- Pressing Enter in a confirmation dialog no longer picks the destructive
+  option.
+- Disk Cleanup lists packages and asks before removing them.
+- The kernel 6.0 minimum is gone (RHEL 9, Debian 11 and Ubuntu 22.04 work).
+- Health no longer blocks the window at startup; widgets are only created on
+  the GTK main loop; output that is not UTF-8 no longer crashes a tool.
+- Disk size and a worn-out SSD (0 % life left) are shown correctly.
+
+Repository:
+
+- The CI workflow file was invalid YAML (since f3fb9c4), so CI did not run;
+  fixed.
+- Removed the stale bot, the PR-rewriting bots, the commit-lint job and the
+  winget publish job. Renovate no longer merges updates by itself.
+- CODEOWNERS: @REALSDEALS only.
+- Releases publish checksums for arm64 too and fail when the tag does not
+  match `VERSION`.
+- README, SECURITY.md and the Linux README rewritten to match the code.
+
 ## 18-09-2026 (4) - @Stensel8
 
 Both GUIs stop being terminals in a window.

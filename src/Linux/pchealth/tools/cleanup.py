@@ -20,34 +20,52 @@ _FEDORA = ("fedora", "rhel", "centos", "almalinux", "rocky")
 # -- Disk cleanup -------------------------------------------------------------
 
 
-def _package_steps(ui: ToolUI, family: str) -> list[Step]:
+def _cache_steps(ui: ToolUI, family: str) -> list[Step]:
+    """Package-cache cleanup. Removes no installed software."""
     if any(key in family for key in _ARCH):
-        steps: list[Step] = []
         if system.has("paccache"):
-            steps.append(("Clearing pacman cache (keeping 2 versions)", ["paccache", "-rk2"]))
-        # Passing an empty list to pacman -Rns exits non-zero and reads like a
-        # failure, so only run it when there is something to remove.
-        orphans = system.output(["pacman", "-Qdtq"])
-        if orphans:
-            argv = ["pacman", "-Rns", *orphans.split(), "--noconfirm"]
-            steps.append(("Removing unneeded dependencies", argv))
-        return steps
-
+            return [("Clearing pacman cache (keeping 2 versions)", ["paccache", "-rk2"])]
+        return []
     if any(key in family for key in _DEBIAN):
-        return [
-            ("Removing unneeded apt packages", ["apt", "autoremove", "-y"]),
-            ("Cleaning apt cache", ["apt", "autoclean"]),
-        ]
+        return [("Cleaning apt cache", ["apt", "autoclean"])]
     if any(key in family for key in _FEDORA):
-        return [
-            ("Removing unneeded dnf packages", ["dnf", "autoremove", "-y"]),
-            ("Cleaning dnf cache", ["dnf", "clean", "all"]),
-        ]
+        return [("Cleaning dnf cache", ["dnf", "clean", "all"])]
     if "suse" in family:
         return [("Cleaning zypper cache", ["zypper", "clean", "--all"])]
 
     ui.note("Package cache: distro not recognised, skipping.")
     return []
+
+
+def _removal_steps(family: str) -> tuple[list[Step], list[str]]:
+    """Steps that uninstall packages, plus the names that will go when known.
+
+    These are kept apart so the user sees the list and agrees first.
+    """
+    if any(key in family for key in _ARCH):
+        # Passing an empty list to pacman -Rs exits non-zero and reads like a
+        # failure, so only run it when there is something to remove. -n is
+        # left out on purpose: it also deletes the saved config files.
+        orphans = (system.output(["pacman", "-Qdtq"]) or "").split()
+        if not orphans:
+            return [], []
+        argv = ["pacman", "-Rs", *orphans, "--noconfirm"]
+        return [("Removing unneeded dependencies", argv)], orphans
+
+    if any(key in family for key in _DEBIAN):
+        # A dry run lists what autoremove would take; "Remv" is not translated.
+        simulated = system.run(["apt-get", "-s", "autoremove"]).stdout
+        names = [line.split()[1] for line in simulated.splitlines() if line.startswith("Remv ")]
+        if not names:
+            return [], []
+        return [("Removing unneeded apt packages", ["apt", "autoremove", "-y"])], names
+
+    if any(key in family for key in _FEDORA):
+        # dnf has no stable dry-run listing, so the confirmation names the
+        # step rather than the packages.
+        return [("Removing unneeded dnf packages", ["dnf", "autoremove", "-y"])], []
+
+    return [], []
 
 
 def _clear_thumbnails(ui: ToolUI) -> None:
@@ -75,11 +93,29 @@ def disk_cleanup(ui: ToolUI) -> None:
     info = system.distro_info()
     ui.section(f"Disk Cleanup on {info['PRETTY_NAME']}")
 
-    steps = _package_steps(ui, f"{info['ID']} {info['ID_LIKE']}")
+    family = f"{info['ID']} {info['ID_LIKE']}"
+    steps = _cache_steps(ui, family)
     if system.has("journalctl"):
         steps.append(("Vacuuming journal (keeping 7 days)", ["journalctl", "--vacuum-time=7d"]))
+
+    removals, packages = _removal_steps(family)
     if system.has("flatpak"):
-        steps.append(("Removing unused Flatpaks", ["flatpak", "uninstall", "--unused", "-y"]))
+        removals.append(("Removing unused Flatpaks", ["flatpak", "uninstall", "--unused", "-y"]))
+    if removals:
+        if packages:
+            ui.note(f"{len(packages)} package(s) are no longer needed:")
+            ui.note(", ".join(packages[:MAX_FINDINGS_SHOWN]))
+            if len(packages) > MAX_FINDINGS_SHOWN:
+                ui.note(f"... and {len(packages) - MAX_FINDINGS_SHOWN} more.")
+        question = (
+            "Also uninstall software nobody depends on? ("
+            + "; ".join(label for label, _ in removals)
+            + ")"
+        )
+        if ui.confirm(question):
+            steps.extend(removals)
+        else:
+            ui.note("Skipping package removal; cleaning caches only.")
 
     ui.run_all(steps, root=True)
     _clear_thumbnails(ui)

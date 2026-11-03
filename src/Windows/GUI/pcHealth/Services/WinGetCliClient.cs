@@ -55,7 +55,7 @@ internal sealed class WinGetCliClient : IWinGet
                 // is the closest thing to a status this path can offer.
                 if (line.Length > 3 && !line.TrimStart().StartsWith('\u2588'))
                     progress?.Report(new WinGetProgress(line.Trim(), null));
-            }, ct);
+            }, ct, outputEncoding: System.Text.Encoding.UTF8);
 
             return exitCode == 0
                 ? new WinGetResult(true, done)
