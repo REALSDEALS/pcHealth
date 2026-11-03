@@ -4,14 +4,19 @@
 # Attempts OA3 (UEFI/BIOS firmware) and DigitalProductId (registry decode).
 # ============================================================================
 
+# Keys Microsoft publishes for installing or KMS-activating an edition. They
+# look like real keys but cannot activate a personal copy of Windows.
 $genericKeys = @{
-    'VK7JG-NPHTM-C97JM-9MPGT-3V66T' = 'Windows 11 Pro'
-    'YTMG3-N6DKC-DKB77-7M9GH-8HVX7' = 'Windows 11 Pro N'
-    'YNMGQ-8RYV3-4PGQ3-C8XTP-7CFBY' = 'Windows 11 Home'
-    'TX9XD-98N7V-6WMQ6-BX7FG-H8Q99' = 'Windows 11 Home N'
-    'NPPR9-FWDCX-D2C8J-H872K-2YT43' = 'Windows 11 Enterprise'
-    'NRG8B-VKK3Q-CXVCJ-9G2XF-6Q84J' = 'Windows 11 Pro for Workstations'
-    'W269N-WFGWX-YVC9B-4J6C9-T83GX' = 'Windows 10/11 Pro'
+    'VK7JG-NPHTM-C97JM-9MPGT-3V66T' = 'Windows 10/11 Pro (generic install key)'
+    'YTMG3-N6DKC-DKB77-7M9GH-8HVX7' = 'Windows 10/11 Home (generic install key)'
+    'YNMGQ-8RYV3-4PGQ3-C8XTP-7CFBY' = 'Windows 10/11 Education (generic install key)'
+    'TX9XD-98N7V-6WMQ6-BX7FG-H8Q99' = 'Windows 10/11 Home (KMS client key)'
+    'NPPR9-FWDCX-D2C8J-H872K-2YT43' = 'Windows 10/11 Enterprise (KMS client key)'
+    'NRG8B-VKK3Q-CXVCJ-9G2XF-6Q84J' = 'Windows 10/11 Pro for Workstations (KMS client key)'
+    'W269N-WFGWX-YVC9B-4J6C9-T83GX' = 'Windows 10/11 Pro (KMS client key)'
+    # What DigitalProductId decodes to when no key is stored: a digital
+    # license, or a key removed with slmgr /cpky.
+    'BBBBB-BBBBB-BBBBB-BBBBB-BBBBB' = 'No key stored (digital license)'
 }
 
 function Get-KeyFromOA3 {
@@ -90,15 +95,21 @@ Write-Host "  Detected: $($os.Caption) (Build $($os.BuildNumber))`n" -Foreground
 Write-Host "  [>>] Method 1: OA3 (UEFI/BIOS firmware)..." -ForegroundColor DarkGray
 $oa3Key = Get-KeyFromOA3
 $oa3OK  = $oa3Key -and (Test-KeyFormat $oa3Key)
-Write-Host "       $(if ($oa3OK) { '[+] Found' } else { '[-] Not found' })$(if ($oa3OK) { ": $oa3Key" } else { '' })" -ForegroundColor $(if ($oa3OK) { 'Green' } else { 'DarkGray' })
+# Keys stay hidden until the user asks for them below, so they are not on
+# screen while someone else may be watching.
+Write-Host "       $(if ($oa3OK) { '[+] Found' } else { '[-] Not found' })" -ForegroundColor $(if ($oa3OK) { 'Green' } else { 'DarkGray' })
 
 Write-Host "  [>>] Method 2: DigitalProductId (registry decode)..." -ForegroundColor DarkGray
 $regKey = Get-KeyFromDigitalProductId
 $regOK  = $regKey -and (Test-KeyFormat $regKey)
-Write-Host "       $(if ($regOK) { '[+] Found' } else { '[-] Not found' })$(if ($regOK) { ": $regKey" } else { '' })" -ForegroundColor $(if ($regOK) { 'Green' } else { 'DarkGray' })
+Write-Host "       $(if ($regOK) { '[+] Found' } else { '[-] Not found' })" -ForegroundColor $(if ($regOK) { 'Green' } else { 'DarkGray' })
 
-$bestKey    = if ($regOK) { $regKey } elseif ($oa3OK) { $oa3Key } else { $null }
-$bestSource = if ($regOK) { 'Registry (DigitalProductId)' } elseif ($oa3OK) { 'UEFI/BIOS (OA3)' } else { 'None' }
+# Prefer the registry key (currently active) over the OA3 key (original OEM),
+# unless the registry only holds a generic placeholder and the firmware has a
+# real key.
+$useRegistry = $regOK -and -not ($genericKeys.ContainsKey($regKey) -and $oa3OK)
+$bestKey    = if ($useRegistry) { $regKey } elseif ($oa3OK) { $oa3Key } else { $null }
+$bestSource = if ($useRegistry) { 'Registry (DigitalProductId)' } elseif ($oa3OK) { 'UEFI/BIOS (OA3)' } else { 'None' }
 
 Write-Host ''
 if ($bestKey) {
@@ -107,6 +118,10 @@ if ($bestKey) {
     Write-Host ''
     Write-Host "  Primary Key  : $bestKey" -ForegroundColor $(if ($isGeneric) { 'Yellow' } else { 'Green' })
     Write-Host "  Source       : $bestSource"
+    if ($oa3OK -and $regOK -and $oa3Key -ne $regKey) {
+        $otherKey = if ($bestKey -eq $regKey) { $oa3Key } else { $regKey }
+        Write-Host "  Other key    : $otherKey" -ForegroundColor DarkGray
+    }
     if ($isGeneric) {
         Write-Host "`n  [!] WARNING: This is a generic placeholder key ($($genericKeys[$bestKey]))." -ForegroundColor Yellow
         Write-Host "      It will not activate Windows. Your system may use a digital license" -ForegroundColor Yellow
