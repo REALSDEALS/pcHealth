@@ -18,8 +18,10 @@ This project has **three separate codebases**. Know which one you're in:
 
 Do not mix patterns between them. C# APIs do not belong in PowerShell scripts, and neither belongs in the Python package.
 
-The tool list is shared: `assets/tools.json` is read by both stacks. A new tool
-is added there first, then implemented on each side that should have it.
+The tool list lives in `assets/tools.json`. The Linux app reads it at runtime;
+the Windows CLI (`menus/Tools.ps1`) and GUI (`ToolsViewModel.cs`) keep their
+own copy of the list, updated by hand. A new tool is added to `tools.json`
+first, then implemented and listed on each side that should have it.
 
 **Each side owns its platform completely.** There are no `$IsLinux` branches in
 the PowerShell any more, and no Windows paths in the Python. A Linux tool
@@ -93,7 +95,8 @@ foreach (var instance in session.QueryInstances(
 | `Write-Host` for data/pipeline output | `Write-Output` or `return` | `Write-Host` bypasses the pipeline; only use it for user-facing display text |
 | String concatenation for paths (`"$dir\$file"`) | `Join-Path $dir $file` | Handles both `\` and `/` correctly on Windows and Linux |
 | Bare `ls`, `cat`, `cp` aliases | `Get-ChildItem`, `Get-Content`, `Copy-Item` | Aliases are unreliable in strict or non-interactive environments |
-| `(& somecmd args).Trim()` | `Get-PcCommandOutput 'somecmd' @('args')` | A missing or silent command returns `$null`, and `.Trim()` on it throws — which aborts the whole tool, not just that field. On Linux this is routine: no systemd in containers and WSL, no `mokutil`/`lspci` on minimal installs |
+| `(& somecmd args).Trim()` | Check for `$null` before calling methods on native command output | A missing or silent command returns `$null`, and `.Trim()` on it throws — which aborts the whole tool, not just that field |
+| `$ErrorActionPreference = 'Stop'` reaching a multi-step tool | `try`/`catch` or `-ErrorAction` per step, then report that step | `app.ps1` sets `Stop` for the whole session, so one failing step otherwise skips every step after it |
 | `$IsLinux` branches | Nothing -- the Windows CLI is Windows-only | Linux is `src/Linux/`, in Python. A platform branch here means the tool is in the wrong stack |
 
 ### Python (Linux app — `src/Linux/pchealth/`)
@@ -114,9 +117,7 @@ Run `python3 -m ruff check .`, `python3 -m ruff format --check .` and
 
 ---
 
-## Platform Guards — Mandatory
-
-Both CLI and C# code must guard platform-specific calls:
+## Platform Guards
 
 The Windows CLI and the WinUI GUI are Windows-only, so CIM, the registry and
 `Get-PnpDevice` need no platform guard there -- but they still need error
@@ -153,7 +154,7 @@ Examples:
 ```
 feat(gui): add dark mode toggle to settings page
 fix(cli): handle missing registry key in Get-LicenseKey
-ci: pin action SHAs in pr-automation workflow
+ci: pin action SHAs in release workflow
 docs: update README platform support table
 ```
 

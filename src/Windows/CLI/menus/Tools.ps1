@@ -1,7 +1,7 @@
 ﻿# ============================================================================
 # pcHealth -- Windows -- Tools Menu
-# Data-driven: the catalogue below mirrors assets/tools.json, which the Linux
-# app reads as well. Keep the two in step when adding a tool.
+# The list below is a hand-kept copy of the Windows entries in
+# assets/tools.json (which the Linux app reads). Update both when adding a tool.
 # ============================================================================
 
 function Show-ToolsMenu {
