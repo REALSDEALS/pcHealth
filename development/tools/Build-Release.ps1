@@ -122,8 +122,10 @@ Write-Host '[3/5] Packaging ZIPs...' -ForegroundColor Yellow
 # GUI — folder-nested so WinGet NestedInstallerFiles can target the EXE
 Compress-Archive -Path $guiStage -DestinationPath $guiZipPath -CompressionLevel Optimal
 
-# CLI — copy PS1 scripts as-is
+# CLI — copy PS1 scripts as-is, plus VERSION: app.ps1 otherwise looks for it
+# at the repo root, which does not exist inside the ZIP.
 Copy-Item (Join-Path $repoRoot 'src\Windows\CLI\*') $cliStage -Recurse
+Copy-Item (Join-Path $repoRoot 'VERSION') $cliStage
 Compress-Archive -Path $cliStage -DestinationPath $cliZipPath -CompressionLevel Optimal
 
 # ── Build MSI ─────────────────────────────────────────────────────────────────

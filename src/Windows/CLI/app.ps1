@@ -44,8 +44,12 @@ try {
 # Set before dot-sourcing so menus can reference it at load time.
 $Global:pcHealthRoot = $PSScriptRoot
 
-# src/Windows/CLI -> src/Windows -> src -> repo root
-$versionFile = Join-Path -Path $PSScriptRoot -ChildPath '..' -AdditionalChildPath '..', '..', 'VERSION'
+# The release ZIP ships VERSION next to this script; a source checkout has it
+# at the repo root (src/Windows/CLI -> src/Windows -> src -> repo root).
+$versionFile = Join-Path -Path $PSScriptRoot -ChildPath 'VERSION'
+if (-not (Test-Path $versionFile)) {
+    $versionFile = Join-Path -Path $PSScriptRoot -ChildPath '..' -AdditionalChildPath '..', '..', 'VERSION'
+}
 $Global:PcVersion = if (Test-Path $versionFile) {
     (Get-Content $versionFile -Raw).Trim()
 } else { 'unknown' }
