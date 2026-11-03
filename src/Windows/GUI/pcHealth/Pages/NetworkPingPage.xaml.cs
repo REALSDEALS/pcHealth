@@ -60,6 +60,14 @@ public sealed partial class NetworkPingPage : Page
         SummaryCard.Visibility = Visibility.Visible;
     }
 
+    // Back is not the only way out: the sidebar navigates away too, and
+    // the work kept running on a page nobody could see any more.
+    protected override void OnNavigatedFrom(NavigationEventArgs e)
+    {
+        ViewModel.RunCancelCommand.Execute(null);
+        base.OnNavigatedFrom(e);
+    }
+
     private void BackBtn_Click(object sender, RoutedEventArgs e)
     {
         ViewModel.RunCancelCommand.Execute(null);
