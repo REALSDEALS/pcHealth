@@ -76,6 +76,9 @@ function Clear-PcHost {
     # cursor, which avoids partial-render artifacts when colour state leaks
     # out of a tool.
     [Console]::ResetColor()
+    # Callers set the theme first; ResetColor just undid it, so put it back
+    # before clearing, which also gives the cleared screen the theme colours.
+    Set-PcTheme $Global:PcTheme
     [Console]::Clear()
 }
 
