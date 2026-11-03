@@ -101,6 +101,18 @@ public sealed partial class MainWindow : Window
             NavigateTo(item.Tag?.ToString());
     }
 
+    // SelectionChanged does not fire when the selected item is clicked again,
+    // so with a tool page open (reached from Tools), clicking "Tools" did
+    // nothing. ItemInvoked fires on every click; NavigateTo ignores a click
+    // on the page that is already showing.
+    private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+    {
+        if (args.IsSettingsInvoked)
+            NavigateTo("settings");
+        else if (args.InvokedItemContainer is NavigationViewItem item)
+            NavigateTo(item.Tag?.ToString());
+    }
+
     private void NavView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
     {
         if (ContentFrame.CanGoBack)
@@ -111,25 +123,37 @@ public sealed partial class MainWindow : Window
     {
         NavView.IsBackEnabled = ContentFrame.CanGoBack;
 
+        // Going Back to a top-level page must move the sidebar highlight too,
+        // or it keeps pointing at the page that was left.
+        var tag = TagFor(args.SourcePageType);
+        if (tag == "settings")
+            NavView.SelectedItem = NavView.SettingsItem;
+        else if (tag is not null)
+            NavView.SelectedItem = NavView.MenuItems.Concat(NavView.FooterMenuItems)
+                .OfType<NavigationViewItem>()
+                .FirstOrDefault(i => i.Tag?.ToString() == tag) ?? NavView.SelectedItem;
+
         // Every menu click and every drill-in passes through here, so this one
         // line is what makes a log read like a session rather than a crash dump.
         Log.Info("Navigated to {Page}", args.SourcePageType.Name);
     }
 
+    private static readonly Dictionary<string, Type> TopLevelPages = new()
+    {
+        ["health"] = typeof(HealthPage),
+        ["tools"] = typeof(ToolsPage),
+        ["programs"] = typeof(ProgramsPage),
+        ["settings"] = typeof(SettingsPage),
+        ["info"] = typeof(InfoPage),
+    };
+
+    private static string? TagFor(Type page) =>
+        TopLevelPages.FirstOrDefault(p => p.Value == page).Key;
+
     internal void NavigateTo(string? tag)
     {
-        Type? target = tag switch
-        {
-            "health" => typeof(HealthPage),
-            "tools" => typeof(ToolsPage),
-            "programs" => typeof(ProgramsPage),
-            "licensekey" => typeof(LicenseKeyPage),
-            "settings" => typeof(SettingsPage),
-            "info" => typeof(InfoPage),
-            _ => null
-        };
-
-        if (target is not null && ContentFrame.CurrentSourcePageType != target)
+        if (tag is not null && TopLevelPages.TryGetValue(tag, out var target)
+            && ContentFrame.CurrentSourcePageType != target)
             ContentFrame.Navigate(target, null, new DrillInNavigationTransitionInfo());
     }
 }

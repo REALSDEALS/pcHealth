@@ -11,6 +11,7 @@
         PaneDisplayMode="Left"
         OpenPaneLength="200"
         SelectionChanged="NavView_SelectionChanged"
+        ItemInvoked="NavView_ItemInvoked"
         BackRequested="NavView_BackRequested"
         Loaded="NavView_Loaded">
 
