@@ -14,7 +14,8 @@ public partial class CBSLogViewModel : ObservableObject
         "Logs", "CBS", "CBS.log");
 
     [ObservableProperty] public partial string LogText { get; set; } = "Loading last 200 lines...";
-    [ObservableProperty] public partial bool CanOpen { get; set; }
+    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(OpenInNotepadCommand))]
+    public partial bool CanOpen { get; set; }
     public string LogPath => _logPath;
 
     [RelayCommand]

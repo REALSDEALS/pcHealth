@@ -10,7 +10,8 @@ public partial class OpenBatteryReportViewModel : ObservableObject
         Path.Combine(Path.GetTempPath(), "pcHealth-battery-report.html");
 
     [ObservableProperty] public partial string ReportInfo { get; set; } = "";
-    [ObservableProperty] public partial bool ReportExists { get; set; }
+    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(OpenCommand))]
+    public partial bool ReportExists { get; set; }
 
     public string ReportPath => _reportPath;
 

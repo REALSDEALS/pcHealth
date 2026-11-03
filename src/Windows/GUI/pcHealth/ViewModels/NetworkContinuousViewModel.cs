@@ -14,7 +14,8 @@ public partial class NetworkContinuousViewModel : ObservableObject
 
     [ObservableProperty] public partial string Output { get; set; } = "";
     [ObservableProperty] public partial string Stats { get; set; } = "";
-    [ObservableProperty] public partial bool IsRunning { get; set; }
+    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(StopCommand))]
+    public partial bool IsRunning { get; set; }
 
     private CancellationTokenSource? _cts;
     private int _sent, _received;
