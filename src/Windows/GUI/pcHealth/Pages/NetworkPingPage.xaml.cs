@@ -39,7 +39,7 @@ public sealed partial class NetworkPingPage : Page
             var row = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 12 };
             row.Children.Add(new FontIcon
             {
-                Glyph = r.Success ? "" : "",
+                Glyph = r.Success ? "\uE73E" : "\uE711",
                 FontSize = 14,
                 VerticalAlignment = VerticalAlignment.Center,
                 Foreground = r.Success
