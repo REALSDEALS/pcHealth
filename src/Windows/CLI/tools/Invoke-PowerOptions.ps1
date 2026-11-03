@@ -26,12 +26,14 @@ switch ($choice) {
     }
     '2' {
         $ok = (Read-Host "`n  Restart the PC? (y/n)").Trim().ToLower()
-        if ($ok -eq 'y') { Restart-Computer -Force }
+        # shutdown.exe without /f lets apps ask to save unsaved work;
+        # Restart-Computer -Force closed them without asking.
+        if ($ok -eq 'y') { shutdown.exe /r /t 0 }
         else { Write-Host "`n  Cancelled.`n" -ForegroundColor DarkGray }
     }
     '3' {
         $ok = (Read-Host "`n  Shut down the PC? (y/n)").Trim().ToLower()
-        if ($ok -eq 'y') { Stop-Computer -Force }
+        if ($ok -eq 'y') { shutdown.exe /s /t 0 }
         else { Write-Host "`n  Cancelled.`n" -ForegroundColor DarkGray }
     }
     'B' { Write-Host "`n  Cancelled.`n" -ForegroundColor DarkGray }
