@@ -14,6 +14,17 @@ function Open-PcUrl {
     }
 }
 
+# LTSC and stripped images ship without App Installer. Calling a missing winget
+# under $ErrorActionPreference = 'Stop' throws, so tools check first.
+function Test-PcWinget {
+    if (Get-Command winget -CommandType Application -ErrorAction SilentlyContinue) {
+        return $true
+    }
+    Write-Host "`n[!!] winget is not available on this system." -ForegroundColor Red
+    Write-Host "     Use Tools > Repair Winget to install it.`n" -ForegroundColor Yellow
+    return $false
+}
+
 # Write to both the console and a persistent log file under C:\pcHealth\Logs\.
 function Write-PcLog {
     param(
