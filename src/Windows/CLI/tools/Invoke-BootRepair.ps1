@@ -25,16 +25,11 @@ Write-Host "  WARNING: This operation modifies boot-critical files." -Foreground
 Write-Host "  Incorrect use can render the system unbootable." -ForegroundColor Yellow
 Write-Host "  Only proceed if you understand what you are doing.`n" -ForegroundColor Yellow
 
-# PEFirmwareType: 1 = legacy BIOS, 2 = UEFI. Refuse rather than guess -- the
-# repair below writes EFI boot files, which do nothing on a BIOS/MBR install.
-$firmwareType = try {
-    (Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control' -Name PEFirmwareType -ErrorAction Stop).PEFirmwareType
-} catch {
-    Write-Debug "PEFirmwareType registry property not found: $_"
-    $null
-}
-if ($firmwareType -ne 2) {
-    Write-Host "[!!] This system does not report UEFI firmware (PEFirmwareType = $firmwareType)." -ForegroundColor Red
+# Refuse rather than guess -- the repair below writes EFI boot files, which do
+# nothing on a BIOS/MBR install.
+$firmwareType = Get-PcFirmwareType
+if ($firmwareType -ne 'UEFI') {
+    Write-Host "[!!] This system does not report UEFI firmware (firmware type: $firmwareType)." -ForegroundColor Red
     Write-Host "     pcHealth only repairs UEFI boot files. A legacy BIOS/MBR install" -ForegroundColor Yellow
     Write-Host "     needs recovery media and manual repair." -ForegroundColor Yellow
     Write-Host ''

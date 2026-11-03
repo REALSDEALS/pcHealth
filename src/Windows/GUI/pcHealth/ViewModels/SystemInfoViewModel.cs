@@ -110,13 +110,7 @@ public partial class SystemInfoViewModel : ObservableObject
             break;
         }
 
-        try
-        {
-            using var ctrlKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control");
-            firmware.Add(("Firmware Type", ctrlKey?.GetValue("PEFirmwareType") is int t
-                ? (t == 2 ? "UEFI" : t == 1 ? "BIOS" : "Unknown") : "Unknown"));
-        }
-        catch { firmware.Add(("Firmware Type", "Unknown")); }
+        firmware.Add(("Firmware Type", Helpers.Firmware.GetTypeName()));
 
         foreach (var inst in session.QueryInstances("root/cimv2", "WQL",
             "SELECT SMBIOSBIOSVersion, ReleaseDate FROM Win32_BIOS"))
