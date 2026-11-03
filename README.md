@@ -1,91 +1,64 @@
 # pcHealth
 
-Check the health of your Windows or Linux installation, drivers, updates, battery health and much more!
+A toolkit for IT technicians to check and repair Windows and Linux machines:
+system and hardware information, SFC/DISM, battery reports, network tests,
+updates, boot repair and more, from one menu.
 
 ![License](https://img.shields.io/github/license/REALSDEALS/pcHealth?label=License)
 ![Latest Release](https://img.shields.io/github/v/release/REALSDEALS/pcHealth?label=Release)
 ![Pre-release](https://img.shields.io/github/v/release/REALSDEALS/pcHealth?include_prereleases&label=Pre-release)
 ![Repo Size](https://img.shields.io/github/repo-size/REALSDEALS/pcHealth?label=Repo%20Size)
 
----
+## Versions
 
-## Overview
+| Platform | Terminal (CLI)       | Desktop app (GUI)        | Minimum                      |
+|----------|----------------------|--------------------------|------------------------------|
+| Windows  | PowerShell 7         | WinUI 3 (.NET 10)        | Windows 10 22H2 (build 19045) |
+| Linux    | Python 3.11+         | GTK 4 + libadwaita       | Python 3.11                  |
 
-pcHealth is a cross-platform toolkit for IT technicians and power users. It runs on **Windows and Linux**, each with a terminal tool and a native desktop app. The goal is the same functionality everywhere: tools are shown or hidden based on what the machine actually has, and platform-specific actions use the right method for the current system.
+The Windows tools run as Administrator. The Linux tools run as a normal user
+and ask for the password (through `pkexec`) only for the actions that need
+root.
 
----
+## Windows
 
-## Supported Platforms
+### Desktop app
 
-| Platform | CLI | GUI | Minimum                       |
-|----------|-----|-----|-------------------------------|
-| Windows  | ✅  | ✅  | Build 19045 (Windows 10 22H2) |
-| Linux    | ✅  | ✅  | Kernel 6.0                    |
+Download from [Releases](https://github.com/REALSDEALS/pcHealth/releases):
 
-Build 19045 is where WinUI 3 stops rendering. Also, Windows 10 22H2 still runs on plenty of BIOS/MBR machines: Boot Repair detects the firmware type and refuses a legacy install rather than half-repairing it. Tools that need winget say so when App Installer is missing (LTSC and stripped images) instead of failing, and `Repair Winget` can add it.
+- `pcHealth-<version>-win-x64.msi` (or `-win-arm64.msi`): installs to
+  Program Files with a Start menu shortcut.
+- `pcHealth-<version>-win-x64.zip` (or `-win-arm64.zip`): the same app,
+  portable, for example on a USB stick.
 
-On image-based systems (Fedora Silverblue, Bazzite, Kinoite) the tools that manage packages or boot files are hidden rather than reimplemented: `/usr` is read-only and the bootloader belongs to the deployment, so `bootc` and `rpm-ostree` own that work. The other 14 Linux tools -- all the diagnostics -- run normally.
-
-- Windows release info: https://learn.microsoft.com/en-us/windows/release-health/windows11-release-information
-- Linux kernel releases: https://www.kernel.org/
-
-See [SECURITY.md](SECURITY.md) for version and end-of-life details.
-
----
-
-## Project layout
-
-The two platforms have separate stacks, because neither one can cross over:
-WinUI 3 does not run on Linux, and PowerShell 7 is not installed on a Linux
-machine until someone installs it -- a poor first step for a tool you reach for
-*because* something is broken.
-
-| Path | Stack | Covers |
-|------|-------|--------|
-| `src/Windows/CLI/` | PowerShell 7 | Windows terminal tools |
-| `src/Windows/GUI/` | C# / WinUI 3 | Windows desktop app |
-| `src/Linux/` | Python 3.12+ / GTK4 + libadwaita | Linux terminal menu and desktop app |
-| `assets/tools.json` | -- | Shared tool catalogue both stacks read, so the menus cannot drift apart |
-
-Each side owns its platform completely: no `$IsLinux` branches in the
-PowerShell, no Windows paths in the Python. Every tool the PowerShell CLI used
-to run on Linux is now a Python tool -- all 18 of them, same names, same
-behaviour, and the originals remain in this repository's git history.
-
-Adding a tool to Linux means three things: an entry in `assets/tools.json`, a
-function in `src/Linux/pchealth/tools/`, and a line in that package's registry.
-CI fails if the catalogue lists a tool the registry cannot run. See
-[src/Linux/README.md](src/Linux/README.md).
-
----
-
-## Getting Started
-
-**Requirements:** PowerShell 7+, run as Administrator (Windows) or root/sudo (Linux). Minimum: Windows build 19045 (10 22H2) or Linux kernel 6.0. Build 26200 (11 25H2) is what releases are tested on.
-
-### Windows
-
-**Install the desktop app** — download `pcHealth-<version>-win-x64.msi` (or `-win-arm64`) from [Releases](https://github.com/REALSDEALS/pcHealth/releases) and run it. The build is self-contained: the .NET runtime and the Windows App SDK travel inside it, so nothing has to be installed on the machine first. That matters on a PC you are there to repair.
+Both are self-contained: the .NET runtime and Windows App SDK are included, so
+nothing has to be installed on the machine first.
 
 ```powershell
-# Unattended, for deployment
+# Unattended install
 msiexec /i pcHealth-2.0.0-win-x64.msi /qn
 ```
 
-A portable ZIP is published alongside the MSI for running straight off a USB stick — same binaries, no installation.
+![Health tab](Health-tab.avif)
+![Tools tab](Tools-tab.avif)
+![Programs tab](Programs-tab.avif)
 
-**Run the CLI from source** — from an elevated PowerShell 7 terminal:
+### Terminal version
+
+Download `pcHealth-CLI-<version>.zip` from Releases (it is not part of the MSI),
+extract it and run `Start.ps1`, or run it from a clone of this repository:
 
 ```powershell
 .\src\Windows\CLI\Start.ps1
 ```
 
-### Linux
+`Start.ps1` also runs in Windows PowerShell 5.1. It checks the Windows build,
+restarts itself as Administrator, offers to install PowerShell 7 through winget
+when it is missing, and then opens the menu.
 
-**Requirements:** Python 3.11+, which every supported distro already ships. Nothing else for the terminal app; the desktop app additionally needs PyGObject, GTK 4 and libadwaita.
+## Linux
 
-1. Download or clone this repository.
-2. Run it from `src/Linux`:
+Clone or download the repository, then:
 
 ```bash
 cd src/Linux
@@ -93,182 +66,180 @@ python3 -m pchealth          # terminal menu
 python3 -m pchealth.gui.app  # desktop app
 ```
 
-Tools elevate one at a time through `pkexec`, so neither front-end needs to run as root. See [src/Linux/README.md](src/Linux/README.md).
+The terminal menu needs only Python. The desktop app also needs PyGObject,
+GTK 4 and libadwaita:
 
-### GUI
-
-On Windows, pcHealth includes a native desktop application built with **WinUI 3** (.NET 10). It provides the same functionality as the CLI in a graphical interface. Minimum: build 19045 (Windows 10 22H2) — the build where WinUI 3 stops rendering. Recommended: build 26200 (Windows 11 25H2).
-![Health tab](Health-tab.avif)
-![Tools tab](Tools-tab.avif)
-![Programs tab](Programs-tab.avif)
-
-A Linux GUI is available separately -- WinUI 3 is Windows-only, so the Linux desktop app is built with GTK4 and libadwaita. See [Project layout](#project-layout).
-
-**Build dependencies:**
-
-| Tool | Install |
-|------|---------|
-| .NET 10 SDK | `winget install Microsoft.DotNet.SDK.10` |
-| Visual Studio 2026 | `winget install Microsoft.VisualStudio.Community` |
-| Windows App SDK | Included via NuGet on build |
-| WiX v7 | `dotnet tool install --global wix --version 7.0.0` (only for the MSI) |
-
-Two scripts, one job each:
-
-```powershell
-pwsh -File src/Windows/GUI/Run-Debug.ps1     # develop: Debug build, live log in the terminal
-pwsh -File src/Windows/GUI/Make-Release.ps1  # Release build and launch, as a user gets it
+```bash
+sudo dnf install python3-gobject gtk4 libadwaita         # Fedora / RHEL
+sudo apt install python3-gi gir1.2-gtk-4.0 gir1.2-adw-1  # Debian / Ubuntu
+sudo pacman -S python-gobject gtk4 libadwaita            # Arch
+sudo zypper install python3-gobject gtk4 libadwaita      # openSUSE
 ```
 
-`Run-Debug.ps1` exists because a WinUI 3 app is a GUI subsystem binary: it has no console of its own and prints nothing to the terminal you started it from. The script builds Debug, runs the app, and streams the NLog output into the terminal as it happens, colouring warnings and errors. When the app stops it decodes the exit code, so a native crash (`0xC0000005`) reads as one instead of as a window that silently vanished.
+Do not start the desktop app with `sudo`; it asks for elevation per action.
+See [src/Linux/README.md](src/Linux/README.md) for details.
 
-`Make-Release.ps1` also installs any missing build dependency, so it is the one to run first on a fresh machine.
+## Tools
 
-**Building the release artifacts** (self-contained app, ZIPs and MSI):
+The list comes from [assets/tools.json](assets/tools.json). Each platform
+numbers its own entries, so the numbers differ between Windows and Linux.
+
+### Windows
+
+| Tool                        | What it does                                                        |
+|-----------------------------|---------------------------------------------------------------------|
+| System Information          | OS, build, firmware type, Secure Boot, TPM, RAM                     |
+| Hardware Information        | CPU, GPU, RAM, chipset, disks (SMART through smartctl)              |
+| Scan + Repair               | `sfc /scannow`, DISM CheckHealth/ScanHealth/RestoreHealth, `sfc` again |
+| Battery Report              | `powercfg /batteryreport`                                            |
+| Windows Update              | Opens Windows Update in Settings                                     |
+| Disk Optimization           | Opens Optimize Drives (`dfrgui`)                                     |
+| Disk Cleanup                | Opens Disk Cleanup (`cleanmgr`)                                      |
+| Short Ping Test             | 4 pings to 8.8.8.8                                                   |
+| Continuous Ping Test        | Pings 8.8.8.8 until you press Q, Esc or Ctrl+C                       |
+| Traceroute to Google        | Route to google.com                                                  |
+| Reset Network Stack         | Flushes DNS, renews DHCP, resets Winsock and TCP/IP (asks first)    |
+| Update all packages         | `winget upgrade --all`                                               |
+| Update HP Drivers           | Installs HP Image Assistant (HP devices only)                        |
+| Restart Audio Drivers       | Restarts the Windows audio services                                  |
+| Open Battery Report         | Opens the last generated report                                      |
+| Open CBS Log                | Opens `C:\Windows\Logs\CBS\CBS.log` (the SFC/DISM log)               |
+| Get Ninite                  | Downloads Ninite (Edge, Chrome, VLC, 7-Zip) and runs it if the signature is valid |
+| Windows License Key         | Product key from the firmware (OA3) and the registry                |
+| BIOS Password Recovery      | Opens [bios-pw.org](https://bios-pw.org) (by @bacher09)              |
+| Boot Repair                 | UEFI only: `chkdsk /scan`, `sfc`, then `bcdboot` (see below)         |
+| Shutdown / Reboot / Log Off | Normal shutdown, so apps can save their work                         |
+| Repair Winget               | Reinstalls winget with [winget-install](https://github.com/asheroto/winget-install) by @asheroto |
+
+The desktop app also has a Health overview and **Repair Windows**, which
+starts Windows' own in-place repair (keeps files and apps).
+
+### Linux
+
+| Tool                        | What it does                                                        |
+|-----------------------------|---------------------------------------------------------------------|
+| System Information          | Distro, kernel, firmware, Secure Boot, RAM                           |
+| Hardware Information        | CPU, GPU, RAM, disks (SMART through smartctl), sensors               |
+| Short Ping Test             | 4 pings to 8.8.8.8                                                   |
+| Continuous Ping Test        | Pings until stopped                                                  |
+| Traceroute to Google        | `traceroute` / `tracepath`                                           |
+| BIOS Password Recovery      | Opens [bios-pw.org](https://bios-pw.org)                             |
+| Shutdown / Reboot / Log Off |                                                                     |
+| Update all packages         | apt, dnf, pacman or zypper                                           |
+| Topgrade                    | Runs [topgrade](https://github.com/topgrade-rs/topgrade) in a terminal |
+| Battery Report              | Health, cycle count and power draw from sysfs                        |
+| Scan + Repair               | Checks installed files against the package database                 |
+| Disk Optimization           | `fstrim` on SSDs                                                     |
+| Firmware Update             | fwupd / LVFS                                                         |
+| Boot Repair                 | systemd-boot, GRUB or Limine on UEFI                                 |
+| Disk Cleanup                | Package cache, journal, thumbnails; asks before removing packages   |
+| Restart Audio               | Restarts PipeWire or PulseAudio                                      |
+| Reset Network Stack         | Restarts NetworkManager and flushes the DNS cache                   |
+| View System Logs            | Errors and warnings from `journalctl`, failed units                 |
+
+On image-based systems (Fedora Silverblue, Bazzite, Kinoite) the tools that
+change packages or boot files are hidden, because `/usr` is read-only there.
+
+### Tools that change the system
+
+- **Boot Repair** (Windows) rewrites the EFI boot files with `bcdboot`. It
+  refuses legacy BIOS installs. It suspends BitLocker for one restart first;
+  if that is not possible it stops before touching the boot files. Rewriting
+  the boot files also puts Windows Boot Manager first in the firmware boot
+  order, which matters on dual-boot machines.
+- **Reset Network Stack** drops the connection (remote sessions disconnect)
+  and can remove static IP and DNS settings.
+- **Update all packages**, **Get Ninite** and **Update HP Drivers** install
+  software.
+
+## Programs menu
+
+Installs, updates or opens common diagnostic tools.
+
+| Windows (winget)        | Linux (package manager) |
+|-------------------------|-------------------------|
+| HWiNFO64                | htop                    |
+| HWMonitor               | iotop                   |
+| Malwarebytes AdwCleaner | smartmontools           |
+| CrystalDiskInfo         | stress-ng               |
+| CrystalDiskMark         | nmap                    |
+| Prime95                 |                         |
+| Windows PowerToys       |                         |
+
+## Building
+
+### Windows desktop app
+
+Needs the [.NET 10 SDK](https://dotnet.microsoft.com/download). Visual Studio
+2026 is optional.
+
+```powershell
+dotnet build src/Windows/GUI/pcHealth/pcHealth.csproj -c Debug -p:Platform=x64
+pwsh -File src/Windows/GUI/Run-Debug.ps1   # build, run, and show the log in the terminal
+```
+
+The app must run as Administrator (see `app.manifest`), so starting it shows a
+UAC prompt. Logs go to `%LOCALAPPDATA%\pcHealth`.
+
+Release build (self-contained ZIPs, CLI ZIP and MSI). The MSI needs WiX 7:
+`dotnet tool install --global wix --version 7.0.0`.
 
 ```powershell
 pwsh -File development/tools/Build-Release.ps1 -Architecture x64
 ```
 
-Or open `src/Windows/GUI/pcHealth/pcHealth.csproj` in Visual Studio 2026.
+### Linux checks
 
----
+```bash
+cd src/Linux
+python3 -m ruff check .
+python3 -m ruff format --check .
+python3 -m mypy pchealth
+```
 
-## Menu Reference
+## Repository layout
 
-All menus and option numbers are identical across platforms. Windows-only tools are hidden on Linux and vice versa, so numbers remain sequential with no gaps.
-
-<details>
-<summary><strong>Main Menu</strong></summary>
-
-| Key | Option                 |
-|-----|------------------------|
-| 1   | Tools Menu             |
-| 2   | Programs Menu          |
-| 3   | Go to repository       |
-| 4   | Check for pre-releases |
-| 5   | Exit                   |
-
-</details>
-
-<details>
-<summary><strong>Tools Menu</strong></summary>
-
-Option numbers are assigned sequentially at runtime per platform - Windows-only tools are not shown on Linux and vice versa.
-
-| Function                      | Platforms | Notes                                              |
-|-------------------------------|-----------|----------------------------------------------------|
-| System Information            | All       | OS, kernel, firmware, TPM, RAM                     |
-| Hardware Information          | All       | CPU, GPU, Storage (SMART), RAM, Chipset, sensors   |
-| Scan + Repair                 | Windows   | SFC + DISM combined                                |
-| Battery Report                | Windows   | Laptop only                                        |
-| Windows Update                | Windows   | Opens Windows Update settings                      |
-| Disk Optimization             | Windows   | Opens dfrgui.exe                                   |
-| Disk Cleanup                  | Windows   | Opens cleanmgr.exe                                 |
-| Short Ping Test               | All       | 4-packet ping to 8.8.8.8                           |
-| Continuous Ping Test          | All       | Continuous ping, Ctrl+C to stop                    |
-| Traceroute to Google          | All       | tracert / traceroute                               |
-| Reset Network Stack           | Windows   | DNS flush, Winsock reset, IPv4/IPv6 reset          |
-| Update all packages           | Windows   | winget                                             |
-| Update all packages           | Linux     | apt / dnf / pacman / zypper                        |
-| Topgrade                      | Linux     | Full system upgrade: packages, flatpak, VS Code extensions, helm, uv, and more |
-| Battery Report                | Linux     | Laptop only - health, cycles, draw from sysfs      |
-| Scan + Repair                 | Linux     | Package integrity vs. package database             |
-| Disk Optimization             | Linux     | fstrim on SSDs; Linux needs no defragmenting       |
-| Firmware Update               | Linux     | fwupd / LVFS - BIOS, dock, SSD firmware            |
-| Boot Repair                   | Linux     | systemd-boot / GRUB / Limine, UEFI - **care**      |
-| Disk Cleanup                  | Linux     | Package cache, journal logs, unused Flatpak runtimes, thumbnail cache |
-| Restart Audio                 | Linux     | Restarts PipeWire or PulseAudio user services      |
-| Reset Network Stack           | Linux     | Restarts NetworkManager, flushes DNS cache         |
-| Update HP Drivers             | Windows   | HP Image Assistant (HP devices only)               |
-| Restart Audio Drivers         | Windows   | Restarts audio services                            |
-| Open Battery Report           | Windows   | Opens previously generated report                  |
-| Open CBS Log                  | Windows   | Opens C:\Windows\Logs\CBS\CBS.log                  |
-| Get Ninite                    | Windows   | Downloads Edge, Chrome, VLC, 7-Zip                 |
-| Windows License Key           | Windows   | OA3 + DigitalProductId registry decode             |
-| BIOS Password Recovery        | All       | Links to bios-pw.org - credits: @bacher09          |
-| Boot Repair                   | Windows   | CHKDSK + SFC + BCDBOOT, UEFI - **use with care**   |
-| Shutdown / Reboot / Log Off   | All       |                                                    |
-| Repair Winget                 | Windows   | via winget-install by @asheroto                    |
-| View System Logs              | Linux     | journalctl errors/warnings, failed units           |
-
-</details>
-
-<details>
-<summary><strong>Programs Menu - Windows</strong></summary>
-
-| Key | Program                  | Install method |
-|-----|--------------------------|----------------|
-| 1   | HWiNFO64                 | winget         |
-| 2   | HWMonitor                | winget         |
-| 3   | Malwarebytes AdwCleaner  | winget         |
-| 4   | CrystalDiskInfo          | winget         |
-| 5   | CrystalDiskMark          | winget         |
-| 6   | Prime95                  | winget         |
-| 7   | Windows PowerToys        | winget         |
-
-</details>
-
-<details>
-<summary><strong>Programs Menu - Linux</strong></summary>
-
-Installed packages are marked `[installed]` in the menu.
-
-| Key | Program       | Install method              |
-|-----|---------------|-----------------------------|
-| 1   | htop          | apt / dnf / pacman / zypper |
-| 2   | iotop         | apt / dnf / pacman / zypper |
-| 3   | smartmontools | apt / dnf / pacman / zypper |
-| 4   | stress-ng     | apt / dnf / pacman / zypper |
-| 5   | nmap          | apt / dnf / pacman / zypper |
-
-</details>
-
----
+| Path                 | Contents                                               |
+|----------------------|--------------------------------------------------------|
+| `src/Windows/CLI/`   | PowerShell 7 terminal tool (`Start.ps1`, menus, tools) |
+| `src/Windows/GUI/`   | WinUI 3 desktop app                                    |
+| `src/Linux/`         | Python package `pchealth`: terminal menu and GTK app   |
+| `assets/tools.json`  | Tool list used by the Linux app; the Windows menus are kept in sync by hand |
+| `assets/hardware-db.json` | CPU/GPU release years for the Health overview     |
+| `installer/`         | WiX source for the MSI                                 |
+| `development/tools/` | Build and maintenance scripts                          |
 
 ## Contributing
 
-Contributions are welcome. Follow the conventions of the stack you are in.
+Open an issue before starting larger changes. Follow the conventions of the
+part you change; [AGENTS.md](AGENTS.md) lists them per language.
 
-- A new tool starts as an entry in `assets/tools.json`, the catalogue both sides read.
-- **Windows:** `Verb-Noun.ps1` in `src/Windows/CLI/tools/`, registered in `src/Windows/CLI/menus/Tools.ps1`, using `Write-PcOption` / `Set-PcTheme` for UI.
-- **Linux:** a function in `src/Linux/pchealth/tools/`, registered in that package's `REGISTRY`. Emit through the `ToolContext` so the tool works in both the terminal and the GTK app.
-- Open an issue before starting larger changes to avoid duplicate work.
+A new tool is added to `assets/tools.json` first, then:
 
-See [SECURITY.md](SECURITY.md) for responsible disclosure of vulnerabilities.
+- Windows CLI: a `Verb-Noun.ps1` script in `src/Windows/CLI/tools/` and an
+  entry in `src/Windows/CLI/menus/Tools.ps1`.
+- Windows GUI: a page and view model, and an entry in `ToolsViewModel.cs`.
+- Linux: a function in `src/Linux/pchealth/tools/` and an entry in `REGISTRY`
+  in `pchealth/tools/__init__.py`. CI fails when `tools.json` lists a Linux
+  tool that the registry cannot run.
 
----
+Report security issues privately; see [SECURITY.md](SECURITY.md).
 
 ## Contact
 
-Questions or feedback? Reach out on Discord: **REALSDEALS**
+Discord: **REALSDEALS**, or open an [issue](https://github.com/REALSDEALS/pcHealth/issues).
 
-Or open an [issue](https://github.com/REALSDEALS/pcHealth/issues) on GitHub.
+## License
 
----
+[GNU GPL v3](LICENSE).
 
-*Licensed under [GNU GPL v3](LICENSE). You are free to use this project, but you may not remove the attribution or re-license it.*
+## History
 
----
+pcHealth started as a batch script (`Scripts/CMD/pcHealth.bat`, still in the
+git history). Version 2 replaced it with the PowerShell CLI, the WinUI app and
+the Linux app, and merged these earlier projects into this repository:
 
-## Inspired by
-
-This repository consolidates and replaces several earlier pcHealth-related projects. `pcHealth` is the original project and is now the canonical repository: related repositories have been migrated back into this repo and are considered deprecated. Functionality from the listed projects has been merged here where appropriate.
-
-- [pcHealth](https://github.com/REALSDEALS/pcHealth) - original project (batch-based)
-- [pcHealthPlus](https://github.com/REALSDEALS/pcHealthPlus) - PowerShell-based toolkit (deprecated; migrated)
-- [pcHealthPlus-VS](https://github.com/REALSDEALS/pcHealthPlus-VS) - Visual Studio variant (deprecated; migrated)
-- [pcHealth-GUI](https://github.com/iRepairzone-NL/pcHealth_GUI) - Python GUI variant (deprecated; migrated)
-- [Win_Scan](https://github.com/REALSDEALS/Win_Scan) - standalone Windows scanning utility (deprecated; migrated)
-
-Previous versions of the same project:
-
-| Predecessor | Now in |
-|-------------|--------|
-| pcHealth (batch) | `src/Windows/CLI/` -- the menu-driven toolkit, rewritten in PowerShell 7 |
-| pcHealthPlus, pcHealthPlus-VS | `src/Windows/CLI/tools/` -- the individual repair and reporting tools |
-| pcHealth-GUI (Python) | `src/Linux/pchealth/gui/` -- the Python GUI lineage continues on Linux with GTK4 |
-| Win_Scan | `src/Windows/CLI/tools/Invoke-ScanAndRepair.ps1` -- SFC and DISM in one pass |
-
-Nothing from those projects has been dropped. All functionality is merged and brought back into 1 unified repo where this felt possible.
-
+- [pcHealthPlus](https://github.com/REALSDEALS/pcHealthPlus) and
+  [pcHealthPlus-VS](https://github.com/REALSDEALS/pcHealthPlus-VS): PowerShell tools
+- [pcHealth-GUI](https://github.com/iRepairzone-NL/pcHealth_GUI): Python GUI
+- [Win_Scan](https://github.com/REALSDEALS/Win_Scan): SFC and DISM scanner
