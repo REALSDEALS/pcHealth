@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NLog;
 using pcHealth.Services;
+using System.Text;
 
 namespace pcHealth.ViewModels;
 
@@ -32,7 +33,7 @@ public partial class ScanRepairViewModel : ObservableObject
         try
         {
             Append("=== Step 1/5: SFC (initial scan) ===");
-            await _runner.RunAsync(sfc, "/scannow", Append, ct);
+            await _runner.RunAsync(sfc, "/scannow", Append, ct, outputEncoding: Encoding.Unicode);
 
             Append("\n=== Step 2/5: DISM CheckHealth ===");
             await _runner.RunAsync(dism, "/Online /Cleanup-Image /CheckHealth", Append, ct);
@@ -44,7 +45,7 @@ public partial class ScanRepairViewModel : ObservableObject
             await _runner.RunAsync(dism, "/Online /Cleanup-Image /RestoreHealth", Append, ct);
 
             Append("\n=== Step 5/5: SFC (final pass) ===");
-            await _runner.RunAsync(sfc, "/scannow", Append, ct);
+            await _runner.RunAsync(sfc, "/scannow", Append, ct, outputEncoding: Encoding.Unicode);
 
             Append($"\n=== Complete. Full log: {Environment.GetEnvironmentVariable("SystemRoot")}\\Logs\\CBS\\CBS.log ===");
             Status = "Done.";
