@@ -140,10 +140,44 @@ def _tools_page(open_tool: Callable[[catalog.Tool], None]) -> Adw.NavigationPage
 
 
 def _health_page() -> Adw.NavigationPage:
-    """The same report the terminal prints, as rows with a status icon."""
-    page = Adw.PreferencesPage()
-    sections = health.collect()
+    """The same report the terminal prints, as rows with a status icon.
 
+    Collecting runs smartctl, lspci and systemctl and can ask for a password,
+    so it runs on a worker thread. Done on the main loop, it held up the
+    window before it was even shown.
+    """
+    page = Adw.PreferencesPage()
+    waiting = Adw.PreferencesGroup()
+    waiting_row = Adw.ActionRow(title="Checking this system…", subtitle="This can take a moment.")
+    waiting_row.add_suffix(Gtk.Spinner(spinning=True, valign=Gtk.Align.CENTER))
+    waiting.add(waiting_row)
+    page.add(waiting)
+
+    def show(sections: list[health.Section] | None, error: str) -> bool:
+        page.remove(waiting)
+        if sections is None:
+            failed = Adw.PreferencesGroup(title="Overall")
+            failed.add(Adw.ActionRow(title="The health check failed", subtitle=error))
+            page.add(failed)
+        else:
+            _fill_health(page, sections)
+        return GLib.SOURCE_REMOVE
+
+    def work() -> None:
+        try:
+            sections = health.collect()
+        # A thread has no caller to hand an exception to: without this the
+        # page would show its spinner forever.
+        except Exception as exc:
+            GLib.idle_add(show, None, str(exc))
+            return
+        GLib.idle_add(show, sections, "")
+
+    threading.Thread(target=work, daemon=True, name="pchealth-health").start()
+    return Adw.NavigationPage(title="Health", child=page)
+
+
+def _fill_health(page: Adw.PreferencesPage, sections: list[health.Section]) -> None:
     summary = health.overall(sections)
     banner = Adw.PreferencesGroup(title="Overall")
     banner.add(
@@ -168,8 +202,6 @@ def _health_page() -> Adw.NavigationPage:
                 )
             group.add(row)
         page.add(group)
-
-    return Adw.NavigationPage(title="Health", child=page)
 
 
 def _about_page() -> Adw.NavigationPage:
@@ -198,8 +230,11 @@ class MainWindow(Adw.ApplicationWindow):
         )
 
         self._content = Adw.NavigationView()
+        # Built once: every visit used to re-run the whole check, password
+        # prompts included.
+        self._health: Adw.NavigationPage | None = None
         self._pages = {
-            "health": _health_page,
+            "health": self._health_page,
             "tools": lambda: _tools_page(self._open_tool),
             "about": _about_page,
         }
@@ -247,6 +282,11 @@ class MainWindow(Adw.ApplicationWindow):
         )
 
         sidebar.select_row(sidebar.get_row_at_index(0))
+
+    def _health_page(self) -> Adw.NavigationPage:
+        if self._health is None:
+            self._health = _health_page()
+        return self._health
 
     def _on_nav(self, _list: Gtk.ListBox, row: Gtk.ListBoxRow | None) -> None:
         key = getattr(row, "page_key", None)
