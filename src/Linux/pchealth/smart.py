@@ -117,7 +117,7 @@ def devices() -> list[Device]:
                 name=name,
                 model=str(data["model_name"]),
                 media="SSD" if is_nvme or rotation == 0 else "HDD",
-                capacity_bytes=data.get("capacity", {}).get("bytes"),
+                capacity_bytes=data.get("user_capacity", {}).get("bytes"),
                 temperature_c=data.get("temperature", {}).get("current"),
                 power_on_hours=data.get("power_on_time", {}).get("hours"),
                 life_left_pct=life,

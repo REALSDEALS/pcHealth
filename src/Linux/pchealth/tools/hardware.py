@@ -63,7 +63,10 @@ def _storage(ui: ToolUI) -> None:
                 ("Size", f"{device.capacity_gb} GB"),
                 ("Temperature", f"{device.temperature_c} C" if device.temperature_c else "N/A"),
                 ("Power-on hours", str(device.power_on_hours or "N/A")),
-                ("Life left", f"{device.life_left_pct}%" if device.life_left_pct else "N/A"),
+                (
+                    "Life left",
+                    f"{device.life_left_pct}%" if device.life_left_pct is not None else "N/A",
+                ),
                 ("Health", device.health_text),
             ]
         )
