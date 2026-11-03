@@ -59,6 +59,9 @@ def run(
             list(argv),
             capture_output=True,
             text=True,
+            # One stray non-UTF-8 byte (dmesg, rpm, a file name) must not
+            # raise and take the whole tool down with it.
+            errors="replace",
             timeout=timeout,
             input=stdin_text,
             env=env,
@@ -106,6 +109,7 @@ def stream(
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
+            errors="replace",
             bufsize=1,
         )
     except OSError as exc:
