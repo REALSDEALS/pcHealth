@@ -116,7 +116,10 @@ jobs:
       # Guards the split: the shared catalogue and the Python registry must
       # list the same tools, or the menu shows an entry that cannot run.
       - name: Catalogue matches registry
-        run: python3 -c "from pchealth import catalog; from pchealth.tools import REGISTRY; missing = [t.id for t in catalog.load() if t.id not in REGISTRY]; assert not missing, f'missing implementations: {missing}'"
+        # Block scalar: in a plain one-line value the ": " inside the message
+        # makes the whole file invalid YAML, and GitHub then runs no CI at all.
+        run: |
+          python3 -c "from pchealth import catalog; from pchealth.tools import REGISTRY; missing = [t.id for t in catalog.load() if t.id not in REGISTRY]; assert not missing, f'missing implementations: {missing}'"
 
   # ----------------------------------------------------------
   # INSTALLER AUTHORING
