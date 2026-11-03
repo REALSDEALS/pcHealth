@@ -31,9 +31,9 @@ def power_options(ui: ToolUI) -> None:
             ui.run(["loginctl", "terminate-user", user.name], label="Ending session", root=True)
         return
 
-    label, argv = {
-        "restart": ("Restarting", ["shutdown", "-r", "now"]),
-        "shutdown": ("Shutting down", ["shutdown", "-h", "now"]),
+    question, label, argv = {
+        "restart": ("Restart", "Restarting", ["shutdown", "-r", "now"]),
+        "shutdown": ("Shut down", "Shutting down", ["shutdown", "-h", "now"]),
     }[choice]
-    if ui.confirm(f"{label.rstrip('ing')}? This closes everything immediately."):
+    if ui.confirm(f"{question}? This closes everything immediately."):
         ui.run(argv, label=label, root=True)
