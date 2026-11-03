@@ -24,7 +24,7 @@ public partial class ToolsViewModel : ObservableObject
         new ToolItem { Name = "Get Ninite",                  Glyph = "\uE896", Note = "Edge, Chrome, VLC, 7-Zip",        PageType = typeof(NinitePage),            Category = "Updates",     Platforms = ["Windows"] },
         new ToolItem { Name = "Scan + Repair",               Glyph = "\uE9D9", Note = "SFC + DISM combined",             PageType = typeof(ScanRepairPage),        Category = "Maintenance", Platforms = ["Windows"] },
         new ToolItem { Name = "Repair Windows",              Glyph = "\uE770", Note = "keeps files and apps",            PageType = typeof(WindowsRepairPage),      Category = "Maintenance", Platforms = ["Windows"] },
-        new ToolItem { Name = "Repair Boot Record",          Glyph = "\uE7BA", Note = "use with caution!",               PageType = typeof(BootRepairPage),        Category = "Maintenance", Platforms = ["Windows"] },
+        new ToolItem { Name = "Boot Repair",                 Glyph = "\uE7BA", Note = "UEFI - caution!",PageType = typeof(BootRepairPage),        Category = "Maintenance", Platforms = ["Windows"] },
         new ToolItem { Name = "Open CBS Log",                Glyph = "\uE8A5", PageType = typeof(CBSLogPage),            Category = "Maintenance", Platforms = ["Windows"] },
         new ToolItem { Name = "Repair Winget",               Glyph = "\uE90F", PageType = typeof(WingetRepairPage),      Category = "Maintenance", Platforms = ["Windows"] },
         new ToolItem { Name = "BIOS Password Recovery",      Glyph = "\uE72E", PageType = typeof(BIOSPasswordPage),      Category = "Security",    Platforms = ["Windows", "Linux"] },

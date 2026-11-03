@@ -24,8 +24,9 @@ public sealed partial class BootRepairPage : Page
 
         var confirm = new ContentDialog
         {
-            Title = "Repair Boot Record",
-            Content = "This will run bootrec /fixmbr, /fixboot, /scanos and /rebuildbcd.\n\n" +
+            Title = "Boot Repair",
+            Content = "This runs chkdsk /scan and sfc /scannow, suspends BitLocker for one restart, " +
+                      "and rewrites the EFI boot files with bcdboot.\n\n" +
                       "This modifies boot-critical files. Incorrect use can make the system unbootable.",
             PrimaryButtonText = "Proceed",
             CloseButtonText = "Cancel",
