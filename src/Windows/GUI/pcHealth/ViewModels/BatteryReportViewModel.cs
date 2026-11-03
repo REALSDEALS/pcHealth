@@ -11,8 +11,12 @@ public partial class BatteryReportViewModel : ObservableObject
     private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
     [ObservableProperty] public partial bool IsLoading { get; set; } = true;
-    [ObservableProperty] public partial bool HasBattery { get; set; }
-    [ObservableProperty] public partial bool IsGenerating { get; set; }
+    // The button binds to the command before LoadAsync has found the battery,
+    // so CanGenerate must be re-evaluated when these change.
+    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(GenerateReportCommand))]
+    public partial bool HasBattery { get; set; }
+    [ObservableProperty, NotifyCanExecuteChangedFor(nameof(GenerateReportCommand))]
+    public partial bool IsGenerating { get; set; }
     [ObservableProperty] public partial string GenerateStatus { get; set; } = "";
     [ObservableProperty] public partial string ErrorMessage { get; set; } = "";
     [ObservableProperty] public partial IReadOnlyList<(string Label, string Value)> Rows { get; set; } = [];
@@ -47,11 +51,14 @@ public partial class BatteryReportViewModel : ObservableObject
             var reportPath = Path.Combine(Path.GetTempPath(), "pcHealth-battery-report.html");
             await Task.Run(() =>
             {
+                // A report left over from an earlier run would otherwise be
+                // opened as if it were new when powercfg fails.
+                File.Delete(reportPath);
+                // powercfg has no /quiet switch for /batteryreport; passing one makes it fail.
                 var psi = new ProcessStartInfo { FileName = "powercfg.exe", UseShellExecute = false, CreateNoWindow = true };
                 psi.ArgumentList.Add("/batteryreport");
                 psi.ArgumentList.Add("/output");
                 psi.ArgumentList.Add(reportPath);
-                psi.ArgumentList.Add("/quiet");
                 using var proc = Process.Start(psi);
                 proc?.WaitForExit(30_000);
             });
@@ -63,7 +70,7 @@ public partial class BatteryReportViewModel : ObservableObject
             }
             else
             {
-                GenerateStatus = "No battery report generated. Battery may not be present.";
+                GenerateStatus = "powercfg did not create a battery report.";
             }
         }
         catch (Exception ex)
