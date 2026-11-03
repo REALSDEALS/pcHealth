@@ -176,14 +176,6 @@ def kernel_release() -> str:
     return os.uname().release
 
 
-def kernel_major() -> int | None:
-    head = kernel_release().split(".", 1)[0]
-    try:
-        return int(head)
-    except ValueError:
-        return None
-
-
 def read_text(path: str | Path) -> str | None:
     """Read a sysfs or procfs file. Absent and unreadable are both normal."""
     try:
