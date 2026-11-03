@@ -53,12 +53,13 @@ class GtkStep(Step):
         self._pending: list[str] = []
         self._output: Gtk.Label | None = None
         self._row: Adw.ExpanderRow | None = None
-        self._spinner = Gtk.Spinner(spinning=True, valign=Gtk.Align.CENTER)
+        self._spinner: Gtk.Spinner | None = None
         GLib.idle_add(self._build, add_group, label)
 
     def _build(self, add_group: Callable[[Gtk.Widget], None], label: str) -> bool:
         self._row = Adw.ExpanderRow(title=label)
         self._row.set_title_lines(0)
+        self._spinner = Gtk.Spinner(spinning=True, valign=Gtk.Align.CENTER)
         self._row.add_suffix(self._spinner)
 
         self._output = Gtk.Label(
@@ -94,7 +95,8 @@ class GtkStep(Step):
         def finish() -> bool:
             if self._row is None:
                 return GLib.SOURCE_REMOVE
-            self._row.remove(self._spinner)
+            if self._spinner is not None:
+                self._row.remove(self._spinner)
             self._row.add_suffix(
                 Gtk.Label(
                     label=summary,
@@ -116,16 +118,24 @@ class GtkToolUI(ToolUI):
         self._page = page
         self._window = window
         self._stop = stop
-        self._group: Adw.PreferencesGroup | None = None
+        # Filled on the main loop with the group of the latest section. The
+        # worker only ever holds this list, never a widget.
+        self._section: list[Adw.PreferencesGroup] | None = None
 
     # -- Building blocks -----------------------------------------------------
 
-    def _add(self, widget: Gtk.Widget) -> None:
-        """Append a row, opening an untitled group if no section was declared."""
-        if self._group is None:
+    def _adder(self) -> Callable[[Gtk.Widget], None]:
+        """Where a row goes, decided now on the worker thread.
+
+        The worker runs ahead of the main loop. Looking up "the current
+        section" only when the idle callback runs put a section's rows into
+        whichever section the tool had declared by then.
+        """
+        if self._section is None:
             self.section("")
-        assert self._group is not None
-        self._group.add(widget)
+        assert self._section is not None
+        section = self._section
+        return lambda widget: section[0].add(widget)
 
     def _later(self, action: Callable[[], None]) -> None:
         """Run a widget change on the main loop, which is the only place GTK allows it."""
@@ -137,25 +147,32 @@ class GtkToolUI(ToolUI):
         GLib.idle_add(once)
 
     def section(self, title: str) -> None:
-        group = Adw.PreferencesGroup(title=title)
-        self._group = group
-        self._later(lambda: self._page.add(group))
+        section: list[Adw.PreferencesGroup] = []
+        self._section = section
+
+        def build() -> None:
+            group = Adw.PreferencesGroup(title=title)
+            section.append(group)
+            self._page.add(group)
+
+        self._later(build)
 
     def fields(self, rows: Sequence[tuple[str, str]]) -> None:
-        built = [_wrapping_row(label, value) for label, value in rows]
+        add = self._adder()
+        rows = list(rows)
 
         def add_all() -> None:
-            for row in built:
-                self._add(row)
+            for label, value in rows:
+                add(_wrapping_row(label, value))
 
         self._later(add_all)
 
     def note(self, text: str, level: Level = Level.INFO) -> None:
-        row = _wrapping_row(text, css=_NOTE_CLASS[level])
-        self._later(lambda: self._add(row))
+        add = self._adder()
+        self._later(lambda: add(_wrapping_row(text, css=_NOTE_CLASS[level])))
 
     def step(self, label: str) -> Step:
-        return GtkStep(self._add, label)
+        return GtkStep(self._adder(), label)
 
     # -- Questions -----------------------------------------------------------
 
