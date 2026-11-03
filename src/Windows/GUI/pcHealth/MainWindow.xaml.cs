@@ -21,6 +21,16 @@ public sealed partial class MainWindow : Window
 
         InitializeComponent();
 
+        // The Settings page saves the theme and applies it on change; without
+        // this the choice was lost on every restart.
+        if (Content is FrameworkElement root)
+            root.RequestedTheme = _settings.Get("AppTheme", "Default") switch
+            {
+                "Light" => ElementTheme.Light,
+                "Dark" => ElementTheme.Dark,
+                _ => ElementTheme.Default,
+            };
+
         try
         {
             SystemBackdrop = new MicaBackdrop();
